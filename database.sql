@@ -1,8 +1,8 @@
 
 ---DB Name: create_mpls
 
--- RUN FOLLOWING COMMANDS
--- psql createdb create_mpls
+-- RUN THE FOLLOWING CLI COMMANDS FOR INSTALLATION
+-- createdb create_mpls
 -- psql -d create_mpls -f database.sql
 
 
@@ -65,9 +65,7 @@ CREATE TABLE staff_program_assignment (
     created_on TIMESTAMP DEFAULT NOW() NOT NULL
 );
 
-
-
-CREATE TABLE program_occurance (
+CREATE TABLE program_occurrence (
 	id SERIAL PRIMARY KEY,
 	assignment_id INT REFERENCES staff_program_assignment,
 	duration TIMESTAMP WITHOUT TIME ZONE,
@@ -107,7 +105,7 @@ CREATE TABLE settings (
 
 CREATE TABLE student_program_attendance (
 	id SERIAL PRIMARY KEY,
-	occurance_id INT REFERENCES program_occurance,
+	occurrence_id INT REFERENCES program_occurrence,
 	student_id INT REFERENCES student,
 	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
 	created_on TIMESTAMP DEFAULT NOW() NOT NULL

@@ -1,5 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+//body-parser is depreciated
+//const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
@@ -11,8 +12,11 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 
 // Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// leaving as a note, below is the depreciated practice
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // Passport Session Configuration //
 app.use(sessionMiddleware);

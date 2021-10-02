@@ -50,7 +50,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "program" (
 	id SERIAL PRIMARY KEY,
-	program_name VARCHAR (255),
+	name VARCHAR (255),
 	location VARCHAR (255),
 	type_id INT REFERENCES "type",
 	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
@@ -114,8 +114,8 @@ CREATE TABLE student_program_attendance (
 INSERT INTO gender 
 	( name ) 
 VALUES
-    ( 'female' ),
-    ( 'male' );
+    ( 'Female' ),
+    ( 'Male' );
     
 INSERT INTO type 
 	( name ) 
@@ -152,5 +152,3 @@ VALUES
 	( 'Caucasian/White', '' ),
 	( 'Two or more races', '');
 	
-    
--- Below is sandbox before placing INTo routes

@@ -69,7 +69,7 @@ CREATE TABLE staff_program_assignment (
 CREATE TABLE program_occurrence (
 	id SERIAL PRIMARY KEY,
 	assignment_id INT REFERENCES staff_program_assignment,
-	duration TIMESTAMP WITHOUT TIME ZONE,
+	duration INT,
 	date TIMESTAMP WITHOUT TIME ZONE,
 	volunteers INT,
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

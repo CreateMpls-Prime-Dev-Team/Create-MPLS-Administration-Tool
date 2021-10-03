@@ -19,7 +19,9 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
         gr.name grade,
         s.ethnicity_id,
         e.name ethnicity,
-        is_active
+        is_active,
+        updated_on,
+        created_on
       FROM student s
       JOIN gender ge
         ON ( ge.id = s.gender_id )
@@ -112,7 +114,8 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
       last_name = $2, 
       gender_id = $3, 
       grade_id = $4, 
-      ethnicity_id = $5
+      ethnicity_id = $5,
+      updated_on = NOW()
     WHERE id = $6
   `;
 

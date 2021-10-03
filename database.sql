@@ -44,8 +44,8 @@ CREATE TABLE "user" (
     last_name VARCHAR (255),
     is_staff BOOLEAN DEFAULT TRUE,
     is_admin BOOLEAN DEFAULT FALSE,
-    updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-    created_on TIMESTAMP DEFAULT NOW() NOT NULL
+    updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
 
 CREATE TABLE "program" (
@@ -53,16 +53,17 @@ CREATE TABLE "program" (
 	name VARCHAR (255),
 	location VARCHAR (255),
 	type_id INT REFERENCES "type",
-	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-	created_on TIMESTAMP DEFAULT NOW() NOT NULL
+	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
 
 CREATE TABLE staff_program_assignment (
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES "user",
 	program_id INT REFERENCES "program",
-	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-    created_on TIMESTAMP DEFAULT NOW() NOT NULL
+	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    UNIQUE ( user_id, program_id )
 );
 
 CREATE TABLE program_occurrence (
@@ -71,8 +72,8 @@ CREATE TABLE program_occurrence (
 	duration TIMESTAMP WITHOUT TIME ZONE,
 	date TIMESTAMP WITHOUT TIME ZONE,
 	volunteers INT,
-	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-	created_on TIMESTAMP DEFAULT NOW() NOT NULL
+	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
 
 CREATE TABLE student (
@@ -84,31 +85,34 @@ CREATE TABLE student (
     grade_id INT REFERENCES grade,
     ethnicity_id INT REFERENCES ethnicity,
     is_active BOOLEAN DEFAULT TRUE,
-	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-	created_on TIMESTAMP DEFAULT NOW() NOT NULL
+	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
 
 CREATE TABLE student_program_assignment (
 	id SERIAL PRIMARY KEY,
 	student_id INT REFERENCES student,
 	program_id INT REFERENCES "program",
-	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-	created_on TIMESTAMP DEFAULT NOW() NOT NULL
+	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    UNIQUE ( student_id, program_id )
 );
+
 CREATE TABLE settings (
 	id SERIAL PRIMARY KEY,
 	variable VARCHAR (255),
     value VARCHAR (255),
-    updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-	created_on TIMESTAMP DEFAULT NOW() NOT NULL
+    updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
 
 CREATE TABLE student_program_attendance (
 	id SERIAL PRIMARY KEY,
 	occurrence_id INT REFERENCES program_occurrence,
 	student_id INT REFERENCES student,
-	updated_on TIMESTAMP DEFAULT NOW() NOT NULL,
-	created_on TIMESTAMP DEFAULT NOW() NOT NULL
+	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    UNIQUE ( student_id, occurrence_id )
 );
 
 INSERT INTO gender 
@@ -151,4 +155,9 @@ VALUES
 	( 'Native Hawaiian/Other Pacific Islander', '' ),
 	( 'Caucasian/White', '' ),
 	( 'Two or more races', '');
+
+INSERT INTO settings 
+	( variable, value ) 
+VALUES
+    ( 'code', 'team-createMPLS' );
 	

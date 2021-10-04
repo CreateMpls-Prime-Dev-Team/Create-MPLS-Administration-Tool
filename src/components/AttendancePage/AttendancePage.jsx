@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -13,7 +14,16 @@ import Button from "@mui/material/Button";
 
 
 function AttendancePage() {
+    const history = useHistory();
+
+    const [duration, setDuration] = useState(0);
+    const [volunteerCount, setVolunteerCount] = useState(0);
     const [open, setOpen] = useState(false);
+
+
+    const submitAttendance = () => {
+        history.push('/teacher');
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -34,15 +44,16 @@ function AttendancePage() {
                     <InputLabel>Duration (min)</InputLabel>
                     <Select
                         autoWidth
+                        onChange={(event) => setDuration(event.target.value)}
                         >
-                        <MenuItem>15</MenuItem>
-                        <MenuItem>30</MenuItem>
-                        <MenuItem>45</MenuItem>
-                        <MenuItem>60</MenuItem>
-                        <MenuItem>75</MenuItem>
-                        <MenuItem>90</MenuItem>
-                        <MenuItem>105</MenuItem>
-                        <MenuItem>120</MenuItem>
+                        <MenuItem value={15}>15</MenuItem>
+                        <MenuItem value={30}>30</MenuItem>
+                        <MenuItem value={45}>45</MenuItem>
+                        <MenuItem value={60}>60</MenuItem>
+                        <MenuItem value={75}>75</MenuItem>
+                        <MenuItem value={90}>90</MenuItem>
+                        <MenuItem value={105}>105</MenuItem>
+                        <MenuItem value={120}>120</MenuItem>
                     </Select>
                 </FormControl>
                 </div>
@@ -51,15 +62,16 @@ function AttendancePage() {
                     <InputLabel>Volunteers</InputLabel>
                     <Select
                         autoWidth
+                        onChange={(event) => setVolunteerCount(event.target.value)}
                         >
-                        <MenuItem>1</MenuItem>
-                        <MenuItem>2</MenuItem>
-                        <MenuItem>3</MenuItem>
-                        <MenuItem>4</MenuItem>
-                        <MenuItem>5</MenuItem>
-                        <MenuItem>6</MenuItem>
-                        <MenuItem>7</MenuItem>
-                        <MenuItem>8</MenuItem>
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={6}>6</MenuItem>
+                        <MenuItem value={7}>7</MenuItem>
+                        <MenuItem value={8}>8</MenuItem>
                     </Select>
                 </FormControl>
                 </div>
@@ -100,8 +112,8 @@ function AttendancePage() {
         </TableContainer>
         </Container>
         <div>
-            <Button variant="outlined">CANCEL</Button>
-            <Button variant="contained" onClick={handleClickOpen}>SUBMIT</Button>
+            <Button variant="outlined" size="large">CANCEL</Button>
+            <Button variant="contained" size="large" onClick={handleClickOpen}>SUBMIT</Button>
             <Dialog
                 open={open}
                 onClose={handleClose}>
@@ -113,7 +125,7 @@ function AttendancePage() {
                         <Button onClick={handleClose}>
                             Cancel
                             </Button>
-                        <Button autoFocus>
+                        <Button onClick={submitAttendance} autoFocus>
                             Submit Scores
                         </Button>
                     </DialogActions>

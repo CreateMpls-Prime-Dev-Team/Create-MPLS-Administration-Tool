@@ -19,16 +19,24 @@ import DatePicker from '@mui/lab/DatePicker';
 function AttendancePage() {
     const history = useHistory();
 
+    //local state for form
+    //still need to handle clicking checkboxes
     const [date, setDate] = React.useState(null);
     const [duration, setDuration] = useState(0);
     const [volunteerCount, setVolunteerCount] = useState(0);
+
+    //local state for dialog box
     const [open, setOpen] = useState(false);
 
 
     const submitAttendance = () => {
+        //needs dispatch to server
+
         history.push('/teacher');
     };
 
+
+    //function for handling opening/closing dialog box
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -36,19 +44,25 @@ function AttendancePage() {
         setOpen(false);
     };
     
+
     return (
         <>
+        {/* HEADER - will need to GET this from DB */}
         <Typography variant="h4">Learning Lab</Typography>
         <Typography variant="h5">Hope Academy</Typography>
+
         <center>
+        {/* Date Picker */}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-            label="Date"
-            value={date}
-            onChange={(newDate) => {setDate(newDate);}}
-            renderInput={(params) => <TextField {...params} />}
-        />
+            <DatePicker
+                label="Date"
+                value={date}
+                onChange={(newDate) => {setDate(newDate);}}
+                renderInput={(params) => <TextField {...params} />}
+            />
         </LocalizationProvider>
+
+        {/* Upper form */}
         <Container>
             <Box>
                 <div>
@@ -88,41 +102,45 @@ function AttendancePage() {
                 </FormControl>
                 </div>
             </Box>
+
+            {/* List of students (will need to GET from DB) */}
             <TableContainer component={Paper}>
-            <Table aria-label="program list">
-                <TableHead>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>STUDENT</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {/* {rows.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                            <TableCell component="th" scope="row"></TableCell>
-                            <TableCell align="right"></TableCell>
-                            <TableCell align="right"></TableCell>
+                <Table aria-label="program list">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell>STUDENT</TableCell>
                         </TableRow>
-                    ))} */}
-                    <TableRow>
-                        <TableCell><Checkbox/></TableCell>
-                        <TableCell>Sammy Student</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell><Checkbox/></TableCell>
-                        <TableCell>Suzie Student</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell><Checkbox/></TableCell>
-                        <TableCell>Stevie Student</TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {/* {rows.map((row) => (
+                            <TableRow
+                                key={row.name}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                <TableCell component="th" scope="row"></TableCell>
+                                <TableCell align="right"></TableCell>
+                                <TableCell align="right"></TableCell>
+                            </TableRow>
+                        ))} */}
+                        <TableRow>
+                            <TableCell><Checkbox/></TableCell>
+                            <TableCell>Sammy Student</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell><Checkbox/></TableCell>
+                            <TableCell>Suzie Student</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell><Checkbox/></TableCell>
+                            <TableCell>Stevie Student</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Container>
+
+        {/* Submit and Cancel buttons */}
         <div>
             <Button variant="outlined" size="large">CANCEL</Button>
             <Button variant="contained" size="large" onClick={handleClickOpen}>SUBMIT</Button>
@@ -143,6 +161,7 @@ function AttendancePage() {
                     </DialogActions>
             </Dialog>
         </div>
+        
         </center>
         </>
     )

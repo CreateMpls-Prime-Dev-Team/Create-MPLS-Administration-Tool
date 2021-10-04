@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material/';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 function TeacherPortal() {
     return (

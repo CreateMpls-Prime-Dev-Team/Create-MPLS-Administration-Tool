@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
 
 import './App.css';
+import AttendancePage from '../AttendancePage/AttendancePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -122,6 +123,20 @@ function App() {
               :
               // Otherwise, show the login page
               <TeacherPortal />
+            }
+          </Route>
+
+          <Route
+            exact
+            path="/attendance"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect to the /user page
+              <Redirect to="/user" />
+              :
+              // Otherwise, show the login page
+              <AttendancePage />
             }
           </Route>
 

@@ -1,5 +1,6 @@
-import React from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material/';
+import React, { useEffect, useState } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Select from "@mui/material/Select";
 import Container from "@mui/material/Container";
@@ -12,6 +13,15 @@ import Button from "@mui/material/Button";
 
 
 function AttendancePage() {
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
     return (
         <>
         <Typography variant="h4">Learning Lab</Typography>
@@ -20,7 +30,7 @@ function AttendancePage() {
         <Container>
             <Box>
                 <div>
-                <FormControl sx={{ m: 1, minWidth: 200}}>
+                <FormControl sx={{m: 1, minWidth: 200}}>
                     <InputLabel>Duration (min)</InputLabel>
                     <Select
                         autoWidth
@@ -91,7 +101,23 @@ function AttendancePage() {
         </Container>
         <div>
             <Button variant="outlined">CANCEL</Button>
-            <Button variant="contained">SUBMIT</Button>
+            <Button variant="contained" onClick={handleClickOpen}>SUBMIT</Button>
+            <Dialog
+                open={open}
+                onClose={handleClose}>
+                <DialogTitle>{"Ready to submit attendance?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText></DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>
+                            Cancel
+                            </Button>
+                        <Button autoFocus>
+                            Submit Scores
+                        </Button>
+                    </DialogActions>
+            </Dialog>
         </div>
         </center>
         </>

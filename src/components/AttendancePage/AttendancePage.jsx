@@ -7,13 +7,17 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import Checkbox from '@mui/material/Checkbox';
+import Button from "@mui/material/Button";
+
 
 function AttendancePage() {
     return (
         <>
-        <h3>Take attendance!</h3>
+        <Typography variant="h4">Learning Lab</Typography>
+        <Typography variant="h5">Hope Academy</Typography>
+        <center>
         <Container>
-            <center>
             <Box>
                 <div>
                 <FormControl sx={{ m: 1, minWidth: 200}}>
@@ -50,8 +54,46 @@ function AttendancePage() {
                 </FormControl>
                 </div>
             </Box>
-            </center>
+            <TableContainer component={Paper}>
+            <Table aria-label="program list">
+                <TableHead>
+                    <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell>STUDENT</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {/* {rows.map((row) => (
+                        <TableRow
+                            key={row.name}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell component="th" scope="row"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
+                        </TableRow>
+                    ))} */}
+                    <TableRow>
+                        <TableCell><Checkbox/></TableCell>
+                        <TableCell>Sammy Student</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><Checkbox/></TableCell>
+                        <TableCell>Suzie Student</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><Checkbox/></TableCell>
+                        <TableCell>Stevie Student</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
         </Container>
+        <div>
+            <Button variant="outlined">CANCEL</Button>
+            <Button variant="contained">SUBMIT</Button>
+        </div>
+        </center>
         </>
     )
 }

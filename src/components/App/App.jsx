@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import AddStudent from '../AdminView/AddStudent';
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,14 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows AddStudent else shows LoginPage
+            exact
+            path="/add-student"
+          >
+            <AddStudent/>
           </ProtectedRoute>
 
           <ProtectedRoute

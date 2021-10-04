@@ -11,11 +11,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Checkbox from '@mui/material/Checkbox';
 import Button from "@mui/material/Button";
-
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
 function AttendancePage() {
     const history = useHistory();
 
+    const [date, setDate] = React.useState(null);
     const [duration, setDuration] = useState(0);
     const [volunteerCount, setVolunteerCount] = useState(0);
     const [open, setOpen] = useState(false);
@@ -37,6 +41,14 @@ function AttendancePage() {
         <Typography variant="h4">Learning Lab</Typography>
         <Typography variant="h5">Hope Academy</Typography>
         <center>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+            label="Date"
+            value={date}
+            onChange={(newDate) => {setDate(newDate);}}
+            renderInput={(params) => <TextField {...params} />}
+        />
+        </LocalizationProvider>
         <Container>
             <Box>
                 <div>
@@ -126,7 +138,7 @@ function AttendancePage() {
                             Cancel
                             </Button>
                         <Button onClick={submitAttendance} autoFocus>
-                            Submit Scores
+                            Submit
                         </Button>
                     </DialogActions>
             </Dialog>

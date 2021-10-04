@@ -5,23 +5,20 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
 import './App.css';
 import AddStudent from '../AdminView/AddStudent';
+import Staff from '../AdminView/Staff';
+import Program from '../AdminView/Program'
 
 function App() {
   const dispatch = useDispatch();
@@ -67,6 +64,22 @@ function App() {
             path="/add-student"
           >
             <AddStudent/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows AddStudent else shows LoginPage
+            exact
+            path="/program"
+          >
+            <Program/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Staff else shows LoginPage
+            exact
+            path="/staff"
+          >
+            <Staff/>
           </ProtectedRoute>
 
           <ProtectedRoute

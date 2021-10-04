@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import TeachPortalRegistration from '../TeacherPortalRegistration/TeacherPortalRegistration';
+import TeacherPortal from '../TeacherPortal/TeacherPortal';
 
 import './App.css';
 
@@ -108,6 +108,20 @@ function App() {
               :
               // Otherwise, show the Landing page
               <LandingPage />
+            }
+          </Route>
+
+          <Route
+            exact
+            path="/teacher"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect to the /user page
+              <Redirect to="/user" />
+              :
+              // Otherwise, show the login page
+              <TeacherPortal />
             }
           </Route>
 

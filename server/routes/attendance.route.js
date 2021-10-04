@@ -30,6 +30,7 @@ router.get('/records/by-program-occurrence/:id', rejectUnauthenticated, (req, re
   });
 });
 
+
 /**
  * POST toggle student attendance
  */

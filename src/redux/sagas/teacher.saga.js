@@ -2,13 +2,25 @@ import axios from "axios";
 const {takeLatest, put } = require("redux-saga/effects");
 
 // GETS the Programs for a teacher.
-function* getPrograms(action){
+//function* getPrograms(action){
+//    console.log('action.payload', action.payload);
+//    try {
+//       yield axios.get(`???`, action.payload);
+//    } catch (error) {
+//        console.log('error getting Programs', error);
+//        yield put({ type: 'GET_PROGRAM_FAILED' });
+//    }
+//}
 
-}
-
-// POSTS the Attendance of a given program. 
+// ADDS the Attendance of a given program. 
 function* addAttendance(action){
-
+    console.log('action.payload', action.payload);
+    try {
+        yield axios.post(`???`, action.payload);
+    } catch (error) {
+        console.log('Error with adding Attendance', error);
+        yield put({ type: 'ADD_ATTENDANCE_FAILED' });
+    }
 }
 
 function* teacherSaga(){

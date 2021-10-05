@@ -13,7 +13,8 @@ function RegisterForm() {
 
   const registerUser = (event) => {
     event.preventDefault();
-
+    //need to add conditional to check code
+    //and determine if user is teacher or admin
     dispatch({
       type: 'REGISTER',
       payload: {

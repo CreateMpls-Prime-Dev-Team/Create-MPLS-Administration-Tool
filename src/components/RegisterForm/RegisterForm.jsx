@@ -27,7 +27,7 @@ function RegisterForm() {
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <Typography variant="h4">Register User</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -102,6 +102,7 @@ function RegisterForm() {
       <div>
         <Button 
           variant="contained"
+          size="large"
           className="btn" 
           type="submit" 
           name="submit" 

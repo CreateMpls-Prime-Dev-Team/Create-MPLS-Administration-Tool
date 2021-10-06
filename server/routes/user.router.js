@@ -107,9 +107,9 @@ router.get('/teacher-records', rejectUnauthenticated, (req, res) => {
   })
   .catch(err => {
     console.log('ERROR - get:/api/student/record/:id', err);
-    res.sendStatus(500)
+    res.sendStatus(500);
   });
-  
+
 });
 
 module.exports = router;

@@ -52,6 +52,7 @@ CREATE TABLE "program" (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR (255),
 	location VARCHAR (255),
+    is_active BOOLEAN DEFAULT TRUE,
 	type_id INT REFERENCES "type",
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
@@ -61,6 +62,7 @@ CREATE TABLE staff_program_assignment (
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES "user",
 	program_id INT REFERENCES "program",
+    is_active BOOLEAN DEFAULT TRUE,
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
     created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
     UNIQUE ( user_id, program_id )

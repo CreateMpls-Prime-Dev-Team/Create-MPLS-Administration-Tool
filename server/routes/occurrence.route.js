@@ -26,7 +26,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     res.send(result.rows);
   })
   .catch(err => {
-    console.log('ERROR - get:/api/student/record/:id', err);
+    console.log('ERROR - get:/api/occurrence/record/:id', err);
     res.sendStatus(500)
   });
 });
@@ -59,7 +59,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     res.send(result.rows);
   })
   .catch(err => {
-    console.log('ERROR - get:/api/student/record/:id', err);
+    console.log('ERROR - get:/api/occurrence/records', err);
     res.sendStatus(500)
   });
 });
@@ -93,5 +93,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     res.sendStatus(500);
   });
 });
+
+
 
 module.exports = router;

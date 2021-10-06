@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getSettings (action) {
+function* getSettings() {
     try {
         const response = yield axios.get('/api/config');
         yield put({ type: 'SET_SETTINGS', payload: response.data });

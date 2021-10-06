@@ -7,7 +7,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
  * GET all settings for app
  */
 // Fetching multiple queries, and packaging it up to one object
-router.get('/', rejectUnauthenticated, async (req, res) => {
+router.get('/', async (req, res) => {
      let config = {};
 
     // Gender

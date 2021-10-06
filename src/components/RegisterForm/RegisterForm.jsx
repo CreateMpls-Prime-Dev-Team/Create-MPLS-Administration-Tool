@@ -9,6 +9,7 @@ function RegisterForm() {
   const [lastName, setLastName] = useState('');
   const [registrationCode, setRegistrationCode] = useState('');
   const errors = useSelector((store) => store.errors);
+  const settings = useSelector((store) => store.settings);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {

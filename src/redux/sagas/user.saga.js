@@ -8,7 +8,7 @@ function* fetchUser() {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
-
+    
     // the config includes credentials which
     // allow the server session to recognize the user
     // If a user is logged in, this will return their information
@@ -19,7 +19,6 @@ function* fetchUser() {
     // with an id and username set the client-side user object to let
     // the client-side code know the user is logged in
     yield put({ type: 'SET_USER', payload: response.data });
-    yield put({ type: 'GET_SETTINGS'});
   } catch (error) {
     console.log('User get request failed', error);
   }

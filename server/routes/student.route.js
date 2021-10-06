@@ -104,6 +104,7 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     req.body.genderId,
     req.body.gradeId,
     req.body.ethnicityId,
+    req.body.age,
     req.params.id 
   ];
 
@@ -115,8 +116,9 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
       gender_id = $3, 
       grade_id = $4, 
       ethnicity_id = $5,
+      age = $6,
       updated_on = NOW()
-    WHERE id = $6
+    WHERE id = $7
   `;
 
   db.query(statement, params)

@@ -9,6 +9,10 @@ import Select from "@mui/material/Select";
 import "./AddStudent.css";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
+import "./StudentSearch.css";
+import SelectSearch from "react-select-search";
+import { useRef } from "react";
+import {useEffect} from 'react'
 
 function AddStudent() {
   //Creating local states for drop down data storage
@@ -25,6 +29,59 @@ function AddStudent() {
   const handleGender = (event) => {
     setGender(event.target.value);
   };
+
+  //START STUDENT SEARCH DROP DOWN FUNC
+  function StudentSearch() {
+    //Local state for student selection
+    const [selectedStudent, setselectedStudent] = React.useState(0)
+    console.log("this is selcted student", selectedStudent);
+    const searchInput2 = useRef();
+    const options2 = [
+      {
+        type: "group",
+        name: "Student Names",
+        items: [
+          { name: "Brad Johansen", value: "1" },
+          { name: "Alex Goldberg", value: "2" },
+          { name: "Chris F", value: "3" },
+          { name: "Yung Curtis", value: "4" }
+  
+        ]
+      }
+    ];
+  
+    const handleFilter = (items) => {
+      return (searchValue) => {
+        if (searchValue.length === 0) {
+          return options2;
+        }
+        const updatedItems = items.map((list) => {
+          const newItems = list.items.filter((item) => {
+            return item.name.toLowerCase().includes(searchValue.toLowerCase());
+          });
+          return { ...list, items: newItems };
+        });
+        return updatedItems;
+      };
+    };
+  
+   
+    return (
+      <div className="App">
+        <SelectSearch
+          ref={searchInput2}
+          options={options2}
+          filterOptions={handleFilter}
+          value={selectedStudent}
+          name="Student-Search"
+          placeholder="Choose a student"
+          search
+          onChange={setselectedStudent}
+        />
+      </div>
+    );
+  }
+//END STUDENT SEARCH DROPDOWN
   return (
     <div id="mainDiv">
       <div id="headerOne">
@@ -96,12 +153,12 @@ function AddStudent() {
           </Button>
         </span>
       </Box>
-
+        {/* Student Search */}
       <div id="headerTwo">
         <h1>Edit Student</h1>
       </div>
+      <StudentSearch/>
 
-      <h1>*DROPDOWN STUDENT SEARCH HERE*</h1>
 
       {/* Update Grade */}
       <span id="dropdownTwo">
@@ -122,7 +179,9 @@ function AddStudent() {
 
         {/* Update Ethnicity  */}
         <FormControl>
-          <InputLabel id="demo-simple-select-label">Update Ethnicity</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            Update Ethnicity
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
@@ -153,7 +212,7 @@ function AddStudent() {
         <Button id="addBttn" variant="outlined">
           Update Student
         </Button>
-        <Button id="addBttn" color='error' variant="outlined">
+        <Button id="addBttn" color="error" variant="outlined">
           Delete Student
         </Button>
       </span>

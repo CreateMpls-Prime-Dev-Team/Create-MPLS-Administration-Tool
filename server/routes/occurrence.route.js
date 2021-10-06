@@ -13,7 +13,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     SELECT
       assignment_id,
       duration,
-      date,
+      at_date,
       volunteers,
       created_on,
       updated_on
@@ -41,7 +41,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
       po.id,
       po.assignment_id,
       po.duration,
-      po.date,
+      po.at_date,
       po.volunteers,
       po.created_on,
       po.updated_on,
@@ -79,7 +79,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
 
   const statement = `
     INSERT INTO program_occurrence
-      ( assignment_id, duration, date, volunteers )
+      ( assignment_id, duration, at_date, volunteers )
     VALUES
       ( $1, $2, $3, $4 );
   `;

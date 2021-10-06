@@ -16,7 +16,7 @@ const {takeLatest, put } = require("redux-saga/effects");
 function* addAttendance(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.post(`???`, action.payload);
+        yield axios.post(`api/attendance/toggle`, action.payload);
     } catch (error) {
         console.log('Error with adding Attendance', error);
         yield put({ type: 'ADD_ATTENDANCE_FAILED' });
@@ -24,7 +24,7 @@ function* addAttendance(action){
 }
 
 function* teacherSaga(){
-    yield takeLatest('FETCH_PROGRAMS', getPrograms);
+    //yield takeLatest('FETCH_PROGRAMS', getPrograms);
     yield takeLatest('ADD_ATTENDANCE', addAttendance);
 }
 export default teacherSaga;

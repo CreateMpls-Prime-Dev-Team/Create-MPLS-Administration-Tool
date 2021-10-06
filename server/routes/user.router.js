@@ -47,4 +47,69 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+router.put('/toggle-staff/:id', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    UPDATE student
+    SET
+      is_staff = NOT is_staff
+    WHERE id = $1
+  `;
+
+  db.query(statement, [ req.params.id ])
+  .then( result => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/user/toggle-staff/:id', err);
+    res.sendStatus(500)
+  });
+});
+
+router.put('/toggle-admin/:id', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    UPDATE student
+    SET
+      is_admin = NOT is_admin
+    WHERE id = $1
+  `;
+
+  db.query(statement, [ req.params.id ])
+  .then( result => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/user/toggle-admin/:id', err);
+    res.sendStatus(500)
+  });
+});
+
+router.get('/teacher-records', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT
+      u.id,
+      u.username,
+      u.first_name,
+      u.last_name,
+      u.is_staff,
+      u.is_admin,
+      u.updated_on,
+      u.created_on
+    FROM "user" u
+    WHERE u.is_staff;
+    `;
+
+  db.query(statement, [ req.params.id ])
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/student/record/:id', err);
+    res.sendStatus(500);
+  });
+
+});
+
 module.exports = router;

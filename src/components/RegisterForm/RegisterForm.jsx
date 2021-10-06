@@ -15,7 +15,7 @@ function RegisterForm() {
   const registerUser = (event) => {
     event.preventDefault();
 
-    if (registrationCode === 'teacher'){
+    if (registrationCode === settings.settings[0].value){
       dispatch({
         type: 'REGISTER',
         payload: {
@@ -28,7 +28,7 @@ function RegisterForm() {
         },
     });
     } 
-    else if (registrationCode === 'admin'){
+    else if (registrationCode === settings.settings[1].value){
       dispatch({
         type: 'REGISTER',
         payload: {

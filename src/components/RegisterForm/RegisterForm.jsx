@@ -8,22 +8,43 @@ function RegisterForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [registrationCode, setRegistrationCode] = useState('');
+  const [isStaff, setIsStaff] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
-    //need to add conditional to check code
-    //and determine if user is teacher or admin
-    dispatch({
+
+    if (registrationCode === 'teacher'){
+      setIsStaff(true);
+      dispatch({
       type: 'REGISTER',
       payload: {
         username: username,
         password: password,
         first_name: firstName,
-        last_name: lastName
+        last_name: lastName,
+        isStaff: isStaff
       },
     });
+    } 
+    else if (registrationCode === 'admin'){
+      setIsAdmin(true);
+      dispatch({
+      type: 'REGISTER',
+      payload: {
+        username: username,
+        password: password,
+        first_name: firstName,
+        last_name: lastName,
+        isAdmin: isAdmin
+      },
+    });
+    }
+    else {
+      alert('Please input a valid registration code');
+    }
   }; // end registerUser
 
   return (

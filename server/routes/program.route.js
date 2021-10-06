@@ -47,7 +47,7 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
     WHERE p.is_active = TRUE;
     `;
 
-  db.query(statement, [ req.params.id ])
+  db.query(statement)
   .then( result => {
     res.send(result.rows);
   })

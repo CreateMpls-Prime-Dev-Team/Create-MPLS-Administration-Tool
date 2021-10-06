@@ -8,8 +8,6 @@ function RegisterForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [registrationCode, setRegistrationCode] = useState('');
-  const [isStaff, setIsStaff] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -17,29 +15,29 @@ function RegisterForm() {
     event.preventDefault();
 
     if (registrationCode === 'teacher'){
-      setIsStaff(true);
       dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-        first_name: firstName,
-        last_name: lastName,
-        isStaff: isStaff
-      },
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+          is_staff: true,
+          is_admin: false
+        },
     });
     } 
     else if (registrationCode === 'admin'){
-      setIsAdmin(true);
       dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-        first_name: firstName,
-        last_name: lastName,
-        isAdmin: isAdmin
-      },
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+          is_staff: false,
+          is_admin: true
+        },
     });
     }
     else {

@@ -70,7 +70,7 @@ CREATE TABLE program_occurrence (
 	id SERIAL PRIMARY KEY,
 	assignment_id INT REFERENCES staff_program_assignment,
 	duration INT,
-	date TIMESTAMP WITHOUT TIME ZONE,
+	at_date DATE,
 	volunteers INT,
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
@@ -124,8 +124,20 @@ VALUES
 INSERT INTO type 
 	( name ) 
 VALUES
-    ( 'female' ),
-    ( 'male' );
+    ( 'Kindergarten – Intro to tech' ),
+    ( '1st grade – Intro to tech' ),
+    ( '2nd grade – Intro to tech: mechanisms' ),
+    ( '3rd grade – Intro to tech: sensors & motors' ),
+    ( '4th grade – Intro to tech' ),
+    ( '5th grade – Intro to tech' ),
+    ( '5th grade – Intermediate tech' ),
+    ( '6th grade – Intermediate tech' ),
+    ( 'High School Robotics Elective – Intro to tech' ),
+    ( 'FTC' ),
+    ( 'FLL Challenge' ),
+    ( 'FLL Explore' ),
+    ( 'FLL Discover' ),
+    ( 'Technovation' );
 
 INSERT INTO grade 
 	( name, abbrev ) 
@@ -159,5 +171,6 @@ VALUES
 INSERT INTO settings 
 	( variable, value ) 
 VALUES
-    ( 'code', 'team-createMPLS' );
+    ( 'teacher-code', 'team-createMPLS-teacher' ),
+    ( 'admin-code', 'team-createMPLS-admin' );
 	

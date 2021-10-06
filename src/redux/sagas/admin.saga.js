@@ -5,7 +5,7 @@ const {takeLatest, put } = require("redux-saga/effects");
 function* addStudent(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.post(`???`, action.payload);
+        yield axios.post(`api/student/add`, action.payload);
     } catch (error) {
         console.log('Error with adding Student', error);
         yield put({ type: 'ADD_STUDENT_FAILED' });
@@ -27,18 +27,18 @@ function* getStudent(action){
 function* editStudent(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`???${action.payload.id}`, action.payload)
+        yield axios.put(`api/student/update/${action.payload.id}`, action.payload)
     } catch (error) {
          console.log('Error Editing a Students info', error);
         yield put({ type: 'EDIT_STUDENT_FAILED' });
     }
 }
 
-// DELETES a student from the database.
+// DELETES a student from the database (soft delete).
 function* deleteStudent(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.delete(`???${action.payload}`)
+        yield axios.put(`api/student/toggle-active/${action.payload.id}`)
     } catch (error) {
         console.log('Error deleting Student', error);
         yield put({ type: 'DELETE_STUDENT_FAILED' });
@@ -60,18 +60,18 @@ function* getTeacher(action) {
 function* editAssignedPrograms(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`???${action.payload.id}`, action.payload)
+        yield axios.put(`api/program/assign-teacher`,action.payload)
     } catch (error) {
         console.log('Error Editing a Teachers Programs', error);
         yield put({ type: 'EDIT_ASSIGNED_PROGRAMS_FAILED' });
     }
 }
 
-// DELETES a teacher from the database. 
+// DELETES a teacher from the database (soft delete). 
 function* deleteTeacher(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.delete(`???${action.payload}`)
+        yield axios.put(`???${action.payload}`)
     } catch (error) {
         console.log('Error deleting Teacher', error);
         yield put({ type: 'DELETE_TEACHER_FAILED' });
@@ -79,10 +79,10 @@ function* deleteTeacher(action){
 }
 
 // PUTS(edit) the registration code.
-function* editRegistrationCode(action){
+function* editSettingsCode(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`???${action.payload.id}`, action.payload)
+        yield axios.put(`api/configuration/setting/:settingVariable`, action.payload)
     } catch (error) {
         console.log('Error Editing the Registration Code', error);
         yield put({ type: 'EDIT_CODE_FAILED' });
@@ -93,7 +93,7 @@ function* editRegistrationCode(action){
 function* addProgram(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.post(`???`, action.payload);
+        yield axios.post(`api/program/add`, action.payload);
     } catch (error) {
         console.log('Error with adding Program', error);
         yield put({ type: 'ADD_PROGRAM_FAILED' });
@@ -111,7 +111,7 @@ function* getProgram(action){
     }
 }
 
-//DELETES a program.
+//DELETES a program (soft).
 function* deleteProgram(action){
     console.log('action.payload', action.payload);
     try {
@@ -133,8 +133,8 @@ function* addStudentProgram(action){
     }
 }
 
-// GETS all the data from the database. 
-function* getAllData(action){
+// GETS all the data from the database. (On HOLD)
+/*function* getAllData(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.get(`???`, action.payload);
@@ -143,6 +143,7 @@ function* getAllData(action){
         yield put({ type: 'GET_DATA_FAILED' });
     }
 }
+*/
 function* adminSaga() {
     yield takeLatest('ADD_STUDENT', addStudent);
     yield takeLatest('FETCH_STUDENT', getStudent);
@@ -151,11 +152,11 @@ function* adminSaga() {
     yield takeLatest('FETCH_TEACHER', getTeacher);
     yield takeLatest('EDIT_TEACHER_PROGRAMS', editAssignedPrograms);
     yield takeLatest('DELETE_TEACHER', deleteTeacher);
-    yield takeLatest('EDIT_CODE', editRegistrationCode);
+    yield takeLatest('EDIT_CODE', editSettingsCode);
     yield takeLatest('ADD_PROGRAM', addProgram);
     yield takeLatest('FETCH_PROGRAM', getProgram);
     yield takeLatest('DELETE_PROGRAM', deleteProgram);
     yield takeLatest('ADD_STUDENT_PROGRAM', addStudentProgram);
-    yield takeLatest('FETCH_ALL_DATA', getAllData);
+//    yield takeLatest('FETCH_ALL_DATA', getAllData);
 }
 export default adminSaga;

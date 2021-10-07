@@ -64,7 +64,7 @@ function AttendancePage() {
 
         {/* Upper form */}
         <Container>
-            <Box>
+            <Box >
                 <div>
                 <FormControl sx={{m: 1, minWidth: 200}}>
                     <InputLabel>Duration (min)</InputLabel>
@@ -104,12 +104,12 @@ function AttendancePage() {
             </Box>
 
             {/* List of students (will need to GET from DB) */}
-            <TableContainer component={Paper}>
+                    <TableContainer style={{ maxWidth: 300 }} component={Paper}>
                 <Table aria-label="program list">
                     <TableHead>
                         <TableRow>
                             <TableCell></TableCell>
-                            <TableCell>STUDENT</TableCell>
+                            <TableCell>STUDENT LIST</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

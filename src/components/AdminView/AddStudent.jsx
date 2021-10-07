@@ -31,24 +31,27 @@ function AddStudent() {
   
   //Creating local states for drop down data storage
   const settings = useSelector(store => store.settings);
-  const studentList = useSelector(store => store.result.studentReducer)
+  const studentList = useSelector(store => store.student)
   const [addStudent, setAddStudent] = React.useState(newStudent);
   const [editStudent, setEditStudent] = React.useState('');
   const [grade, setGrade] = React.useState("");
   const [ethnicity, setEthnicity] = React.useState("");
   const [gender, setGender] = React.useState("");
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_STUDENT' });
-  });
+  
 
-  useEffect(() => { // for testing state change remove when done.
-    console.log("addStudent", addStudent);
-  }, [addStudent])
+  useEffect(() => { 
+    dispatch({ type: 'FETCH_STUDENT' });
+  }, [])
 
   //Handles changes to the form and packs them into a single object.
   const handleAddStudentChange = (event) => {
     setAddStudent({...addStudent, [event.target.name]:event.target.value});
+  }
+
+  //Handles changes to the form and packs them into a single object.
+  const handleUpdateStudentChange = (event) => {
+    setEditStudent({...addStudent, [event.target.name]:event.target.value});
   }
 
   //Submitting new student to the database
@@ -57,6 +60,7 @@ function AddStudent() {
       type: 'ADD_STUDENT',
       payload: addStudent
     })
+    setAddStudent(newStudent);
   }
 
   const handleGrade = (event) => {
@@ -73,21 +77,31 @@ function AddStudent() {
   function StudentSearch() {
     
     //Local state for student selection
-    const [selectedStudent, setselectedStudent] = React.useState(0)
-    console.log("this is selected student", selectedStudent);
+    const [selectedStudentId, setselectedStudentId] = React.useState(0)
+    const [studentToEdit, setStudentToEdit] = React.useState({})
     const searchInput2 = useRef();
+    const studentList = useSelector(store => store.student)
+    
+    useEffect(() => {
+      studentList.map((student) => {
+        if(student.id === selectedStudentId){
+           setStudentToEdit(student);
+        }
+      })
+    }, [selectedStudentId])
+
+    let items = []; // create a list of students
+    studentList.map((student) => {
+      items.push({ // push each student from the list in a formatted object
+        name: `${student.first_name} ${student.last_name}`, 
+        value: student.id})
+    })
 
     const options2 = [
       {
         type: "group",
         name: "Student Names",
-        items: [
-          { name: "Brad Johansen", value: "1" },
-          { name: "Alex Goldberg", value: "2" },
-          { name: "Chris F", value: "3" },
-          { name: "Yung Curtis", value: "4" }
-  
-        ]
+        items
       }
     ];
   
@@ -113,7 +127,7 @@ function AddStudent() {
           ref={searchInput2}
           options={options2}
           filterOptions={handleFilter}
-          value={selectedStudent}
+          value={selectedStudentId}
           name="Student-Search"
           placeholder="Choose a student"
           search
@@ -142,7 +156,8 @@ function AddStudent() {
           required 
           name="firstName"
           id="outlined-required" 
-          label="First Name" 
+          label="First Name"
+          value={addStudent.firstName}
           onChange={handleAddStudentChange}
         />
         {/* Last Name */}
@@ -151,6 +166,7 @@ function AddStudent() {
           name="lastName"
           id="outlined-required" 
           label="Last Name" 
+          value={addStudent.lastName}
           onChange={handleAddStudentChange}
         />
         <TextField 
@@ -158,6 +174,7 @@ function AddStudent() {
           name="age"
           id="outlined-required" 
           label="Age" 
+          value={addStudent.age}
           onChange={handleAddStudentChange}
         />
 
@@ -242,13 +259,16 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={grade}
+            value={editStudent.grade_id}
             label="Grade"
-            onChange={handleGrade}
+            name="gradeId"
+            onChange={handleUpdateStudentChange}
           >
-            <MenuItem value={1}>1st Grade</MenuItem>
-            <MenuItem value={2}>2nd Grade</MenuItem>
-            <MenuItem value={3}>3rd Grade</MenuItem>
+            {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
+                  <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+             }
           </Select>
         </FormControl>
 

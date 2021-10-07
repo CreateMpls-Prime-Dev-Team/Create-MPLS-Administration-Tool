@@ -48,6 +48,7 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     SELECT
+      s.id,
       s.first_name,
       s.last_name,
       s.gender_id,

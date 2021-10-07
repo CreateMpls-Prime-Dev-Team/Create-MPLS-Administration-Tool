@@ -3,9 +3,8 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET route template
- */
+/**** GET /attendance/records/by-program-occurrence/:id ****/
+// All records by a program occurrence's id
 router.get('/records/by-program-occurrence/:id', rejectUnauthenticated, (req, res) => {
     const statement = `
     SELECT
@@ -25,26 +24,24 @@ router.get('/records/by-program-occurrence/:id', rejectUnauthenticated, (req, re
     res.send(result.rows);
   })
   .catch(err => {
-    console.log('ERROR - get:/api/attendance/record/:id', err);
+    console.log('ERROR - get:/attendance/records/by-program-occurrence/:id', err);
     res.sendStatus(500)
   });
 });
 
 
-/**
- * POST toggle student attendance
- */
+/**** POST /attendance/toggle ****/
+// Student ID and Occurrence ID toggles adds or removes record based on current
+// state.
 router.post('/toggle', rejectUnauthenticated, async (req, res) => {
     //Same params for all queries
     const params = [ req.body.studentId, req.body.occurrenceId ];
-    // Contains the decided query
-    let queryStatement = '';
-
-    // Find out if record exists, 
-        // delete statement if true, 
-        // create statement if false
-        
+    
     try {
+        // Find out if record exists, 
+            // delete statement if true, 
+            // create statement if false
+        
         const statement = `
             SELECT id 
             FROM student_program_attendance
@@ -53,6 +50,9 @@ router.post('/toggle', rejectUnauthenticated, async (req, res) => {
             `;
 
         const results = await db.query(statement, params);
+
+        // Contains the decided query
+        let queryStatement = '';
 
         if ( results.rows.length > 0 ) {
             queryStatement = `
@@ -66,20 +66,15 @@ router.post('/toggle', rejectUnauthenticated, async (req, res) => {
                 VALUES
                     ( $1, $2 )`;
         }
+        // Finalize the decided query.
+        const toggledAttendance = await db.query(queryStatement, params);
+        res.sendStatus(200);
         
     } catch (error) {
         console.log('Error on attendance check', error);
         res.sendStatus(500);
     }
     
-    // Finalize the decided query.
-    try {
-        const results = await db.query(queryStatement, params);
-        res.sendStatus(200);
-    } catch (error) {
-        console.log('Error on attendance toggle', error);
-        res.sendStatus(500);
-    }
     
 });
 

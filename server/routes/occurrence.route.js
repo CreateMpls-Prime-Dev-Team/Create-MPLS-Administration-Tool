@@ -4,10 +4,9 @@ const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-/**
- * GET /api/occurrence/record/:id
- */
- router.get('/record/:id', rejectUnauthenticated, (req, res) => {
+/**** PUT /api/occurrence/record/:id ****/
+// Update occurrence record by id
+router.get('/record/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     SELECT
@@ -31,9 +30,8 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
   });
 });
 
-/**
- * GET /api/occurrence/records
- */
+/**** GET /api/occurrence/records ****/
+// Get all records from occurrence
  router.get('/records', rejectUnauthenticated, (req, res) => {
   
   const statement = `
@@ -64,10 +62,8 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
   });
 });
 
-/**
- * POST add program_occurrence
- * 
- */
+/**** POST /api/occurrence/add ****/
+// Add new occurrence
  router.post('/add', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
@@ -93,7 +89,5 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     res.sendStatus(500);
   });
 });
-
-
 
 module.exports = router;

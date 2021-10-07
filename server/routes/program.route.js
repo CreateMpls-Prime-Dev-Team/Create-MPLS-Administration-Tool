@@ -60,7 +60,7 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
 
 /**** GET /api/program/records ****/
 // Get all program records
- router.post('/add', rejectUnauthenticated, (req, res) => {
+router.post('/add', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
     req.body.name, 
@@ -111,9 +111,9 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
   });
 });
 
-/**** POST /api/program/assign-teacher ****/
-// Post a new teacher assignment
- router.post('/toggle-assignment', rejectUnauthenticated, (req, res) => {
+/**** POST /api/program/toggle-teacher-assignment ****/
+// Soft deletes a teacher assignment
+ router.post('/toggle-teacher-assignment', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     UPDATE staff_program_assignment
@@ -132,6 +132,8 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
   });
 });
 
+/**** POST /api/program/assign-student ****/
+// Assigns student to program
 router.post('/assign-student', rejectUnauthenticated, (req, res) => {
 
   let params = [ 
@@ -157,7 +159,8 @@ router.post('/assign-student', rejectUnauthenticated, (req, res) => {
 
 });
 
-// Toggles state of is_active
+/**** POST /api/program/toggle-active ****/
+// Soft deletes program - makes inactive
 router.put('/toggle-active/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `

@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, TextField, Typography} from '@mui/material';
 
 function RegisterForm() {
+  // local state for form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [registrationCode, setRegistrationCode] = useState('');
+
+  //Selectors to get errors and registration code from db
   const errors = useSelector((store) => store.errors);
   const settings = useSelector((store) => store.settings);
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ function RegisterForm() {
   const registerUser = (event) => {
     event.preventDefault();
 
+    //conditional to check registration code and update boolean in db
     if (registrationCode === settings.settings[0].value){
       dispatch({
         type: 'REGISTER',

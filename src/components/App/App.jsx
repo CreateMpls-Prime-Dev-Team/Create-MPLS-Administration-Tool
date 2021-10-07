@@ -31,6 +31,7 @@ function App() {
 
   const user = useSelector(store => store.user);
 
+  // This useEffect gets the registration code to the registration page
   useEffect(() => {
     dispatch({ type: 'GET_SETTINGS'});
   }, []);
@@ -44,7 +45,7 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+          {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
           <Redirect exact from="/" to="/login" />
 
           {/* Visiting localhost:3000/about will show the about page. */}

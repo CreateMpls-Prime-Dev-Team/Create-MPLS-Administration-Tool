@@ -7,6 +7,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
  * GET all settings for app
  */
 // Fetching multiple queries, and packaging it up to one object
+// NOTE: this route is unprotected to retrieve registration code 
 router.get('/', async (req, res) => {
      let config = {};
 

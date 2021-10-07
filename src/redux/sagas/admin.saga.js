@@ -17,6 +17,7 @@ function* getStudent(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.get(`???`, action.payload);
+        yield put({ type: 'GET_STUDENT_COMPLETED' });
     } catch (error) {
         console.log('error getting Students', error);
         yield put({ type: 'GET_STUDENT_FAILED' });
@@ -50,6 +51,7 @@ function* getTeacher(action) {
     console.log('action.payload', action.payload);
     try {
         yield axios.get(`???`, action.payload);
+        yield put({ type: 'GET_TEACHERS_COMPLETED' });
     } catch (error) {
         console.log('error getting Teachers', error);
         yield put({ type: 'GET_TEACHERS_FAILED' });
@@ -105,6 +107,7 @@ function* getProgram(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.get(`???`, action.payload);
+        yield put({ type: 'GET_PROGRAM_COMPLETED' });
     } catch (error) {
         console.log('error getting Programs', error);
         yield put({ type: 'GET_PROGRAM_FAILED' });

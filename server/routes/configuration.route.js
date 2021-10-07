@@ -3,15 +3,13 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET all settings for app
- */
+/**** GET /api/config ****/
 // Fetching multiple queries, and packaging it up to one object
 // NOTE: this route is unprotected to retrieve registration code 
 router.get('/', async (req, res) => {
      let config = {};
 
-    // Gender
+    // Fetch Gender
     try {
         const statement = `
             SELECT id, name FROM gender`;
@@ -23,7 +21,7 @@ router.get('/', async (req, res) => {
         res.sendStatus(500);
     }
 
-    // Grade
+    // Fetch Grade
     try {
         const statement = `
             SELECT id, name, abbrev FROM grade`;
@@ -35,7 +33,7 @@ router.get('/', async (req, res) => {
         res.sendStatus(500);
     }
 
-    // Ethnicity
+    // Fetch Ethnicity
     try {
         const statement = `
             SELECT id, name FROM ethnicity`;
@@ -47,7 +45,7 @@ router.get('/', async (req, res) => {
         res.sendStatus(500);
     }
 
-    // Stored Settings
+    // Fetch Stored Settings
     try {
         const statement = `
             SELECT variable, value FROM settings`;
@@ -59,7 +57,7 @@ router.get('/', async (req, res) => {
         res.sendStatus(500);
     }
 
-    // Program Types
+    // Fetch Program Types
     try {
         const statement = `
             SELECT id, name FROM type`;
@@ -77,8 +75,7 @@ router.get('/', async (req, res) => {
 });
 
 
-// 
-// Send to route { settingValue: 'SuperSecretCode99' }
+/**** PUT /api/config/setting/:settingVariable ****/
 router.put('/setting/:settingVariable', rejectUnauthenticated, (req, res) => {
 
     const statement = `
@@ -93,7 +90,7 @@ router.put('/setting/:settingVariable', rejectUnauthenticated, (req, res) => {
       res.sendStatus(200);
     })
     .catch(err => {
-      console.log('ERROR - post:/config/registration-code', err);
+      console.log('ERROR - post:/config/setting:settingVariable', err);
       res.sendStatus(500)
     });
 });

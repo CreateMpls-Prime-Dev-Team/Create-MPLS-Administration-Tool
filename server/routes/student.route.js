@@ -42,6 +42,34 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
+/**** GET /api/student/records ****/
+// Fetch all student records
+router.get('/records', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT
+      s.first_name,
+      s.last_name,
+      s.gender_id,
+      s.age,
+      s.grade_id,
+      s.ethnicity_id,
+      s.is_active,
+      s.updated_on,
+      s.created_on
+    FROM student s
+    WHERE is_active = TRUE;
+    `;
+
+  db.query(statement)
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/student/record/:id', err);
+    res.sendStatus(500)
+  });
+});
 /**** POST /api/student/add ****/
 // Add new student
 router.post('/add', rejectUnauthenticated, (req, res) => {

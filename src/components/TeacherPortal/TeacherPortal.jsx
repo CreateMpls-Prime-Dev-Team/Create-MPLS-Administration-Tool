@@ -6,8 +6,8 @@ function TeacherPortal() {
     return (
         <>
         <Typography variant="h4">Thomas Teacher</Typography>
-        <TableContainer component={Paper}>
-            <Table aria-label="program list">
+            <TableContainer sx={{ maxWidth: 650 }} component={Paper}>
+                <Table aria-label="program list">
                 <TableHead>
                     <TableRow>
                         <TableCell>PROGRAM</TableCell>

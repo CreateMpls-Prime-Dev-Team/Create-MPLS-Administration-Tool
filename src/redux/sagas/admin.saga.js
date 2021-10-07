@@ -16,7 +16,7 @@ function* addStudent(action){
 function* getStudent(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.get(`???`, action.payload);
+        yield axios.get(`/api/student/records`, action.payload);
         yield put({ type: 'GET_STUDENT_COMPLETED' });
     } catch (error) {
         console.log('error getting Students', error);

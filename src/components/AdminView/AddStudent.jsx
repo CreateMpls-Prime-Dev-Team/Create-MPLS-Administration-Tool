@@ -8,17 +8,56 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import "./AddStudent.css";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography"
 import AddIcon from "@mui/icons-material/Add";
 import "./StudentSearch.css";
 import SelectSearch from "react-select-search";
 import { useRef } from "react";
 import {useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
 function AddStudent() {
+  let dispatch = useDispatch();
+
+  let newStudent = {
+    firstName: '',
+    lastName: '',
+    genderId: '',
+    gradeId: '',
+    ethnicityId: '',
+    age: ''
+  };
+
+  
   //Creating local states for drop down data storage
+  const settings = useSelector(store => store.settings);
+  const studentList = useSelector(store => store.result.studentReducer)
+  const [addStudent, setAddStudent] = React.useState(newStudent);
+  const [editStudent, setEditStudent] = React.useState('');
   const [grade, setGrade] = React.useState("");
   const [ethnicity, setEthnicity] = React.useState("");
   const [gender, setGender] = React.useState("");
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_STUDENT' });
+  });
+
+  useEffect(() => { // for testing state change remove when done.
+    console.log("addStudent", addStudent);
+  }, [addStudent])
+
+  //Handles changes to the form and packs them into a single object.
+  const handleAddStudentChange = (event) => {
+    setAddStudent({...addStudent, [event.target.name]:event.target.value});
+  }
+
+  //Submitting new student to the database
+  const handleAddStudent = () => {
+    dispatch({
+      type: 'ADD_STUDENT',
+      payload: addStudent
+    })
+  }
 
   const handleGrade = (event) => {
     setGrade(event.target.value);
@@ -32,10 +71,12 @@ function AddStudent() {
 
   //START STUDENT SEARCH DROP DOWN FUNC
   function StudentSearch() {
+    
     //Local state for student selection
     const [selectedStudent, setselectedStudent] = React.useState(0)
-    console.log("this is selcted student", selectedStudent);
+    console.log("this is selected student", selectedStudent);
     const searchInput2 = useRef();
+
     const options2 = [
       {
         type: "group",
@@ -85,7 +126,7 @@ function AddStudent() {
   return (
     <div id="mainDiv">
       <div id="headerOne">
-        <h1>Add Student</h1>
+        <Typography variant="h4">Add Student</Typography>
       </div>
 
       <Box
@@ -97,9 +138,28 @@ function AddStudent() {
         autoComplete="off"
       >
         {/* First Name */}
-        <TextField required id="outlined-required" label="First Name" />
+        <TextField 
+          required 
+          name="firstName"
+          id="outlined-required" 
+          label="First Name" 
+          onChange={handleAddStudentChange}
+        />
         {/* Last Name */}
-        <TextField required id="outlined-required" label="Last Name" />
+        <TextField 
+          required 
+          name="lastName"
+          id="outlined-required" 
+          label="Last Name" 
+          onChange={handleAddStudentChange}
+        />
+        <TextField 
+          required 
+          name="age"
+          id="outlined-required" 
+          label="Age" 
+          onChange={handleAddStudentChange}
+        />
 
         {/* Grade Selection Drop-Down */}
         <span id="dropdown">
@@ -107,14 +167,17 @@ function AddStudent() {
             <InputLabel id="demo-simple-select-label">Grade</InputLabel>
             <Select
               labelId="demo-simple-select-label"
+              name="gradeId"
               id="demo-simple-select"
-              value={grade}
+              value={addStudent.gradeId}
               label="Grade"
-              onChange={handleGrade}
+              onChange={handleAddStudentChange}
             >
-              <MenuItem value={1}>1st Grade</MenuItem>
-              <MenuItem value={2}>2nd Grade</MenuItem>
-              <MenuItem value={3}>3rd Grade</MenuItem>
+              {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
+                  <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+             }
             </Select>
           </FormControl>
 
@@ -123,14 +186,17 @@ function AddStudent() {
             <InputLabel id="demo-simple-select-label">Ethnicity</InputLabel>
             <Select
               labelId="demo-simple-select-label"
+              name="ethnicityId"
               id="demo-simple-select"
-              value={ethnicity}
+              value={addStudent.ethnicityId}
               label="Ethnicity"
-              onChange={handleEthnicity}
+              onChange={handleAddStudentChange}
             >
-              <MenuItem value={"Somali"}>Somali</MenuItem>
-              <MenuItem value={"Hispanic"}>Hispanic</MenuItem>
-              <MenuItem value={"Caucasian"}>Caucasian</MenuItem>
+              {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
+                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+              }
             </Select>
           </FormControl>
 
@@ -139,23 +205,32 @@ function AddStudent() {
             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
             <Select
               labelId="demo-simple-select-label"
+              name="genderId"
               id="demo-simple-select"
-              value={gender}
+              value={addStudent.genderId}
               label="Gender"
-              onChange={handleGender}
+              onChange={handleAddStudentChange}
             >
-              <MenuItem value={"Male"}>Male</MenuItem>
-              <MenuItem value={"Female"}>Female</MenuItem>
+              {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
+                  <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+              }
             </Select>
           </FormControl>
-          <Button id="addBttn" variant="outlined" endIcon={<AddIcon />}>
+          <Button 
+            id="addBttn" 
+            variant="outlined" 
+            endIcon={<AddIcon />}
+            onClick={handleAddStudent}
+          >
             Add Student
           </Button>
         </span>
       </Box>
         {/* Student Search */}
       <div id="headerTwo">
-        <h1>Edit Student</h1>
+        <Typography variant="h4">Edit Student</Typography>
       </div>
       <StudentSearch/>
 

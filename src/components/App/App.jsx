@@ -148,12 +148,9 @@ function App() {
             path="/teacher"
           >
             {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the login page
               <TeacherPortal />
+              :
+              <Redirect to="/login" />
             }
           </Route>
 
@@ -162,12 +159,9 @@ function App() {
             path="/attendance"
           >
             {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the login page
               <AttendancePage />
+              :
+              <Redirect to="/login" />
             }
           </Route>
 

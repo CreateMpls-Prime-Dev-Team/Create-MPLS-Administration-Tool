@@ -5,7 +5,8 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
 
 /**** GET /api/config ****/
 // Fetching multiple queries, and packaging it up to one object
-router.get('/', rejectUnauthenticated, async (req, res) => {
+// NOTE: this route is unprotected to retrieve registration code 
+router.get('/', async (req, res) => {
      let config = {};
 
     // Fetch Gender

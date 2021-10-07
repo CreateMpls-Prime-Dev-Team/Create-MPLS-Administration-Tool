@@ -3,43 +3,46 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, TextField, Typography} from '@mui/material';
 
 function RegisterForm() {
+  // local state for form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [registrationCode, setRegistrationCode] = useState('');
-  const [isStaff, setIsStaff] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+
+  //Selectors to get errors and registration code from db
   const errors = useSelector((store) => store.errors);
+  const settings = useSelector((store) => store.settings);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
 
-    if (registrationCode === 'teacher'){
-      setIsStaff(true);
+    //conditional to check registration code and update boolean in db
+    if (registrationCode === settings.settings[0].value){
       dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-        first_name: firstName,
-        last_name: lastName,
-        isStaff: isStaff
-      },
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+          is_staff: true,
+          is_admin: false
+        },
     });
     } 
-    else if (registrationCode === 'admin'){
-      setIsAdmin(true);
+    else if (registrationCode === settings.settings[1].value){
       dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-        first_name: firstName,
-        last_name: lastName,
-        isAdmin: isAdmin
-      },
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+          is_staff: false,
+          is_admin: true
+        },
     });
     }
     else {

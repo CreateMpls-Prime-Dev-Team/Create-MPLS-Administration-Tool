@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+import settings from './settings.reducer';
 import result from './result.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -12,6 +13,7 @@ import result from './result.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+  settings, // provides registration code to front end
   result, // contains all the various reducers for the teacher & admin sagas.
 });
 

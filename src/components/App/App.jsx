@@ -43,7 +43,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        {user.is_admin && <Nav />}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
           <Redirect exact from="/" to="/login" />

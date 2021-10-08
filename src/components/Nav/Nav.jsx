@@ -12,7 +12,8 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/user">
-        <Typography variant="h3" className="nav-title">CreateMPLS Portal</Typography>
+        <img src="design_b.png" className="nav-title" width="100"/>
+        {/* <Typography variant="h3" className="nav-title">CreateMPLS Portal</Typography> */}
       </Link>
       <div>
         {/* If no user is logged in, show these links */}

@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material/';
 import Typography from '@mui/material/Typography';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 function TeacherPortal() {
     return (
         <>
+        <img src="design_a.png" width="400" height="300"/>
         <Typography variant="h4">Thomas Teacher</Typography>
         <center>
             <TableContainer sx={{ maxWidth: 350 }} component={Paper}>
@@ -27,11 +30,11 @@ function TeacherPortal() {
                         </TableRow>
                     ))} */}
                     <TableRow>
-                        <TableCell>Lego League</TableCell>
+                        <TableCell><Link to="/attendance">Learning Lab</Link></TableCell>
                         <TableCell align="right">Hope Academy</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell>Learning Lab</TableCell>
+                        <TableCell>Lego League</TableCell>
                         <TableCell align="right">Hope Academy</TableCell>
                     </TableRow>
                     <TableRow>
@@ -41,6 +44,7 @@ function TeacherPortal() {
                 </TableBody>
             </Table>
         </TableContainer>
+        <LogOutButton />
         </center>
         </>
     )

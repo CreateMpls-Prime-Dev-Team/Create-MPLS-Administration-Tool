@@ -47,10 +47,12 @@ function AttendancePage() {
 
     return (
         <>
+        <div>
+        <img src="design_a.png" width="150" height="100"/>
         {/* HEADER - will need to GET this from DB */}
         <Typography variant="h4">Learning Lab</Typography>
         <Typography variant="h5">Hope Academy</Typography>
-
+        </div>
         <center>
         {/* Date Picker */}
         <LocalizationProvider dateAdapter={AdapterDateFns}>

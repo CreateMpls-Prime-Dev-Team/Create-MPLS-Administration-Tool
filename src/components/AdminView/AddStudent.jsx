@@ -17,6 +17,7 @@ import {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 function AddStudent() {
+  
   let dispatch = useDispatch();
 
   let newStudent = {
@@ -31,24 +32,28 @@ function AddStudent() {
   
   //Creating local states for drop down data storage
   const settings = useSelector(store => store.settings);
-  const studentList = useSelector(store => store.result.studentReducer)
+  const studentList = useSelector(store => store.student);
+  const studentToEdit = useSelector(store => store.studentToEdit);
   const [addStudent, setAddStudent] = React.useState(newStudent);
   const [editStudent, setEditStudent] = React.useState('');
   const [grade, setGrade] = React.useState("");
   const [ethnicity, setEthnicity] = React.useState("");
   const [gender, setGender] = React.useState("");
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_STUDENT' });
-  });
+  
 
-  useEffect(() => { // for testing state change remove when done.
-    console.log("addStudent", addStudent);
-  }, [addStudent])
+  useEffect(() => { 
+    dispatch({ type: 'FETCH_STUDENT' });
+  }, [])
 
   //Handles changes to the form and packs them into a single object.
   const handleAddStudentChange = (event) => {
     setAddStudent({...addStudent, [event.target.name]:event.target.value});
+  }
+
+  //Handles changes to the form and packs them into a single object.
+  const handleUpdateStudentChange = (event) => {
+    setEditStudent({...addStudent, [event.target.name]:event.target.value});
   }
 
   //Submitting new student to the database
@@ -57,6 +62,7 @@ function AddStudent() {
       type: 'ADD_STUDENT',
       payload: addStudent
     })
+    setAddStudent(newStudent);
   }
 
   const handleGrade = (event) => {
@@ -73,21 +79,34 @@ function AddStudent() {
   function StudentSearch() {
     
     //Local state for student selection
-    const [selectedStudent, setselectedStudent] = React.useState(0)
-    console.log("this is selected student", selectedStudent);
+    const [selectedStudentId, setselectedStudentId] = React.useState(studentToEdit.id);
+    
     const searchInput2 = useRef();
+    const studentList = useSelector(store => store.student)
+    
+    useEffect(() => {
+      studentList.map((student) => {
+        if(student.id === selectedStudentId){
+           dispatch({
+             type: 'SET_STUDENT_TO_EDIT',
+             payload: student
+           })
+        }
+      });
+    }, [selectedStudentId])
 
-    const options2 = [
+    let items = []; // create a list of students
+    studentList.map((student) => {
+      items.push({ // push each student from the list in a formatted object
+        name: `${student.first_name} ${student.last_name}`, 
+        value: student.id})
+    })
+
+    const options2 = [ // To render menu
       {
         type: "group",
         name: "Student Names",
-        items: [
-          { name: "Brad Johansen", value: "1" },
-          { name: "Alex Goldberg", value: "2" },
-          { name: "Chris F", value: "3" },
-          { name: "Yung Curtis", value: "4" }
-  
-        ]
+        items
       }
     ];
   
@@ -113,11 +132,11 @@ function AddStudent() {
           ref={searchInput2}
           options={options2}
           filterOptions={handleFilter}
-          value={selectedStudent}
+          value={selectedStudentId}
           name="Student-Search"
           placeholder="Choose a student"
           search
-          onChange={setselectedStudent}
+          onChange={setselectedStudentId}
         />
       </div>
     );
@@ -142,7 +161,8 @@ function AddStudent() {
           required 
           name="firstName"
           id="outlined-required" 
-          label="First Name" 
+          label="First Name"
+          value={addStudent.firstName}
           onChange={handleAddStudentChange}
         />
         {/* Last Name */}
@@ -151,6 +171,7 @@ function AddStudent() {
           name="lastName"
           id="outlined-required" 
           label="Last Name" 
+          value={addStudent.lastName}
           onChange={handleAddStudentChange}
         />
         <TextField 
@@ -158,6 +179,7 @@ function AddStudent() {
           name="age"
           id="outlined-required" 
           label="Age" 
+          value={addStudent.age}
           onChange={handleAddStudentChange}
         />
 
@@ -242,13 +264,16 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={grade}
+            value={studentToEdit.grade_id}
             label="Grade"
-            onChange={handleGrade}
+            name="gradeId"
+            onChange={handleUpdateStudentChange}
           >
-            <MenuItem value={1}>1st Grade</MenuItem>
-            <MenuItem value={2}>2nd Grade</MenuItem>
-            <MenuItem value={3}>3rd Grade</MenuItem>
+            {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
+                  <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+             }
           </Select>
         </FormControl>
 
@@ -260,13 +285,15 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={ethnicity}
+            value={studentToEdit.ethnicity_id}
             label="Ethnicity"
-            onChange={handleEthnicity}
+            onChange={handleUpdateStudentChange}
           >
-            <MenuItem value={"Somali"}>Somali</MenuItem>
-            <MenuItem value={"Hispanic"}>Hispanic</MenuItem>
-            <MenuItem value={"Caucasian"}>Caucasian</MenuItem>
+            {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
+                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+              }
           </Select>
         </FormControl>
 
@@ -276,12 +303,15 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={gender}
+            value={studentToEdit.gender_id}
             label="Gender"
-            onChange={handleGender}
+            onChange={handleUpdateStudentChange}
           >
-            <MenuItem value={"Male"}>Male</MenuItem>
-            <MenuItem value={"Female"}>Female</MenuItem>
+            {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
+                  <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+              }
           </Select>
         </FormControl>
         <Button id="addBttn" variant="outlined">

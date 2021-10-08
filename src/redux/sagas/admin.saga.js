@@ -6,6 +6,7 @@ function* addStudent(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.post(`api/student/add`, action.payload);
+        yield put({ type: 'FETCH_STUDENT' });
     } catch (error) {
         console.log('Error with adding Student', error);
         yield put({ type: 'ADD_STUDENT_FAILED' });
@@ -13,11 +14,10 @@ function* addStudent(action){
 }
 
 // GETS a list of students.
-function* getStudent(action){
-    console.log('action.payload', action.payload);
+function* getStudent(){
     try {
-        yield axios.get(`/api/student/records`, action.payload);
-        yield put({ type: 'GET_STUDENT_COMPLETED' });
+        const response = yield axios.get(`/api/student/records`);
+        yield put({ type: 'GET_STUDENT_COMPLETED', payload: response.data });
     } catch (error) {
         console.log('error getting Students', error);
         yield put({ type: 'GET_STUDENT_FAILED' });

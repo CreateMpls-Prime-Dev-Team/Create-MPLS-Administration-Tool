@@ -66,40 +66,55 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            {user.is_admin ?
+              <Redirect to="/add-student" />:
+              <Redirect to="/teacher" />
+            }
           </ProtectedRoute>
 
-          <ProtectedRoute
+          <Route
             // logged in shows AddStudent else shows LoginPage
             exact
             path="/add-student"
           >
-            <AddStudent/>
-          </ProtectedRoute>
+            {user.id ?
+              <AddStudent />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
 
-          <ProtectedRoute
+          <Route
             // logged in shows AddStudent else shows LoginPage
             exact
             path="/program"
           >
-            <Program/>
-          </ProtectedRoute>
+            {user.id ?
+              <Program />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
 
-          <ProtectedRoute
+          <Route
             // logged in shows Staff else shows LoginPage
             exact
             path="/staff"
           >
-            <Staff/>
-          </ProtectedRoute>
+            {user.id ?
+              <Staff />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
 
-          <ProtectedRoute
+          {/* <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >
             <InfoPage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <Route
             exact

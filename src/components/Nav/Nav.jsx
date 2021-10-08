@@ -46,7 +46,7 @@ function Nav() {
               <Button variant="outlined">Teacher Portal</Button>
             </Link> */}
 
-            <LogOutButton className="navLink" />
+            <LogOutButton className="btn" />
           </>
         )}
 

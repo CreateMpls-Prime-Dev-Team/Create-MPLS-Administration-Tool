@@ -5,6 +5,7 @@ import settings from './settings.reducer';
 import student from './student.reducer';
 import teacher from './teacher.reducer';
 import program from './program.reducer';
+import studentToEdit from './studentToEdit.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   student, // holds the list of students to be sent to the front end. 
   teacher, // holds the list of teachers to be sent to the front end. 
   program, // holds the list of programs to be sent to the front end. 
+  studentToEdit, // Holds the student from search to edit
 });
 
 export default rootReducer;

@@ -17,6 +17,7 @@ import {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 function AddStudent() {
+  
   let dispatch = useDispatch();
 
   let newStudent = {
@@ -31,7 +32,8 @@ function AddStudent() {
   
   //Creating local states for drop down data storage
   const settings = useSelector(store => store.settings);
-  const studentList = useSelector(store => store.student)
+  const studentList = useSelector(store => store.student);
+  const studentToEdit = useSelector(store => store.studentToEdit);
   const [addStudent, setAddStudent] = React.useState(newStudent);
   const [editStudent, setEditStudent] = React.useState('');
   const [grade, setGrade] = React.useState("");
@@ -77,17 +79,20 @@ function AddStudent() {
   function StudentSearch() {
     
     //Local state for student selection
-    const [selectedStudentId, setselectedStudentId] = React.useState(0)
-    const [studentToEdit, setStudentToEdit] = React.useState({})
+    const [selectedStudentId, setselectedStudentId] = React.useState(studentToEdit.id);
+    
     const searchInput2 = useRef();
     const studentList = useSelector(store => store.student)
     
     useEffect(() => {
       studentList.map((student) => {
         if(student.id === selectedStudentId){
-           setStudentToEdit(student);
+           dispatch({
+             type: 'SET_STUDENT_TO_EDIT',
+             payload: student
+           })
         }
-      })
+      });
     }, [selectedStudentId])
 
     let items = []; // create a list of students
@@ -97,7 +102,7 @@ function AddStudent() {
         value: student.id})
     })
 
-    const options2 = [
+    const options2 = [ // To render menu
       {
         type: "group",
         name: "Student Names",
@@ -131,7 +136,7 @@ function AddStudent() {
           name="Student-Search"
           placeholder="Choose a student"
           search
-          onChange={setselectedStudent}
+          onChange={setselectedStudentId}
         />
       </div>
     );
@@ -259,7 +264,7 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={editStudent.grade_id}
+            value={studentToEdit.grade_id}
             label="Grade"
             name="gradeId"
             onChange={handleUpdateStudentChange}
@@ -280,13 +285,15 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={ethnicity}
+            value={studentToEdit.ethnicity_id}
             label="Ethnicity"
-            onChange={handleEthnicity}
+            onChange={handleUpdateStudentChange}
           >
-            <MenuItem value={"Somali"}>Somali</MenuItem>
-            <MenuItem value={"Hispanic"}>Hispanic</MenuItem>
-            <MenuItem value={"Caucasian"}>Caucasian</MenuItem>
+            {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
+                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+              }
           </Select>
         </FormControl>
 
@@ -296,12 +303,15 @@ function AddStudent() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select2"
-            value={gender}
+            value={studentToEdit.gender_id}
             label="Gender"
-            onChange={handleGender}
+            onChange={handleUpdateStudentChange}
           >
-            <MenuItem value={"Male"}>Male</MenuItem>
-            <MenuItem value={"Female"}>Female</MenuItem>
+            {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
+                  <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
+              )) :
+              <MenuItem value={0}>Loading....</MenuItem>
+              }
           </Select>
         </FormControl>
         <Button id="addBttn" variant="outlined">

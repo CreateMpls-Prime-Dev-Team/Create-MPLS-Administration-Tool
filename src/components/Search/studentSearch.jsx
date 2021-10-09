@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import SelectSearch from "react-select-search";
 import "../AdminView/StudentSearch.css";
 import { InputLabel } from '@mui/material';
@@ -7,6 +7,7 @@ import { InputLabel } from '@mui/material';
 
 //START STUDENT SEARCH DROP DOWN FUNC
 function StudentSearch() {
+    const dispatch = useDispatch();
     const studentList = useSelector(store => store.student)
     //Local state for student selection
     const studentToEdit = useSelector(store => store.studentToEdit);

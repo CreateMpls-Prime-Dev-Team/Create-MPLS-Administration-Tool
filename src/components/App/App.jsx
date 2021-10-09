@@ -9,22 +9,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import AdminViewStudent from '../AdminView/AdminViewStudent';
+import Staff from '../AdminView/Staff';
+import Program from '../AdminView/Program';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
-
-import './App.css';
 import AttendancePage from '../AttendancePage/AttendancePage';
 
-import AddStudent from '../AdminView/AddStudent';
-import Staff from '../AdminView/Staff';
-import Program from '../AdminView/Program'
-
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -78,7 +76,7 @@ function App() {
             path="/add-student"
           >
             {user.id ?
-              <AddStudent />
+              <AdminViewStudent />
               :
               <Redirect to="/login" />
             }
@@ -107,14 +105,6 @@ function App() {
               <Redirect to="/login" />
             }
           </Route>
-
-          {/* <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute> */}
 
           <Route
             exact

@@ -19,7 +19,7 @@
   .select-search {
     width: 300px;
     position: relative;
-    font-family: "Nunito Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
     box-sizing: border-box;
   }
   
@@ -60,8 +60,8 @@
     box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
     border-radius: 3px;
     outline: none;
-    font-family: "Noto Sans", sans-serif;
-    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
     text-align: left;
     text-overflow: ellipsis;
     line-height: 36px;

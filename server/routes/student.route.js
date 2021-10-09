@@ -52,13 +52,23 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
       s.first_name,
       s.last_name,
       s.gender_id,
+      ge.name gender_name,
       s.age,
       s.grade_id,
+      gr.name grade_name,
+      gr.abbrev grade_abbrev,
       s.ethnicity_id,
+      et.name ethnicity_name,
       s.is_active,
       s.updated_on,
       s.created_on
     FROM student s
+    JOIN grade gr
+      ON (gr.id = s.grade_id)
+    JOIN gender ge
+      ON (ge.id = s.gender_id)
+    JOIN ethnicity et
+      ON (et.id = s.ethnicity_id)
     WHERE is_active = TRUE;
     `;
 

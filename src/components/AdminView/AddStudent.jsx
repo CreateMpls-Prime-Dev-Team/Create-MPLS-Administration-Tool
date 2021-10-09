@@ -1,20 +1,21 @@
-import react from "react";
+import react, { useEffect } from "react";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import "./AddStudent.css";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography"
-import AddIcon from "@mui/icons-material/Add";
-import "./StudentSearch.css";
-import SelectSearch from "react-select-search";
-import { useRef } from "react";
-import {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import "./AddStudent.css";
+import StudentSearch from "../Search/studentSearch";
+import{ 
+  Box, 
+  TextField, 
+  InputLabel, 
+  MenuItem, 
+  FormControl, 
+  Select,
+  Button,
+  Typography
+} from "@mui/material";
+import { DataGrid } from '@mui/x-data-grid';
+import AddIcon from "@mui/icons-material/Add";
+
 
 function AddStudent() {
   
@@ -35,11 +36,6 @@ function AddStudent() {
   const studentList = useSelector(store => store.student);
   const studentToEdit = useSelector(store => store.studentToEdit);
   const [addStudent, setAddStudent] = React.useState(newStudent);
-  const [editStudent, setEditStudent] = React.useState('');
-  const [grade, setGrade] = React.useState("");
-  const [ethnicity, setEthnicity] = React.useState("");
-  const [gender, setGender] = React.useState("");
-
   
 
   useEffect(() => { 
@@ -75,73 +71,7 @@ function AddStudent() {
     setGender(event.target.value);
   };
 
-  //START STUDENT SEARCH DROP DOWN FUNC
-  function StudentSearch() {
-    
-    //Local state for student selection
-    const [selectedStudentId, setselectedStudentId] = React.useState(studentToEdit.id);
-    
-    const searchInput2 = useRef();
-    const studentList = useSelector(store => store.student)
-    
-    useEffect(() => {
-      studentList.map((student) => {
-        if(student.id === selectedStudentId){
-           dispatch({
-             type: 'SET_STUDENT_TO_EDIT',
-             payload: student
-           })
-        }
-      });
-    }, [selectedStudentId])
-
-    let items = []; // create a list of students
-    studentList.map((student) => {
-      items.push({ // push each student from the list in a formatted object
-        name: `${student.first_name} ${student.last_name}`, 
-        value: student.id})
-    })
-
-    const options2 = [ // To render menu
-      {
-        type: "group",
-        name: "Student Names",
-        items
-      }
-    ];
   
-    const handleFilter = (items) => {
-      return (searchValue) => {
-        if (searchValue.length === 0) {
-          return options2;
-        }
-        const updatedItems = items.map((list) => {
-          const newItems = list.items.filter((item) => {
-            return item.name.toLowerCase().includes(searchValue.toLowerCase());
-          });
-          return { ...list, items: newItems };
-        });
-        return updatedItems;
-      };
-    };
-  
-   
-    return (
-      <div className="App">
-        <SelectSearch
-          ref={searchInput2}
-          options={options2}
-          filterOptions={handleFilter}
-          value={selectedStudentId}
-          name="Student-Search"
-          placeholder="Choose a student"
-          search
-          onChange={setselectedStudentId}
-        />
-      </div>
-    );
-  }
-//END STUDENT SEARCH DROPDOWN
   return (
     <div id="mainDiv">
       <div id="headerOne">
@@ -295,6 +225,7 @@ function AddStudent() {
               <MenuItem value={0}>Loading....</MenuItem>
               }
           </Select>
+
         </FormControl>
 
         {/* Update Gender */}

@@ -18,36 +18,16 @@ function RegisterForm() {
   const registerUser = (event) => {
     event.preventDefault();
 
-    //conditional to check registration code and update boolean in db
-    if (registrationCode === settings.settings[0].value){
-      dispatch({
+    dispatch({
         type: 'REGISTER',
         payload: {
           username: username,
           password: password,
           first_name: firstName,
           last_name: lastName,
-          is_staff: true,
-          is_admin: false
+          registrationCode: registrationCode,
         },
     });
-    } 
-    else if (registrationCode === settings.settings[1].value){
-      dispatch({
-        type: 'REGISTER',
-        payload: {
-          username: username,
-          password: password,
-          first_name: firstName,
-          last_name: lastName,
-          is_staff: false,
-          is_admin: true
-        },
-    });
-    }
-    else {
-      alert('Please input a valid registration code');
-    }
   }; // end registerUser
 
   return (

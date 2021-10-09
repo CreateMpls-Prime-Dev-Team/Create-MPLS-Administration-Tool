@@ -173,6 +173,6 @@ VALUES
 INSERT INTO settings 
 	( variable, value ) 
 VALUES
-    ( 'teacher-code', 'team-createMPLS-teacher' ),
-    ( 'admin-code', 'team-createMPLS-admin' );
+    ( 'teacherCode', 'team-createMPLS-teacher' ),
+    ( 'adminCode', 'team-createMPLS-admin' );
 	

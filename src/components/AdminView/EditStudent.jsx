@@ -1,7 +1,5 @@
-import react, { useEffect } from "react";
-import * as React from "react";
+import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import StudentSearch from "../Search/studentSearch";
 import{ 
   Box, 
   TextField, 
@@ -10,80 +8,137 @@ import{
   FormControl, 
   Select,
   Button,
-  Typography
 } from "@mui/material";
 
-import AddIcon from "@mui/icons-material/Add";
 
 const EditStudent = () => {
+
+    const dispatch = useDispatch()
     const studentToEdit = useSelector(store => store.studentToEdit);
 
-  const settings = useSelector(store => store.settings);
+    const settings = useSelector(store => store.settings);
+    console.log(studentToEdit);
+
+    const handleChange = (event) => {
+        dispatch({
+            type: 'SET_STUDENT_TO_EDIT',
+            payload: { ...studentToEdit, [event.target.name]:event.target.value }
+        })
+    }
+
+    const handleUpdate = () => {
+        console.log('TIME TO UPDATE', studentToEdit);
+        dispatch({
+            type: 'EDIT_STUDENT',
+            payload: studentToEdit
+        })
+    }
+
+    const handleDelete = () => {
+        if(confirm('This will make the student unavailable')){
+            dispatch({ type: 'DELETE_STUDENT', payload: studentToEdit.id })
+            
+        }
+    }
+
     return (
-        <div>
-            {/* Update Grade */}
-<span id="dropdownTwo">
-<FormControl>
-  <InputLabel id="demo-simple-select-label">Update Grade</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select2"
-    value={studentToEdit.grade_id}
-    label="Grade"
-  >
-    {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
-          <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
-      )) :
-      <MenuItem value={0}>Loading....</MenuItem>
-     }
-  </Select>
-</FormControl>
-
-{/* Update Ethnicity  */}
-<FormControl>
-  <InputLabel id="demo-simple-select-label">
-    Update Ethnicity
-  </InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select2"
-    value={studentToEdit.ethnicity_id}
-    label="Ethnicity"
-  >
-    {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
-          <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
-      )) :
-      <MenuItem value={0}>Loading....</MenuItem>
-      }
-  </Select>
-
-</FormControl>
-
-{/* Update Gender */}
-<FormControl>
-  <InputLabel id="demo-simple-select-label">Update Gender</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select2"
-    value={studentToEdit.gender_id}
-    label="Gender"
-  >
-    {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
-          <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
-      )) :
-      <MenuItem value={0}>Loading....</MenuItem>
-      }
-  </Select>
-</FormControl>
-<Button id="addBttn" variant="outlined">
-  Update Student
-</Button>
-<Button id="addBttn" color="error" variant="outlined">
-  Delete Student
-</Button>
-</span>
-        </div>
-    )
+        <>
+        <center>
+            <Box style={{ width: '50%' }}>
+                <div>
+                    <TextField 
+                        required 
+                        name="first_name"
+                        variant="outlined"
+                        style={{ margin: 5 }}
+                        label="First Name"
+                        value={studentToEdit.first_name}
+                        onChange={handleChange}
+                    />
+                    <TextField 
+                        required 
+                        name="last_name"
+                        variant="outlined"
+                        style={{ margin: 5 }}
+                        label="Last Name" 
+                        value={studentToEdit.last_name}
+                        onChange={handleChange}
+                    />
+                    <TextField 
+                        required 
+                        name="age"
+                        variant="outlined"
+                        style={{ margin: 5 }}
+                        label="Age" 
+                        value={studentToEdit.age}
+                        onChange={handleChange}
+                    />
+                </div>
+                <FormControl>
+                    <Select
+                        name="grade_id"
+                        style={{ margin: 5 }}
+                        onChange={handleChange}
+                        value={studentToEdit.grade_id}
+                    >
+                        {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
+                            <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
+                        )) :
+                            <MenuItem value={0}>Loading....</MenuItem>
+                        }
+                    </Select>
+                </FormControl>
+                <FormControl>
+                    <Select
+                        name="ethnicity_id"
+                        style={{ margin: 5 }}
+                        onChange={handleChange}
+                        value={studentToEdit.ethnicity_id}
+                    >
+                        {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
+                            <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+                        )) :
+                            <MenuItem value={0}>Loading....</MenuItem>
+                        }
+                    </Select>
+                </FormControl>
+                <FormControl>
+                    <Select
+                        name="gender_id"
+                        style={{ margin: 5 }}
+                        onChange={handleChange}
+                        value={studentToEdit.gender_id}
+                    >
+                        {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
+                            <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
+                        )) :
+                            <MenuItem value={0}>Loading....</MenuItem>
+                        }
+                    </Select>
+                </FormControl>
+                <div>
+                    <Button 
+                        id="addBttn" 
+                        variant="outlined"
+                        style={{ margin: 5 }}
+                        onClick={handleUpdate}
+                    >
+                        Update Student
+                    </Button>
+                    <Button 
+                        id="addBttn" 
+                        color="error" 
+                        variant="outlined"
+                        style={{ margin: 5 }}
+                        onClick={handleDelete}
+                    >
+                        Delete Student
+                    </Button>
+                </div>
+            </Box>
+        </center>
+    </>    
+    );
 }
 
 export default EditStudent;

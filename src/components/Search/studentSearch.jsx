@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import SelectSearch from "react-select-search";
 import "../AdminView/StudentSearch.css";
-import { InputLabel } from '@mui/material';
 
 
 //START STUDENT SEARCH DROP DOWN FUNC
@@ -13,7 +12,7 @@ function StudentSearch() {
     const studentToEdit = useSelector(store => store.studentToEdit);
     const [selectedStudentId, setSelectedStudentId] = React.useState(studentToEdit.id);
 
-    const searchInput2 = useRef();
+    const searchInput = useRef();
 
     useEffect(() => {
         studentList.map((student) => {
@@ -34,7 +33,7 @@ function StudentSearch() {
         })
     })
 
-    const options2 = [ // To render menu
+    const options = [ // To render menu
         {
             type: "group",
             name: "Student Names",
@@ -45,7 +44,7 @@ function StudentSearch() {
     const handleFilter = (items) => {
         return (searchValue) => {
             if (searchValue.length === 0) {
-                return options2;
+                return options;
             }
             const updatedItems = items.map((list) => {
                 const newItems = list.items.filter((item) => {
@@ -60,8 +59,8 @@ function StudentSearch() {
     return (
         <div className="App">
             <SelectSearch
-                ref={searchInput2}
-                options={options2}
+                ref={searchInput}
+                options={options}
                 filterOptions={handleFilter}
                 value={selectedStudentId}
                 name="Student-Search"

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import{ 
   Box, 
@@ -13,7 +13,6 @@ import{
 import AddIcon from "@mui/icons-material/Add";
 
 function AddStudent() {
-  
   let dispatch = useDispatch();
 
   let newStudent = {
@@ -27,21 +26,11 @@ function AddStudent() {
 
   //Creating local states for drop down data storage
   const settings = useSelector(store => store.settings);
-  const studentList = useSelector(store => store.student);
-  const studentToEdit = useSelector(store => store.studentToEdit);
   const [addStudent, setAddStudent] = React.useState(newStudent);
   
-
-  
-
   //Handles changes to the form and packs them into a single object.
   const handleAddStudentChange = (event) => {
     setAddStudent({...addStudent, [event.target.name]:event.target.value});
-  }
-
-  //Handles changes to the form and packs them into a single object.
-  const handleUpdateStudentChange = (event) => {
-    setEditStudent({...addStudent, [event.target.name]:event.target.value});
   }
 
   //Submitting new student to the database
@@ -54,116 +43,109 @@ function AddStudent() {
   }
 
   return (
-    <div id="mainDiv">
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        {/* First Name */}
-        <TextField 
-          required 
-          name="firstName"
-          id="firstName"
-          variant="outlined"
-          required 
-          label="First Name"
-          value={addStudent.firstName}
-          onChange={handleAddStudentChange}
-        />
-        {/* Last Name */}
-        <TextField 
-          required 
-          name="lastName"
-          id="lastName"
-          variant="outlined"
-          required  
-          label="Last Name" 
-          value={addStudent.lastName}
-          onChange={handleAddStudentChange}
-        />
-        <TextField 
-          required 
-          name="age"
-          id="age"
-          variant="outlined"
-          required
-          label="Age" 
-          value={addStudent.age}
-          onChange={handleAddStudentChange}
-        />
-
-        {/* Grade Selection Drop-Down */}
-        <span id="dropdown">
-          <FormControl>
-            <InputLabel id="gradSelect">Grade</InputLabel>
-            <Select
-              labelId="grade"
-              name="gradeId"
-              id="demo-simple-select"
-              value={addStudent.gradeId}
-              label="Grade"
+    <>
+      <center>
+        <Box style={{ width: '50%'}}>
+          <div>
+            <TextField 
+              required 
+              name="firstName"
+              variant="outlined"
+              style={{ margin: 5, width: '45%' }}
+              required 
+              label="First Name"
+              value={addStudent.firstName}
               onChange={handleAddStudentChange}
-            >
-              {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
-                  <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
-              )) :
-              <MenuItem value={0}>Loading....</MenuItem>
-             }
-            </Select>
-          </FormControl>
-
-          {/* Ethnicity Selection Drop-Down */}
-          <FormControl>
-            <InputLabel id="ethnicitySelect">Ethnicity</InputLabel>
-            <Select
-              labelId="ethnicity"
-              name="ethnicityId"
-              id="demo-simple-select"
-              value={addStudent.ethnicityId}
-              label="Ethnicity"
+            />
+            <TextField 
+              required 
+              name="lastName"
+              variant="outlined"
+              style={{ margin: 5, width: '45%' }}
+              required  
+              label="Last Name" 
+              value={addStudent.lastName}
               onChange={handleAddStudentChange}
-            >
-              {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
-                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
-              )) :
-              <MenuItem value={0}>Loading....</MenuItem>
-              }
-            </Select>
-          </FormControl>
-
-          {/* Gender Selection Drop-Down */}
-          <FormControl>
-            <InputLabel id="genderSelect">Gender</InputLabel>
-            <Select
-              labelId="gender"
-              name="genderId"
-              id="demo-simple-select"
-              value={addStudent.genderId}
-              label="Gender"
+            />
+          </div>
+          <div>
+            <TextField 
+              required 
+              name="age"
+              variant="outlined"
+              style={{ margin: 5, width: 100 }}
+              required
+              label="Age" 
+              value={addStudent.age}
               onChange={handleAddStudentChange}
+            />
+            <FormControl>
+              <InputLabel id="gradeSelect">Grade</InputLabel>
+              <Select
+                name="gradeId"
+                id="demo-simple-select"
+                style={{ margin: 5 }}
+                value={addStudent.gradeId}
+                onChange={handleAddStudentChange}
+              >
+                {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
+                    <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
+                )) :
+                <MenuItem value={0}>Loading....</MenuItem>
+                }
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel id="ethnicitySelect">Ethnicity</InputLabel>
+              <Select
+                labelId="ethnicity"
+                name="ethnicityId"
+                id="demo-simple-select"
+                style={{ margin: 5 }}
+                value={addStudent.ethnicityId}
+                label="Ethnicity"
+                onChange={handleAddStudentChange}
+              >
+                {(Object.keys(settings).length > 0 ) ? settings.ethnicity.map((e)=> (
+                    <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+                )) :
+                <MenuItem value={0}>Loading....</MenuItem>
+                }
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel id="genderSelect">Gender</InputLabel>
+              <Select
+                labelId="gender"
+                name="genderId"
+                id="demo-simple-select"
+                style={{ margin: 5 }}
+                value={addStudent.genderId}
+                label="Gender"
+                onChange={handleAddStudentChange}
+              >
+                {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
+                    <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
+                )) :
+                <MenuItem value={0}>Loading....</MenuItem>
+                }
+              </Select>
+            </FormControl>
+          </div>
+          <div>
+            <Button 
+              id="addBttn" 
+              variant="outlined"
+              style={{ margin: 5, width: 400 }}
+              endIcon={<AddIcon />}
+              onClick={handleAddStudent}
             >
-              {(Object.keys(settings).length > 0 ) ? settings.gender.map((ge)=> (
-                  <MenuItem key={ge.id} value={ge.id}>{ge.name}</MenuItem>
-              )) :
-              <MenuItem value={0}>Loading....</MenuItem>
-              }
-            </Select>
-          </FormControl>
-          <Button 
-            id="addBttn" 
-            variant="outlined" 
-            endIcon={<AddIcon />}
-            onClick={handleAddStudent}
-          >
-            Add Student
-          </Button>
-        </span>
-      </Box>
-    </div>
+              Add Student
+            </Button>
+          </div>
+        </Box>
+      </center>
+    </>
   );
 }
 

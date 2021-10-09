@@ -11,9 +11,6 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminViewStudent from '../AdminView/AdminViewStudent';
@@ -29,11 +26,12 @@ function App() {
 
   const user = useSelector(store => store.user);
 
-  // This useEffect gets the registration code to the registration page
+  // Gets the registration code to the registration page
   useEffect(() => {
     dispatch({ type: 'GET_SETTINGS'});
   }, []);
 
+  // Checks to see if user is logged in
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -131,20 +129,6 @@ function App() {
               :
               // Otherwise, show the registration page
               <RegisterPage />
-            }
-          </Route>
-
-          <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
-              <LandingPage />
             }
           </Route>
 

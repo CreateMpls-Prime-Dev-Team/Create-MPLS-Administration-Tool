@@ -60,8 +60,9 @@
     box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
     border-radius: 3px;
     outline: none;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 18px;
+    font-weight: 500;
     text-align: left;
     text-overflow: ellipsis;
     line-height: 36px;

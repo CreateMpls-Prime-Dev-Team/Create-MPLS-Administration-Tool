@@ -116,11 +116,11 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
  router.put('/update/:id', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
-    req.body.firstName, 
-    req.body.lastName,
-    req.body.genderId,
-    req.body.gradeId,
-    req.body.ethnicityId,
+    req.body.first_name, 
+    req.body.last_name,
+    req.body.gender_id,
+    req.body.grade_id,
+    req.body.ethnicity_id,
     req.body.age,
     req.params.id 
   ];

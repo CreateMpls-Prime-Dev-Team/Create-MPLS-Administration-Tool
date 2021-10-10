@@ -5,7 +5,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
 
 /**** GET /api/program/record/:id ****/
 // Get program record by id
- router.get('/record/:id', rejectUnauthenticated, (req, res) => {
+router.get('/record/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     SELECT
@@ -37,7 +37,7 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     SELECT
-      p.id program_id,
+      p.id id,
       p.name,
       p.location,
       p.type_id,
@@ -63,9 +63,9 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
 router.post('/add', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
-    req.body.name, 
-    req.body.location,
-    req.body.typeId
+    req.body.programName, 
+    req.body.programLocation,
+    req.body.programType
   ];
 
   const statement = `

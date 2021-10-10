@@ -107,11 +107,10 @@ function* addProgram(action){
 }
 
 //GETS a list of all the programs. 
-function* getProgram(action){
-    console.log('action.payload', action.payload);
+function* getProgram(){
     try {
-        yield axios.get(`???`, action.payload);
-        yield put({ type: 'GET_PROGRAM_COMPLETED' });
+        const result = yield axios.get(`api/program/records`);
+        yield put({ type: 'GET_PROGRAM_COMPLETED', payload: result.data });
     } catch (error) {
         console.log('error getting Programs', error);
         yield put({ type: 'GET_PROGRAM_FAILED' });

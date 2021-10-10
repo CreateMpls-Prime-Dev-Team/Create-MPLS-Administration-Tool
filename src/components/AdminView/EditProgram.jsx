@@ -1,135 +1,92 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+  Button,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+} from "@mui/material";
+
+
 
 const EditProgram = () => {
-    //DROP DOWN PROGRAM MENU STUFF
-    //local states for drop-down
-    const [programType, setprogramType] = React.useState('')
+  const dispatch = useDispatch();
+  const programToEdit = useSelector(store => store.programToEdit);
+  const settings = useSelector(store => store.settings);
 
-    function ProgramSearch() {
-      //Local state for student selection
-      const [selectedStudent, setselectedStudent] = React.useState(0)
-      console.log("this is selcted student", selectedStudent);
-      const searchInput = useRef();
-      const options = [
-        {
-          type: "group",
-          name: "North Minneapolis",
-          items: [
-            { name: "Lego League", ethnicity: "black", value: "1" },
-            { name: "Robotics", value: "2" }
-          ]
-        },
-        {
-          type: "group",
-          name: "South Minneapolis",
-          items: [
-            { name: "Lego League", value: "3" },
-            { name: "Robotics", value: "4" },
-            { name: "Roshmotics", value: "5" }
-          ]
-        }
-      ];
-    
-      const handleFilter = (items) => {
-        return (searchValue) => {
-          if (searchValue.length === 0) {
-            return options;
-          }
-          const updatedItems = items.map((list) => {
-            const newItems = list.items.filter((item) => {
-              return item.name.toLowerCase().includes(searchValue.toLowerCase());
-            });
-            return { ...list, items: newItems };
-          });
-          return updatedItems;
-        };
-      };
-    
-     
-      return (
-        <div className="App">
-          <SelectSearch
-            ref={searchInput}
-            options={options}
-            filterOptions={handleFilter}
-            value={selectedStudent}
-            name="Student-Search"
-            placeholder="Select a program"
-            search
-            onChange={setselectedStudent}
-          />
-        </div>
-      );
+  const handleChange = (event) => {
+    dispatch({
+        type: 'SET_PROGRAM_TO_EDIT',
+        payload: { ...programToEdit, [event.target.name]:event.target.value }
+      })
     }
-    //END OF PROGRAM DROP DOWN STUFF
-//START OF STUDENT SEARCH DROP DOWN
-function StudentSearch() {
-  //Local state for student selection
-  const [selectedStudent, setselectedStudent] = React.useState(0)
-  console.log("this is selcted student", selectedStudent);
-  const searchInput2 = useRef();
-  const options2 = [
-    {
-      type: "group",
-      name: "Student Names",
-      items: [
-        { name: "Brad Johansen", value: "1" },
-        { name: "Alex Goldberg", value: "2" },
-        { name: "Chris F", value: "3" },
-        { name: "Yung Curtis", value: "4" }
 
-      ]
+  const handleUpdate = () => {
+    console.log('TIME TO UPDATE', studentToEdit);
+    dispatch({
+        type: 'EDIT_STUDENT',
+        payload: studentToEdit
+    })
+  }
+
+  const handleDelete = () => {
+    if(confirm('This will make the student unavailable')){
+        dispatch({ type: 'DELETE_STUDENT', payload: studentToEdit.id })
     }
-  ];
-
-  const handleFilter = (items) => {
-    return (searchValue) => {
-      if (searchValue.length === 0) {
-        return options2;
-      }
-      const updatedItems = items.map((list) => {
-        const newItems = list.items.filter((item) => {
-          return item.name.toLowerCase().includes(searchValue.toLowerCase());
-        });
-        return { ...list, items: newItems };
-      });
-      return updatedItems;
-    };
-  };
-
- 
-  return (
-    <div className="App">
-      <SelectSearch
-        ref={searchInput2}
-        options={options2}
-        filterOptions={handleFilter}
-        value={selectedStudent}
-        name="Student-Search"
-        placeholder="Choose a student"
-        search
-        onChange={setselectedStudent}
-      />
-    </div>
-  );
-}
-//END STUDENT SEARCH DROPDOWN
+  }
+  
     return (
-        <div>
-            <h1>Edit Existing Program</h1>
-          <div id = "oneLine">
-          <ProgramSearch/>
-
-          <Button id="deleteBttn" color = "error" variant="outlined">
+      <div>
+        <TextField 
+          required 
+          name="name"
+          variant="outlined"
+          style={{ margin: 5 }}
+          label="First Name"
+          value={programToEdit.name}
+          onChange={handleChange}
+        />
+        <TextField 
+          required 
+          name="location"
+          variant="outlined"
+          style={{ margin: 5 }}
+          label="First Name"
+          value={programToEdit.location}
+          onChange={handleChange}
+        />
+        <FormControl>
+          <Select
+            name="type_id"
+            style={{ margin: 5 }}
+            onChange={handleChange}
+            value={programToEdit.type_id}
+          >
+            {(Object.keys(settings).length > 0 ) ? settings.type.map((t)=> (
+                <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
+            )) :
+                <MenuItem value={0}>Loading....</MenuItem>
+            }
+          </Select>
+      </FormControl>
+        <Button 
+          id="deleteBttn" 
+          color="error" 
+          variant="outlined"
+          onClick={handleDelete}
+        >
           Delete Program
         </Button>
-        </div>
-          <h2>Add Students to Class</h2>
-          <StudentSearch/>
-            <Button id="addBttn" variant="outlined">
-          Add Student
+        <Button 
+          id="addBttn" 
+          variant="outlined"
+          onClick={handleUpdate}
+        >
+          SAVE
         </Button>
-        </div>
+          
+      </div>
     )
 }
 

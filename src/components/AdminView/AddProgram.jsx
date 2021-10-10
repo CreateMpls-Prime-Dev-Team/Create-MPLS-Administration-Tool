@@ -54,25 +54,6 @@ const AddProgram = () => {
                             value={addProgram.programName}
                             onChange={handleAddProgramChange}
                         />
-                    </div>
-                    <FormControl>
-                        <InputLabel>Type</InputLabel>
-                        <Select
-                            id="demo-simple-select"
-                            label="Program Type"
-                            name="programType"
-                            style={{ margin: 5, width: 400 }}
-                            value={addProgram.programType}
-                            onChange={handleAddProgramChange}
-                        >
-                            {(Object.keys(settings).length > 0 ) ? settings.type.map((t)=> (
-                                <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
-                            )) :
-                                <MenuItem value={0}>Loading....</MenuItem>
-                            }
-                        </Select>
-                    </FormControl>
-                    <div>
                         <TextField 
                             required 
                             name="programLocation"
@@ -84,10 +65,29 @@ const AddProgram = () => {
                         />
                     </div>
                     <div>
+                        <FormControl>
+                            <InputLabel>Type</InputLabel>
+                            <Select
+                                id="demo-simple-select"
+                                label="Program Type"
+                                name="programType"
+                                style={{ margin: 5, width: "100%" }}
+                                value={addProgram.programType}
+                                onChange={handleAddProgramChange}
+                            >
+                                {(Object.keys(settings).length > 0 ) ? settings.type.map((t)=> (
+                                    <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
+                                )) :
+                                    <MenuItem value={0}>Loading....</MenuItem>
+                                }
+                            </Select>
+                        </FormControl>    
+                    </div>
+                    <div>
                         <Button 
                             id="addBttn"
                             variant="outlined"
-                            style={{ margin: 5, width: 400 }}
+                            style={{ margin: 5, width: 300 }}
                             endIcon={<AddIcon />}
                             onClick={handleAddProgram}
                         >

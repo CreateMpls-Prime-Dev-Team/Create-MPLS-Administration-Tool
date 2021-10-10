@@ -29,13 +29,14 @@ Button
 .btn {
   display: inline-block;
   padding: 5px 10px;
-  margin-right: 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
+  margin-right: 25px;
+  margin-left: 25px;
+  /* border-color: #014041;
+  border-width: 1px 1px 3px; */
   border-radius: 4px;
   background-color: #9acde3;
   color: #f8f8f8;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   outline: 0;
   cursor: pointer;
 }
@@ -64,7 +65,7 @@ Button
 .btn_asLink {
   padding: 0;
   border-width: 0;
-  border-bottom: 1px solid #444;
+  /* border-bottom: 1px solid #444; */
   border-radius: 0;
   background: none;
   font: inherit;

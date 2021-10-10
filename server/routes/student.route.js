@@ -52,13 +52,23 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
       s.first_name,
       s.last_name,
       s.gender_id,
+      ge.name gender_name,
       s.age,
       s.grade_id,
+      gr.name grade_name,
+      gr.abbrev grade_abbrev,
       s.ethnicity_id,
+      et.name ethnicity_name,
       s.is_active,
       s.updated_on,
       s.created_on
     FROM student s
+    JOIN grade gr
+      ON (gr.id = s.grade_id)
+    JOIN gender ge
+      ON (ge.id = s.gender_id)
+    JOIN ethnicity et
+      ON (et.id = s.ethnicity_id)
     WHERE is_active = TRUE;
     `;
 
@@ -106,11 +116,11 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
  router.put('/update/:id', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
-    req.body.firstName, 
-    req.body.lastName,
-    req.body.genderId,
-    req.body.gradeId,
-    req.body.ethnicityId,
+    req.body.first_name, 
+    req.body.last_name,
+    req.body.gender_id,
+    req.body.grade_id,
+    req.body.ethnicity_id,
     req.body.age,
     req.params.id 
   ];

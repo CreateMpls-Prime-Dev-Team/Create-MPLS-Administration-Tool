@@ -12,7 +12,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/user">
-        <img src="design_b.png" className="nav-title" width="100"/>
+        <img src="design_b.png" className="nav-title" width="150"/>
         {/* <Typography variant="h3" className="nav-title">CreateMPLS Portal</Typography> */}
       </Link>
       <div>

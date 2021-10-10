@@ -28,7 +28,9 @@ function* getStudent(){
 function* editStudent(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`api/student/update/${action.payload.id}`, action.payload)
+        yield axios.put(`api/student/update/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_STUDENT' });
+        //yield put({ type: 'UNSET_STUDENT_TO_EDIT' });
     } catch (error) {
          console.log('Error Editing a Students info', error);
         yield put({ type: 'EDIT_STUDENT_FAILED' });
@@ -39,7 +41,9 @@ function* editStudent(action){
 function* deleteStudent(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`api/student/toggle-active/${action.payload.id}`)
+        yield axios.put(`api/student/toggle-active/${action.payload}`);
+        yield put({ type: 'FETCH_STUDENT' });
+        //yield put({ type: 'UNSET_STUDENT_TO_EDIT' });
     } catch (error) {
         console.log('Error deleting Student', error);
         yield put({ type: 'DELETE_STUDENT_FAILED' });

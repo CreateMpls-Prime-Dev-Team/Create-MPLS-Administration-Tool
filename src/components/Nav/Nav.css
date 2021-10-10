@@ -14,11 +14,9 @@
 }
 
 .nav-title {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 400;
   color: #f2f2f2;
-  padding-left: 10px;
-  margin: 0;
 }
 
 .navLink {
@@ -26,13 +24,14 @@
   color: #f2f2f2;
   background-color: #575857;
   text-align: center;
-  padding: 24px 10px;
+  padding: 14px 30px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 22px;
 
   /* these last two make the logout button in
   the nav bar look like another link */
-  border: none;
+  border-right-style: solid;
+  border-color: #fff;
   cursor: pointer;
   outline: 0;
 }

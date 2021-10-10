@@ -15,7 +15,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminViewStudent from '../AdminView/AdminViewStudent';
 import Staff from '../AdminView/Staff';
-import Program from '../AdminView/Program';
+import AdminViewProgram from '../AdminView/AdminViewProgram';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
 import AttendancePage from '../AttendancePage/AttendancePage';
 
@@ -86,7 +86,7 @@ function App() {
             path="/program"
           >
             {user.id ?
-              <Program />
+              <AdminViewProgram />
               :
               <Redirect to="/login" />
             }

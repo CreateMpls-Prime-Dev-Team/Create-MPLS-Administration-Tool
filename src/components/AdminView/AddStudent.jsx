@@ -52,7 +52,6 @@ function AddStudent() {
               name="firstName"
               variant="outlined"
               style={{ margin: 5, width: '45%' }}
-              required 
               label="First Name"
               value={addStudent.firstName}
               onChange={handleAddStudentChange}
@@ -61,8 +60,7 @@ function AddStudent() {
               required 
               name="lastName"
               variant="outlined"
-              style={{ margin: 5, width: '45%' }}
-              required  
+              style={{ margin: 5, width: '45%' }} 
               label="Last Name" 
               value={addStudent.lastName}
               onChange={handleAddStudentChange}
@@ -74,7 +72,6 @@ function AddStudent() {
               name="age"
               variant="outlined"
               style={{ margin: 5, width: 100 }}
-              required
               label="Age" 
               value={addStudent.age}
               onChange={handleAddStudentChange}
@@ -91,7 +88,7 @@ function AddStudent() {
                 {(Object.keys(settings).length > 0 ) ? settings.grade.map((gr)=> (
                     <MenuItem key={gr.id} value={gr.id}>{gr.name}</MenuItem>
                 )) :
-                <MenuItem value={0}>Loading....</MenuItem>
+                    <MenuItem value={0}>Loading....</MenuItem>
                 }
               </Select>
             </FormControl>

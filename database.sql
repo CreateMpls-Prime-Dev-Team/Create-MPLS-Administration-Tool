@@ -126,20 +126,9 @@ VALUES
 INSERT INTO type 
 	( name ) 
 VALUES
-    ( 'Kindergarten – Intro to tech' ),
-    ( '1st grade – Intro to tech' ),
-    ( '2nd grade – Intro to tech: mechanisms' ),
-    ( '3rd grade – Intro to tech: sensors & motors' ),
-    ( '4th grade – Intro to tech' ),
-    ( '5th grade – Intro to tech' ),
-    ( '5th grade – Intermediate tech' ),
-    ( '6th grade – Intermediate tech' ),
-    ( 'High School Robotics Elective – Intro to tech' ),
-    ( 'FTC' ),
-    ( 'FLL Challenge' ),
-    ( 'FLL Explore' ),
-    ( 'FLL Discover' ),
-    ( 'Technovation' );
+    ( 'Classroom Program' ),
+    ( 'Competitive Team' ),
+    ( 'Learning Lab' );
 
 INSERT INTO grade 
 	( name, abbrev ) 

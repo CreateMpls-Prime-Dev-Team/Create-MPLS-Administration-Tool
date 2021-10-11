@@ -39,6 +39,10 @@ function Nav() {
               STAFF
             </Link>
 
+            <Link className="navLink" to="/config">
+              CONFIG
+            </Link>
+
             {/* <Link className="navLink" to="/info">
               Info
             </Link> */}

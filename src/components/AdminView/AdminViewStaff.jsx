@@ -74,7 +74,7 @@ function AdminViewStaff() {
 
   return (
     <div>
-      <div class="headerClass">
+      <div className="headerClass">
         <h1>Edit Staff</h1>
         <div class = "oneLine">
           <StaffSearch />
@@ -108,31 +108,6 @@ function AdminViewStaff() {
         <p>Lego League X</p>
         <p>Lego League X</p>
       <br />
-
-      <div class="headerClass">
-        <h1>Edit Registration Code</h1>
-      </div>
-
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        {/* Update Registration Code */}
-        <TextField
-          id="outlined-required"
-          onChange={(e) => {
-            setregistrationCode(e.target.value);
-          }}
-          label="Current-Example123"
-        />
-        <Button id="addBttn" variant="outlined">
-          Update
-        </Button>
-      </Box>
     </div>
   );
 }

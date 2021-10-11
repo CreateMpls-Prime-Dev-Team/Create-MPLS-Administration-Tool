@@ -31,8 +31,8 @@ const EditProgram = () => {
   }
 
   const handleDelete = () => {
-    if(confirm('This will make the student unavailable')){
-        dispatch({ type: 'DELETE_STUDENT', payload: studentToEdit.id })
+    if(confirm('This will make the program unavailable')){
+        dispatch({ type: 'DELETE_PROGRAM', payload: programToEdit.id })
     }
   }
   

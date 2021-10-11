@@ -85,10 +85,21 @@ function* deleteTeacher(action){
 }
 
 // PUTS(edit) the registration code.
-function* editSettingsCode(action){
+function* editTeacherCode(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`api/configuration/setting/:settingVariable`, action.payload)
+        yield axios.put(`api/config/setting/teacherCode`, action.payload)
+    } catch (error) {
+        console.log('Error Editing the Registration Code', error);
+        yield put({ type: 'EDIT_CODE_FAILED' });
+    }
+}
+
+// PUTS(edit) the registration code.
+function* editAdminCode(action) {
+    console.log('action.payload', action.payload);
+    try {
+        yield axios.put(`api/config/setting/adminCode`, action.payload)
     } catch (error) {
         console.log('Error Editing the Registration Code', error);
         yield put({ type: 'EDIT_CODE_FAILED' });
@@ -159,7 +170,8 @@ function* adminSaga() {
     yield takeLatest('FETCH_TEACHER', getTeacher);
     yield takeLatest('EDIT_TEACHER_PROGRAMS', editAssignedPrograms);
     yield takeLatest('DELETE_TEACHER', deleteTeacher);
-    yield takeLatest('EDIT_CODE', editSettingsCode);
+    yield takeLatest('EDIT_ADMIN_CODE', editAdminCode);
+    yield takeLatest('EDIT_TEACHER_CODE', editTeacherCode);
     yield takeLatest('ADD_PROGRAM', addProgram);
     yield takeLatest('FETCH_PROGRAM', getProgram);
     yield takeLatest('DELETE_PROGRAM', deleteProgram);

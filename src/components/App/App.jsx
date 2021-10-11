@@ -15,6 +15,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminViewStudent from '../AdminView/AdminViewStudent';
 import AdminViewStaff from '../AdminView/AdminViewStaff';
 import AdminViewProgram from '../AdminView/AdminViewProgram';
+import AdminViewConfig from '../AdminView/AdminViewConfig';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
 import AttendancePage from '../AttendancePage/AttendancePage';
 import './App.css';
@@ -110,6 +111,18 @@ function App() {
           >
             {user.id ?
               <AdminViewStaff />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
+
+          <Route
+            // logged in shows AdminConfig else shows LoginPage
+            exact
+            path="/config"
+          >
+            {user.id ?
+              <AdminViewConfig />
               :
               <Redirect to="/login" />
             }

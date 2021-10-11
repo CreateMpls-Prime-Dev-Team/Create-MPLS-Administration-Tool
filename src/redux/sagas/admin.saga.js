@@ -100,6 +100,7 @@ function* addProgram(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.post(`api/program/add`, action.payload);
+        yield put({ type: 'FETCH_PROGRAM' });
     } catch (error) {
         console.log('Error with adding Program', error);
         yield put({ type: 'ADD_PROGRAM_FAILED' });
@@ -107,11 +108,10 @@ function* addProgram(action){
 }
 
 //GETS a list of all the programs. 
-function* getProgram(action){
-    console.log('action.payload', action.payload);
+function* getProgram(){
     try {
-        yield axios.get(`???`, action.payload);
-        yield put({ type: 'GET_PROGRAM_COMPLETED' });
+        const result = yield axios.get(`api/program/records`);
+        yield put({ type: 'GET_PROGRAM_COMPLETED', payload: result.data });
     } catch (error) {
         console.log('error getting Programs', error);
         yield put({ type: 'GET_PROGRAM_FAILED' });
@@ -120,9 +120,9 @@ function* getProgram(action){
 
 //DELETES a program (soft).
 function* deleteProgram(action){
-    console.log('action.payload', action.payload);
     try {
-        yield axios.delete(`???${action.payload}`)
+        yield axios.delete(`/api/program/toggle-active/${action.payload}`);
+        yield put({ type: 'FETCH_PROGRAM' });
     } catch (error) {
         console.log('Error deleting Program', error);
         yield put({ type: 'DELETE_PROGRAM_FAILED' });

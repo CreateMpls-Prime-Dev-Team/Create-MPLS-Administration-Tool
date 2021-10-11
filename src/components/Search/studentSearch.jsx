@@ -14,16 +14,19 @@ function StudentSearch() {
 
     const searchInput = useRef();
 
+    // Send Student Data object to edit
     useEffect(() => {
+        //Iterate through student list to match id with selected id
         studentList.map((student) => {
             if (student.id === selectedStudentId) {
+                //Once a match has been found send the student object to be used.
                 dispatch({
                     type: 'SET_STUDENT_TO_EDIT',
                     payload: student
                 })
             }
         });
-    }, [selectedStudentId])
+    }, [selectedStudentId]);
 
     let items = []; // create a list of students
     studentList.map((student) => {
@@ -31,7 +34,7 @@ function StudentSearch() {
             name: `${student.first_name} ${student.last_name}`,
             value: student.id
         })
-    })
+    });
 
     const options = [ // To render menu
         {

@@ -14,7 +14,7 @@ import SelectSearch from "react-select-search";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-function Staff() {
+function AdminViewStaff() {
   //local state for drop-down
   const [assignedProgram, setassignedProgram] = React.useState("");
   const [registrationCode, setregistrationCode] = React.useState("");
@@ -137,4 +137,4 @@ function Staff() {
   );
 }
 
-export default Staff;
+export default AdminViewStaff;

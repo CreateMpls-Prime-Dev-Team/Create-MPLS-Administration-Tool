@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./AdminView.css";
 import { useSelector, useDispatch } from 'react-redux';
 
-import StudentSearch from "../Search/studentSearch";
+import StudentSearch from "../Search/StudentSearch";
 import AddStudent from "./AddStudent";
 import EditStudent from "./EditStudent";
 import StudentDataGrid from "../DataGrid/StudentDataGrid";

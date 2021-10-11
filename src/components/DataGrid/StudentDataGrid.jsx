@@ -1,13 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { 
-    Button, 
-    Select, 
-    MenuItem,
-    FormControl,
-    InputLabel 
-} from '@mui/material';
 
 
 const StudentDataGrid = () => {
@@ -24,17 +17,17 @@ const StudentDataGrid = () => {
 
     return (
         <>
-        <center>
-        <div style={{ height: 500, width: '75%' }}>
-            <DataGrid 
-                rows={studentList} 
-                columns={columns} 
-                components={{
-                    Toolbar: GridToolbar,
-                }}
-            />
-        </div>
-        </center>
+            <center>
+                <div style={{ height: 500, width: '75%' }}>
+                    <DataGrid 
+                        rows={studentList} 
+                        columns={columns} 
+                        components={{
+                            Toolbar: GridToolbar,
+                        }}
+                    />
+                </div>
+            </center>
         </>
     )
 }

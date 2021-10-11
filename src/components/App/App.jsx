@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -18,8 +17,8 @@ import AdminViewStaff from '../AdminView/AdminViewStaff';
 import AdminViewProgram from '../AdminView/AdminViewProgram';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
 import AttendancePage from '../AttendancePage/AttendancePage';
-
 import './App.css';
+import Dashboard from '../AdminView/Dashboard';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ function App() {
 
   // Gets the registration code to the registration page
   useEffect(() => {
-    dispatch({ type: 'GET_SETTINGS'});
+    dispatch({ type: 'GET_SETTINGS'});``
   }, []);
 
   // Checks to see if user is logged in
@@ -75,6 +74,18 @@ function App() {
           >
             {user.id ?
               <AdminViewStudent />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
+
+          <Route
+            // logged in shows Dashboard else shows LoginPage
+            exact
+            path="/dashboard"
+          >
+            {user.id ?
+              <Dashboard/>
               :
               <Redirect to="/login" />
             }

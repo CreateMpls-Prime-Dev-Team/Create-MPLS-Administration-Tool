@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Select from "@mui/material/Select";
-import Container from "@mui/material/Container";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Checkbox from '@mui/material/Checkbox';
-import Button from "@mui/material/Button";
-import TextField from '@mui/material/TextField';
+import { 
+    Typography, 
+    Select, 
+    Container, 
+    Box, 
+    InputLabel, 
+    MenuItem, 
+    FormControl, 
+    Checkbox, 
+    Button, 
+    TextField 
+} from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
 function AttendancePage() {
+    const { id } = useParams();
     const history = useHistory();
 
     //local state for form
-    //still need to handle clicking checkboxes
     const [date, setDate] = React.useState(null);
     const [duration, setDuration] = useState(0);
     const [volunteerCount, setVolunteerCount] = useState(0);
@@ -42,6 +44,7 @@ function AttendancePage() {
     };
     const handleClose = () => {
         setOpen(false);
+        history.push('/teacher');
     };
     
 
@@ -50,8 +53,8 @@ function AttendancePage() {
         <div>
         <img src="design_a.png" width="150" height="100"/>
         {/* HEADER - will need to GET this from DB */}
-        <Typography variant="h4">Learning Lab</Typography>
-        <Typography variant="h5">Hope Academy</Typography>
+        <Typography variant="h4" align="left" sx={{ marginLeft: 3 }}>Learning Lab</Typography>
+        <Typography variant="h5" align="left" sx={{ marginLeft: 3 }}>Hope Academy</Typography>
         </div>
         <center>
         {/* Date Picker */}
@@ -63,8 +66,6 @@ function AttendancePage() {
                 renderInput={(params) => <TextField {...params} />}
             />
         </LocalizationProvider>
-
-        {/* Upper form */}
         <Container>
             <Box >
                 <div>
@@ -104,42 +105,7 @@ function AttendancePage() {
                 </FormControl>
                 </div>
             </Box>
-
-            {/* List of students (will need to GET from DB) */}
-                    <TableContainer style={{ maxWidth: 300 }} component={Paper}>
-                <Table aria-label="program list">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell>STUDENT LIST</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {/* {rows.map((row) => (
-                            <TableRow
-                                key={row.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                <TableCell component="th" scope="row"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                            </TableRow>
-                        ))} */}
-                        <TableRow>
-                            <TableCell><Checkbox/></TableCell>
-                            <TableCell>Sammy Student</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><Checkbox/></TableCell>
-                            <TableCell>Suzie Student</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><Checkbox/></TableCell>
-                            <TableCell>Stevie Student</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            {/* student buttons go here*/}
         </Container>
 
         {/* Submit and Cancel buttons */}

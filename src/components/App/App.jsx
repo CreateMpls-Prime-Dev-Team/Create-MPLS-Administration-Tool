@@ -145,7 +145,7 @@ function App() {
 
           <Route
             exact
-            path="/attendance"
+            path="/attendance/:id"
           >
             {user.id ?
               <AttendancePage />

@@ -52,6 +52,7 @@ CREATE TABLE "program" (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR (255),
 	location VARCHAR (255),
+    is_active BOOLEAN DEFAULT TRUE,
 	type_id INT REFERENCES "type",
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
@@ -61,6 +62,7 @@ CREATE TABLE staff_program_assignment (
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES "user",
 	program_id INT REFERENCES "program",
+    is_active BOOLEAN DEFAULT TRUE,
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
     created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
     UNIQUE ( user_id, program_id )
@@ -70,7 +72,7 @@ CREATE TABLE program_occurrence (
 	id SERIAL PRIMARY KEY,
 	assignment_id INT REFERENCES staff_program_assignment,
 	duration INT,
-	date TIMESTAMP WITHOUT TIME ZONE,
+	at_date DATE,
 	volunteers INT,
 	updated_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 	created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
@@ -124,8 +126,9 @@ VALUES
 INSERT INTO type 
 	( name ) 
 VALUES
-    ( 'female' ),
-    ( 'male' );
+    ( 'Classroom Program' ),
+    ( 'Competitive Team' ),
+    ( 'Learning Lab' );
 
 INSERT INTO grade 
 	( name, abbrev ) 
@@ -159,5 +162,6 @@ VALUES
 INSERT INTO settings 
 	( variable, value ) 
 VALUES
-    ( 'code', 'team-createMPLS' );
+    ( 'teacherCode', 'team-createMPLS-teacher' ),
+    ( 'adminCode', 'team-createMPLS-admin' );
 	

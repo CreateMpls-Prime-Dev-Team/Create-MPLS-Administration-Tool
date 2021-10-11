@@ -7,6 +7,7 @@ function LoginPage() {
 
   return (
     <div>
+      <img src="design_a.png" width="400" height="300"/>
       <LoginForm />
 
       <center>
@@ -17,7 +18,7 @@ function LoginPage() {
             history.push('/registration');
           }}
         >
-          Register
+          New user? Register here
         </button>
       </center>
     </div>

@@ -1,27 +1,38 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, TextField, Typography} from '@mui/material';
 
 function RegisterForm() {
+  // local state for form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [registrationCode, setRegistrationCode] = useState('');
+
+  //Selectors to get errors and registration code from db
   const errors = useSelector((store) => store.errors);
+  const settings = useSelector((store) => store.settings);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-      },
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+          registrationCode: registrationCode,
+        },
     });
   }; // end registerUser
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <Typography variant="h4">REGISTER USER</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -29,10 +40,11 @@ function RegisterForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
-          <input
-            type="text"
+          <TextField
+            variant="outlined"
             name="username"
+            placeholder="username"
+            size="small"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
@@ -41,10 +53,12 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Password:
-          <input
+          <TextField
+            variant="outlined"
             type="password"
             name="password"
+            placeholder="password"
+            size="small"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
@@ -52,7 +66,53 @@ function RegisterForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <label htmlFor="firstName">
+          <TextField
+            variant="outlined"
+            name="firstName"
+            placeholder="first name"
+            size="small"
+            value={firstName}
+            required
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="lastName">
+          <TextField
+            variant="outlined"
+            name="lastName"
+            placeholder="last name"
+            size="small"
+            value={lastName}
+            required
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="registrationCode">
+          <TextField
+            variant="outlined"
+            name="registrationCode"
+            placeholder="registration code"
+            size="small"
+            value={registrationCode}
+            required
+            onChange={(event) => setRegistrationCode(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <Button 
+          variant="contained"
+          size="large"
+          className="btn" 
+          type="submit" 
+          name="submit" 
+          value="Register" 
+          >Submit & Login</Button>
       </div>
     </form>
   );

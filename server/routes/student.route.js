@@ -3,9 +3,8 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET /api/student/record/:id
- */
+/**** GET /api/student/record/:id ****/
+// Fetch student record based on id
 router.get('/record/:id', rejectUnauthenticated, (req, res) => {
   
     const statement = `
@@ -43,19 +42,47 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-/**
- * POST add student
- * 
- * example of input
- * 
- * {
- *  "firstName": "Bob",
- *  "lastName": "Builder",
- *  "genderId": "1",
- *  "gradeId": "2",
- *  "ethnicityId": "2"
- *  }
- */
+/**** GET /api/student/records ****/
+// Fetch all student records
+router.get('/records', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT
+      s.id,
+      s.first_name,
+      s.last_name,
+      s.gender_id,
+      ge.name gender_name,
+      s.age,
+      s.grade_id,
+      gr.name grade_name,
+      gr.abbrev grade_abbrev,
+      s.ethnicity_id,
+      et.name ethnicity_name,
+      s.is_active,
+      s.updated_on,
+      s.created_on
+    FROM student s
+    JOIN grade gr
+      ON (gr.id = s.grade_id)
+    JOIN gender ge
+      ON (ge.id = s.gender_id)
+    JOIN ethnicity et
+      ON (et.id = s.ethnicity_id)
+    WHERE is_active = TRUE;
+    `;
+
+  db.query(statement)
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/student/record/:id', err);
+    res.sendStatus(500)
+  });
+});
+/**** POST /api/student/add ****/
+// Add new student
 router.post('/add', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
@@ -63,14 +90,15 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     req.body.lastName,
     req.body.genderId,
     req.body.gradeId,
-    req.body.ethnicityId 
+    req.body.ethnicityId,
+    req.body.age 
   ];
 
   const statement = `
     INSERT INTO student
-      ( first_name, last_name, gender_id, grade_id, ethnicity_id )
+      ( first_name, last_name, gender_id, grade_id, ethnicity_id, age )
     VALUES
-      ( $1, $2, $3, $4, $5 );
+      ( $1, $2, $3, $4, $5, $6 );
   `;
 
   db.query(statement, params)
@@ -83,27 +111,17 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
   });
 });
 
-/**
- * PUT update student
- * 
- * example of input
- * 
- * {
- *  "firstName": "Bob",
- *  "lastName": "Tables",
- *  "genderId": "1",
- *  "gradeId": "2",
- *  "ethnicityId": "2"
- *  }
- */
+/**** PUT /api/student/update/:id ****/
+// Update student
  router.put('/update/:id', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
-    req.body.firstName, 
-    req.body.lastName,
-    req.body.genderId,
-    req.body.gradeId,
-    req.body.ethnicityId,
+    req.body.first_name, 
+    req.body.last_name,
+    req.body.gender_id,
+    req.body.grade_id,
+    req.body.ethnicity_id,
+    req.body.age,
     req.params.id 
   ];
 
@@ -115,8 +133,9 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
       gender_id = $3, 
       grade_id = $4, 
       ethnicity_id = $5,
+      age = $6,
       updated_on = NOW()
-    WHERE id = $6
+    WHERE id = $7
   `;
 
   db.query(statement, params)
@@ -125,12 +144,13 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
   })
   .catch(err => {
     console.log('ERROR - get:/api/student/update/:id', err);
-    res.sendStatus(500)
+    res.sendStatus(500);
   });
 });
 
 
-// Toggles state of is_active
+/**** Post /api/student/toggle-active/:id ****/
+// Toggles-Changes active state
 router.put('/toggle-active/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
@@ -146,7 +166,7 @@ router.put('/toggle-active/:id', rejectUnauthenticated, (req, res) => {
   })
   .catch(err => {
     console.log('ERROR - get:/api/student/update/:id', err);
-    res.sendStatus(500)
+    res.sendStatus(500);
   });
 });
 

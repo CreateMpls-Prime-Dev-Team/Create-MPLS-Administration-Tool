@@ -5,30 +5,33 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AdminViewStudent from '../AdminView/AdminViewStudent';
+import AdminViewStaff from '../AdminView/AdminViewStaff';
+import AdminViewProgram from '../AdminView/AdminViewProgram';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
+import AttendancePage from '../AttendancePage/AttendancePage';
 
 import './App.css';
-import AttendancePage from '../AttendancePage/AttendancePage';
 
 function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
 
+  // Gets the registration code to the registration page
+  useEffect(() => {
+    dispatch({ type: 'GET_SETTINGS'});
+  }, []);
+
+  // Checks to see if user is logged in
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -36,10 +39,10 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        {user.is_admin && <Nav />}
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
+          <Redirect exact from="/" to="/login" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
@@ -59,16 +62,47 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            {user.is_admin ?
+              <Redirect to="/add-student" />:
+              <Redirect to="/teacher" />
+            }
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+          <Route
+            // logged in shows AddStudent else shows LoginPage
             exact
-            path="/info"
+            path="/add-student"
           >
-            <InfoPage />
-          </ProtectedRoute>
+            {user.id ?
+              <AdminViewStudent />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
+
+          <Route
+            // logged in shows AddStudent else shows LoginPage
+            exact
+            path="/program"
+          >
+            {user.id ?
+              <AdminViewProgram />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
+
+          <Route
+            // logged in shows Staff else shows LoginPage
+            exact
+            path="/staff"
+          >
+            {user.id ?
+              <AdminViewStaff />
+              :
+              <Redirect to="/login" />
+            }
+          </Route>
 
           <Route
             exact
@@ -100,29 +134,12 @@ function App() {
 
           <Route
             exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
-              <LandingPage />
-            }
-          </Route>
-
-          <Route
-            exact
             path="/teacher"
           >
             {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the login page
               <TeacherPortal />
+              :
+              <Redirect to="/login" />
             }
           </Route>
 
@@ -131,12 +148,9 @@ function App() {
             path="/attendance"
           >
             {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the login page
               <AttendancePage />
+              :
+              <Redirect to="/login" />
             }
           </Route>
 

@@ -47,10 +47,12 @@ function AttendancePage() {
 
     return (
         <>
+        <div>
+        <img src="design_a.png" width="150" height="100"/>
         {/* HEADER - will need to GET this from DB */}
         <Typography variant="h4">Learning Lab</Typography>
         <Typography variant="h5">Hope Academy</Typography>
-
+        </div>
         <center>
         {/* Date Picker */}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -64,7 +66,7 @@ function AttendancePage() {
 
         {/* Upper form */}
         <Container>
-            <Box>
+            <Box >
                 <div>
                 <FormControl sx={{m: 1, minWidth: 200}}>
                     <InputLabel>Duration (min)</InputLabel>
@@ -104,12 +106,12 @@ function AttendancePage() {
             </Box>
 
             {/* List of students (will need to GET from DB) */}
-            <TableContainer component={Paper}>
+                    <TableContainer style={{ maxWidth: 300 }} component={Paper}>
                 <Table aria-label="program list">
                     <TableHead>
                         <TableRow>
                             <TableCell></TableCell>
-                            <TableCell>STUDENT</TableCell>
+                            <TableCell>STUDENT LIST</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -4,16 +4,15 @@ const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-/**
- * GET /api/occurrence/record/:id
- */
- router.get('/record/:id', rejectUnauthenticated, (req, res) => {
+/**** PUT /api/occurrence/record/:id ****/
+// Update occurrence record by id
+router.get('/record/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     SELECT
       assignment_id,
       duration,
-      date,
+      at_date,
       volunteers,
       created_on,
       updated_on
@@ -26,14 +25,13 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     res.send(result.rows);
   })
   .catch(err => {
-    console.log('ERROR - get:/api/student/record/:id', err);
+    console.log('ERROR - get:/api/occurrence/record/:id', err);
     res.sendStatus(500)
   });
 });
 
-/**
- * GET /api/occurrence/records
- */
+/**** GET /api/occurrence/records ****/
+// Get all records from occurrence
  router.get('/records', rejectUnauthenticated, (req, res) => {
   
   const statement = `
@@ -41,7 +39,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
       po.id,
       po.assignment_id,
       po.duration,
-      po.date,
+      po.at_date,
       po.volunteers,
       po.created_on,
       po.updated_on,
@@ -59,15 +57,13 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
     res.send(result.rows);
   })
   .catch(err => {
-    console.log('ERROR - get:/api/student/record/:id', err);
+    console.log('ERROR - get:/api/occurrence/records', err);
     res.sendStatus(500)
   });
 });
 
-/**
- * POST add program_occurrence
- * 
- */
+/**** POST /api/occurrence/add ****/
+// Add new occurrence
  router.post('/add', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
@@ -79,7 +75,7 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
 
   const statement = `
     INSERT INTO program_occurrence
-      ( assignment_id, duration, date, volunteers )
+      ( assignment_id, duration, at_date, volunteers )
     VALUES
       ( $1, $2, $3, $4 );
   `;

@@ -17,6 +17,8 @@ function* addAttendance(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.post(`api/attendance/toggle`, action.payload);
+        let { occurrenceId } = action.payload;
+        yield put({ type: 'FETCH_STUDENT_ATTENDANCE', payload: {id: occurrenceId}})
     } catch (error) {
         console.log('Error with adding Attendance', error);
         yield put({ type: 'ADD_ATTENDANCE_FAILED' });
@@ -56,7 +58,7 @@ function* getAssignedStudents(action){
 function* getStudentAttendance(action){
     try {
         const response = yield axios.get(`api/attendance/by-occurrence/${action.payload.id}`);
-        //yield put({ type: 'SET_STUDENT'})
+        yield put({ type: 'SET_ATTENDANCE', payload: response.data[0].array_agg})
     } catch (error) {
         console.log('Error with fetching student attendance', error);
     }

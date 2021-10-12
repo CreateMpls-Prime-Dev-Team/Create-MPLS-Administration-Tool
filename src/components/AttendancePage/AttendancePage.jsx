@@ -27,11 +27,13 @@ function AttendancePage() {
 
     useEffect(() => {
         dispatch({ type:'FETCH_OCCURRENCE', payload: {id} });
+        dispatch({ type: 'FETCH_STUDENT_ATTENDANCE', payload: {id}})
     }, [id]);
     
 
     //reducer state
     const occurrence = useSelector(store => store.occurrenceToEdit);
+    const currentAttendance = useSelector(store => store.occurrenceAttendance);
     const students = useSelector(store => store.occurrenceStudents)
 
     const handleChange = (event) => {
@@ -48,8 +50,9 @@ function AttendancePage() {
         });
     };
 
-    const toggleAttendance = () => {
-
+    const toggleAttendance = (occurrenceId, studentId) => {
+        dispatch({ type: 'ADD_ATTENDANCE', payload: { studentId, occurrenceId }})
+        
     }
     
     //local state for dialog box
@@ -138,12 +141,14 @@ function AttendancePage() {
                 </Paper>
                 <Paper elevation={24} sx={{ width: 350, marginBottom: 2 }}>
                     <Typography variant="h6" sx={{ borderBottom: 3, borderColor: 'grey.500', marginBottom: 1, padding: 1 }}>CLASS LIST</Typography>
-                        {Object.keys(students).length > 0 && students.map((student) => (
-                            <div>
+                        {Object.keys(students).length > 0 &&
+                            students.map((student) => (
+                            <div key={student.id}>
                                 <Button
                                     variant="text"
+                                    color={currentAttendance.includes(student.id) ? "success": "error"}
                                     sx={{margin: 1}}
-                                    onClick={toggleAttendance}
+                                    onClick={()=> toggleAttendance(id, student.id)}
                                 >
                                     {student.first_name} {student.last_name}
                                 </Button>

@@ -22,7 +22,7 @@ useEffect(() => {
 
 return (
   <>
-    <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>ALL PROGRAMS</Typography>
+    <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>PROGRAMS</Typography>
     { Object.keys(programList).length > 0 &&
       <ProgramDataGrid />
     }

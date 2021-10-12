@@ -45,7 +45,7 @@ const EditProgram = () => {
           name="name"
           variant="outlined"
           style={{ margin: 5 }}
-          label="First Name"
+          label="Program"
           value={programToEdit.name}
           onChange={handleChange}
         />
@@ -54,7 +54,7 @@ const EditProgram = () => {
           name="location"
           variant="outlined"
           style={{ margin: 5 }}
-          label="First Name"
+          label="Location"
           value={programToEdit.location}
           onChange={handleChange}
         />

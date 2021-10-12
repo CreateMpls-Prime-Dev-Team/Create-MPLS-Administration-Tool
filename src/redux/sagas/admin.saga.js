@@ -50,18 +50,6 @@ function* deleteStudent(action){
     }
 }
 
-// GETS a list of teachers.
-function* getTeacher(action) {
-    console.log('action.payload', action.payload);
-    try {
-        yield axios.get(`???`, action.payload);
-        yield put({ type: 'GET_TEACHERS_COMPLETED' });
-    } catch (error) {
-        console.log('error getting Teachers', error);
-        yield put({ type: 'GET_TEACHERS_FAILED' });
-    }
-}
-
 // PUTS(edit) a teacher's programs.
 function* editAssignedPrograms(action){
     console.log('action.payload', action.payload);

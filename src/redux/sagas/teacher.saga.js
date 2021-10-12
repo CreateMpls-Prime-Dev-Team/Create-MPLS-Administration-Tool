@@ -1,6 +1,17 @@
 import axios from "axios";
 const {takeLatest, put } = require("redux-saga/effects");
 
+// GETS a list of staff.
+function* getStaff(){
+    try {
+        const response = yield axios.get(`/api/user/staff-records`);
+        yield put({ type: 'GET_STAFF_COMPLETED', payload: response.data });
+    } catch (error) {
+        console.log('error getting Students', error);
+        yield put({ type: 'GET_STAFF_FAILED' });
+    }
+}
+
 //GETS the Programs for a teacher.
 function* getProgramsByTeacher(){
    try {
@@ -63,6 +74,7 @@ function* getStudentAttendance(action){
 }
 
 function* teacherSaga(){
+    yield takeLatest('FETCH_STAFF', getStaff);
     yield takeLatest('FETCH_PROGRAMS_BY_TEACHER', getProgramsByTeacher);
     yield takeLatest('FETCH_ASSIGNED_STUDENTS', getAssignedStudents)
     yield takeLatest('FETCH_OCCURRENCE', getOccurrence)

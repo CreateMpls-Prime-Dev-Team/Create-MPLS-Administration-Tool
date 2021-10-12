@@ -129,7 +129,7 @@ router.put('/toggle-admin/:id', rejectUnauthenticated, (req, res) => {
   });
 });
 
-router.get('/teacher-records', rejectUnauthenticated, (req, res) => {
+router.get('/staff-records', rejectUnauthenticated, (req, res) => {
   
   const statement = `
     SELECT
@@ -141,11 +141,10 @@ router.get('/teacher-records', rejectUnauthenticated, (req, res) => {
       u.is_admin,
       u.updated_on,
       u.created_on
-    FROM "user" u
-    WHERE u.is_staff;
+    FROM "user" u;
     `;
 
-  db.query(statement, [ req.params.id ])
+  db.query(statement)
   .then( result => {
     res.send(result.rows);
   })

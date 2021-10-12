@@ -4,7 +4,7 @@
 
 Duration: Built in a 2 week sprint.
 
-This project is a administration program for Create MPLS to manage their students, teachers, volunteers, and programs between locations. The goal of it being a record holder for all their needed info for grants so that spreadsheets can go to the way side. 
+This project is a administration program for Create MPLS to manage their students, teachers, volunteers, and programs between locations. This application serves as both an attendance tracker, as well as a system that automatically generates materials for future grant applications.
 
 To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.heroku.com)
 
@@ -30,7 +30,6 @@ Just Node.js is required to use this application. The other options are required
 6. The `npm run client` command will open up a new browser tab for you!
 
 ## Usage
-How does someone use this application? Tell a user story here.
 
 Teacher Version
 1. Register to make a new account and input the given registration code.
@@ -43,8 +42,12 @@ Teacher Version
 
 Admin Version
 1. Register to make a new account and input the given registration code.
-2. Log in and you are taken to a screen which has all the provided classes that a teacher has been assigned to. 
-3.
+2. Use the "Program" page to create new programs and edit existing programs
+3. Use the "Student" page to create and edit students in the db
+4. Use the "Staff" page to assign programs to staff and delete staff members
+5. Use the "Config" page to update teacher and admin registration codes
+
+
 
 
 ## Built With

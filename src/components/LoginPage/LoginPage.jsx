@@ -7,7 +7,7 @@ function LoginPage() {
 
   return (
     <div>
-      <img src="design_a.png" width="400" height="300"/>
+      <img src="design_a.png" width="300" height="225"/>
       <LoginForm />
 
       <center>

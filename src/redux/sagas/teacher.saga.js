@@ -26,15 +26,48 @@ function* addAttendance(action){
 // ADD New occurrence, returns id, sends to page
 function* addOccurrence(action){
     try {
-        const response = yield axios.post();
+        const response = yield axios.post(`api/occurrence/add`, action.payload);
+        const { history } = action.payload;
+        history.push(`/attendance/${response.data[0].id}`);
     } catch (error) {
         console.log('Error with adding new Occurrence', error);
     }
 }
 
+function* getOccurrence(action){
+    try {
+        const response = yield axios.get(`api/occurrence/record/${action.payload.id}`);
+        yield put({ type: 'SET_OCCURRENCE_TO_EDIT', payload: response.data[0]})
+        yield put({ type:'FETCH_ASSIGNED_STUDENTS', payload: response.data[0].program_id  });
+    } catch (error) {
+        console.log('Error with adding new Occurrence', error);
+    }
+}
+
+function* getAssignedStudents(action){
+    try {
+        const response = yield axios.get(`api/student/by-assignment/${action.payload}`);
+        yield put({ type: 'SET_OCCURRENCE_STUDENTS', payload: response.data });
+    } catch (error) {
+        console.log('Error with adding new Occurrence', error);
+    }
+}
+
+function* getStudentAttendance(action){
+    try {
+        const response = yield axios.get(`api/attendance/by-occurrence/${action.payload.id}`);
+        //yield put({ type: 'SET_STUDENT'})
+    } catch (error) {
+        console.log('Error with fetching student attendance', error);
+    }
+}
+
 function* teacherSaga(){
     yield takeLatest('FETCH_PROGRAMS_BY_TEACHER', getProgramsByTeacher);
+    yield takeLatest('FETCH_ASSIGNED_STUDENTS', getAssignedStudents)
+    yield takeLatest('FETCH_OCCURRENCE', getOccurrence)
     yield takeLatest('ADD_ATTENDANCE', addAttendance);
     yield takeLatest('SET_PROGRAM_OCCURRENCE', addOccurrence);
+    yield takeLatest('FETCH_STUDENT_ATTENDANCE', getStudentAttendance);
 }
 export default teacherSaga;

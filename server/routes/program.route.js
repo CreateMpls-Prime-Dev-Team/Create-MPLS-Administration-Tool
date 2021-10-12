@@ -65,6 +65,7 @@ router.get('/by-assignment', rejectUnauthenticated, (req, res) => {
   const statement = `
     SELECT
       p.id id,
+      spa.id assignment_id,
       p.name,
       p.location,
       p.type_id,

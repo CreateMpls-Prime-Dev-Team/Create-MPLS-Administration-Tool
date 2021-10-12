@@ -8,17 +8,25 @@ const {  rejectUnauthenticated } = require('../modules/authentication-middleware
 // Update occurrence record by id
 router.get('/record/:id', rejectUnauthenticated, (req, res) => {
   
-  const statement = `
-    SELECT
-      assignment_id,
-      duration,
-      at_date,
-      volunteers,
-      created_on,
-      updated_on
-    FROM program_occurrence
-    WHERE id = $1;
-    `;
+  const statement =  `
+  SELECT
+    po.id,
+    po.assignment_id,
+    po.duration,
+    po.at_date,
+    po.volunteers,
+    po.created_on,
+    po.updated_on,
+    p.name,
+    p.location,
+    spa.program_id
+  FROM program_occurrence po
+  JOIN staff_program_assignment spa
+    ON ( po.assignment_id = spa.id )
+  JOIN program p
+    ON ( p.id = spa.program_id )
+  WHERE po.id = $1;
+  `;
 
   db.query(statement, [ req.params.id ])
   .then( result => {
@@ -44,7 +52,8 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
       po.created_on,
       po.updated_on,
       p.name,
-      p.location
+      p.location,
+      spa.program_id
     FROM program_occurrence po
     JOIN staff_program_assignment spa
       ON ( po.assignment_id = spa.id )
@@ -66,23 +75,19 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
 // Add new occurrence
  router.post('/add', rejectUnauthenticated, (req, res) => {
   
-  let params = [ 
-    req.body.assignmentId, 
-    req.body.duration,
-    req.body.date,
-    req.body.volunteers
-  ];
+  let params = [ req.body.id];
 
   const statement = `
     INSERT INTO program_occurrence
       ( assignment_id, duration, at_date, volunteers )
     VALUES
-      ( $1, $2, $3, $4 );
+      ( $1, 15, NOW(), 0 )
+    RETURNING id;
   `;
 
   db.query(statement, params)
   .then( result => {
-    res.sendStatus(201);
+    res.send(result.rows);
   })
   .catch(err => {
     console.log('ERROR - post:/api/program_occurrence/add', err);

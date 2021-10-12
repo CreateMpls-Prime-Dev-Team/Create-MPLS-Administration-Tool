@@ -8,7 +8,8 @@ import {
     FormControl,
     Select,
     Button,
-    Typography
+    Typography,
+    Paper
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -43,6 +44,7 @@ const AddProgram = () => {
     return (
         <>
             <center>
+                <Paper elevation={24}>
                 <Box style={{ width: '50%' }}>
                     <div>
                         <TextField 
@@ -87,7 +89,7 @@ const AddProgram = () => {
                         <Button 
                             id="addBttn"
                             variant="outlined"
-                            style={{ margin: 5, width: 300 }}
+                            style={{ margin: 5, marginBottom: 20, width: 300 }}
                             endIcon={<AddIcon />}
                             onClick={handleAddProgram}
                         >
@@ -95,6 +97,7 @@ const AddProgram = () => {
                         </Button>
                     </div>
                 </Box>
+                </Paper>
             </center>
         </>
     )

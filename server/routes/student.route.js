@@ -3,6 +3,30 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+
+router.get('/by-assignment/:id', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT 
+      s.id,
+      s.first_name,
+      s.last_name
+    FROM student s
+    JOIN student_program_assignment spa
+      ON ( s.id = spa.student_id)
+    WHERE spa.program_id = $1
+    AND s.is_active = TRUE
+    `;
+
+  db.query(statement, [ req.params.id ])
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/student/record/:id', err);
+    res.sendStatus(500)
+  });
+});
 /**** GET /api/student/record/:id ****/
 // Fetch student record based on id
 router.get('/record/:id', rejectUnauthenticated, (req, res) => {
@@ -61,16 +85,24 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
       et.name ethnicity_name,
       s.is_active,
       s.updated_on,
-      s.created_on
-    FROM student s
-    JOIN grade gr
-      ON (gr.id = s.grade_id)
-    JOIN gender ge
-      ON (ge.id = s.gender_id)
-    JOIN ethnicity et
-      ON (et.id = s.ethnicity_id)
-    WHERE is_active = TRUE;
-    `;
+      s.created_on,
+      (SELECT
+        SUM(duration) as total_minutes
+        FROM student_program_attendance spa2
+        JOIN program_occurrence po
+        ON (po.id = spa2.occurrence_id)
+        GROUP BY spa2.student_id
+        HAVING spa2.student_id = s.id) 
+        AS total_minutes
+      FROM student s
+      JOIN grade gr
+        ON (gr.id = s.grade_id)
+      JOIN gender ge
+        ON (ge.id = s.gender_id)
+      JOIN ethnicity et
+        ON (et.id = s.ethnicity_id)
+      WHERE is_active = TRUE;
+        `;
 
   db.query(statement)
   .then( result => {

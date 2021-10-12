@@ -8,6 +8,7 @@ import{
   FormControl, 
   Select,
   Button,
+  Paper
 } from "@mui/material";
 
 
@@ -44,6 +45,7 @@ const EditStudent = () => {
     return (
         <>
         <center>
+            <Paper elevation={24}>
             <Box style={{ width: '50%' }}>
                 <div>
                     <TextField 
@@ -120,7 +122,7 @@ const EditStudent = () => {
                     <Button 
                         id="addBttn" 
                         variant="outlined"
-                        style={{ margin: 5 }}
+                        style={{ margin: 5, marginBottom: 20 }}
                         onClick={handleUpdate}
                     >
                         Update Student
@@ -129,13 +131,14 @@ const EditStudent = () => {
                         id="addBttn" 
                         color="error" 
                         variant="outlined"
-                        style={{ margin: 5 }}
+                        style={{ margin: 5, marginBottom: 20 }}
                         onClick={handleDelete}
                     >
                         Delete Student
                     </Button>
                 </div>
             </Box>
+            </Paper>
         </center>
     </>    
     );

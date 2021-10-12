@@ -8,7 +8,6 @@ import{
   FormControl, 
   Select,
   Button,
-  Paper
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -46,7 +45,6 @@ function AddStudent() {
   return (
     <>
       <center>
-        <Paper elevation={24}>
         <Box style={{ width: '50%'}}>
           <div>
             <TextField 
@@ -94,8 +92,6 @@ function AddStudent() {
                 }
               </Select>
             </FormControl>
-          </div>
-          <div>
             <FormControl>
               <InputLabel id="ethnicitySelect">Ethnicity</InputLabel>
               <Select
@@ -137,7 +133,7 @@ function AddStudent() {
             <Button 
               id="addBttn" 
               variant="outlined"
-              style={{ margin: 5, marginBottom: 20, width: 400 }}
+              style={{ margin: 5, width: 400 }}
               endIcon={<AddIcon />}
               onClick={handleAddStudent}
             >
@@ -145,7 +141,6 @@ function AddStudent() {
             </Button>
           </div>
         </Box>
-        </Paper>
       </center>
     </>
   );

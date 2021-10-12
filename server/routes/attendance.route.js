@@ -3,27 +3,21 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**** GET /attendance/by-occurrence/:id ****/
+/**** GET /attendance/records/by-program-occurrence/:id ****/
 // All records by a program occurrence's id
-router.get('/by-occurrence/:id', rejectUnauthenticated, (req, res) => {
-    // const oldstatement = `
-    // SELECT
-    //     s.id student_id,
-    //     spa.occurrence_id occurrence_id,
-    //     spa.created_on created_on,
-    //     s.first_name first_name,
-    //     s.last_name last_name
-    // FROM student_program_attendance spa
-    // JOIN student s
-    //     ON (s.id = spa.student_id)
-    // WHERE spa.occurrence_id = $1
-    // `;
-
+router.get('/records/by-program-occurrence/:id', rejectUnauthenticated, (req, res) => {
     const statement = `
-        SELECT
-            ARRAY_AGG(student_id)
-        FROM student_program_attendance
-        WHERE occurrence_id = $1;`
+    SELECT
+        s.id student_id,
+        spa.occurrence_id occurrence_id,
+        spa.created_on created_on,
+        s.first_name first_name,
+        s.last_name last_name
+    FROM student_program_attendance spa
+    JOIN student s
+        ON (s.id = spa.student_id)
+    WHERE spa.occurrence_id = $1
+    `;
 
   db.query(statement, [ req.params.id ])
   .then( result => {

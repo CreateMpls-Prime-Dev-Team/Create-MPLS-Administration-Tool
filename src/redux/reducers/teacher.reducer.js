@@ -1,9 +1,9 @@
 // studentReducer holds the array of teachers that will display on the screen.
 const teacherReducer = (state = [], action) => {
     switch (action.type) {
-        case 'GET_STAFF_COMPLETED':
+        case 'GET_TEACHERS_COMPLETED':
             return action.payload;
-        case 'GET_STAFF_FAILED':
+        case 'GET_TEACHERS_FAILED':
             return 'Error receiving Teachers';
         default:
             return state;

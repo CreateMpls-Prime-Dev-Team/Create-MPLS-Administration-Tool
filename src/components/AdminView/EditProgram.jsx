@@ -6,7 +6,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Paper
 } from "@mui/material";
 
 
@@ -39,13 +38,12 @@ const EditProgram = () => {
   
     return (
       <div>
-        <Paper elevation={24}>
         <TextField 
           required 
           name="name"
           variant="outlined"
           style={{ margin: 5 }}
-          label="Program"
+          label="First Name"
           value={programToEdit.name}
           onChange={handleChange}
         />
@@ -54,7 +52,7 @@ const EditProgram = () => {
           name="location"
           variant="outlined"
           style={{ margin: 5 }}
-          label="Location"
+          label="First Name"
           value={programToEdit.location}
           onChange={handleChange}
         />
@@ -72,12 +70,10 @@ const EditProgram = () => {
             }
           </Select>
       </FormControl>
-      <div>
         <Button 
           id="deleteBttn" 
           color="error" 
           variant="outlined"
-          style={{ margin: 5, marginBottom: 20, width: 200 }}
           onClick={handleDelete}
         >
           Delete Program
@@ -85,13 +81,11 @@ const EditProgram = () => {
         <Button 
           id="addBttn" 
           variant="outlined"
-          style={{ margin: 5, marginBottom: 20, width: 200 }}
           onClick={handleUpdate}
         >
           SAVE
         </Button>
-      </div>
-      </Paper>
+          
       </div>
     )
 }

@@ -13,7 +13,6 @@ const StudentDataGrid = () => {
         { field: 'grade_abbrev', headerName: 'Grade', width: 75, align: "center" },
         { field: 'ethnicity_name', headerName: 'Ethnicity', width: 300 },
         { field: 'gender_name', headerName: 'Gender', width: 100, align: "center" },
-        { field: 'total_minutes', headerName: 'min', width : 75, align: 'center' },
     ]
 
     return (

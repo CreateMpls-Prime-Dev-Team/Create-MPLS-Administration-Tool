@@ -1,8 +1,7 @@
 html,
 body,
 #react-root {
-  position: relative;
-  height: 100vh;
+  height: 100%;
 }
 
 body {
@@ -32,6 +31,8 @@ Button
   padding: 5px 10px;
   margin-right: 25px;
   margin-left: 25px;
+  /* border-color: #014041;
+  border-width: 1px 1px 3px; */
   border-radius: 4px;
   background-color: #9acde3;
   color: #f8f8f8;

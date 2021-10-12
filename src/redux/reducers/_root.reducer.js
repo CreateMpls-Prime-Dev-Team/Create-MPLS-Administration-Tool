@@ -7,11 +7,6 @@ import teacher from './teacher.reducer';
 import program from './program.reducer';
 import studentToEdit from './studentToEdit.reducer';
 import programToEdit from './programToEdit.reducer';
-import staffToEdit from './staffToEdit.reducer';
-import occurrenceToEdit from './occurrenceToEdit.reducer';
-import programsByTeacher from './programsByTeacher.reducer';
-import occurrenceStudents from './occurrenceStudents.reducer';
-import occurrenceAttendance from './occurrenceAttendance.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,11 +23,6 @@ const rootReducer = combineReducers({
   program, // holds the list of programs to be sent to the front end. 
   studentToEdit, // Holds the student from search to edit
   programToEdit, // Holds the program from search to edit
-  staffToEdit, // Holds the staff from search to edit
-  programsByTeacher, // Holds the list of programs that the teacher is assigned.
-  occurrenceToEdit, // Holds the occurrence to edit,
-  occurrenceStudents, // Holds the students for occurrence attendance
-  occurrenceAttendance, // Holds the current student attendance for the occurrence
 });
 
 export default rootReducer;

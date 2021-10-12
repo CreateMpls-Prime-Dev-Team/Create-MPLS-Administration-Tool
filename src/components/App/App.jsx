@@ -63,8 +63,7 @@ function App() {
             path="/user"
           >
             {user.is_admin ?
-              <Redirect to="/add-student" />
-              :
+              <Redirect to="/add-student" />:
               <Redirect to="/teacher" />
             }
           </ProtectedRoute>
@@ -170,7 +169,7 @@ function App() {
 
           <Route
             exact
-            path="/attendance/:id"
+            path="/attendance"
           >
             {user.id ?
               <AttendancePage />
@@ -184,7 +183,7 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        {user.is_admin && <Footer />}
+        <Footer />
       </div>
     </Router>
   );

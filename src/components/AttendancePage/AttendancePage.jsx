@@ -86,7 +86,7 @@ function AttendancePage() {
             <Typography variant="h5" align="left" sx={{ marginLeft: 1, marginBottom: 3 }}>PROGRAM LOCATION</Typography>
         </Container>
         <center><Container>
-                <Paper  elevation={24} sx={{ width: 350, marginBottom: 2 }}>
+                <Paper  elevation={24} sx={{ width: 350, marginBottom: 2, paddingTop: 2, paddingBottom: 2 }}>
                     {Object.keys(occurrence).length > 0 && 
                         <>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -145,8 +145,7 @@ function AttendancePage() {
                             students.map((student) => (
                             <div key={student.id}>
                                 <Button
-                                    variant="text"
-                                    color={currentAttendance.includes(student.id) ? "success": "error"}
+                                    variant={currentAttendance.includes(student.id) ? "contained": "text"}
                                     sx={{margin: 1}}
                                     onClick={()=> toggleAttendance(id, student.id)}
                                 >

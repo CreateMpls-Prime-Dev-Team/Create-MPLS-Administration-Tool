@@ -18,8 +18,9 @@ import AdminViewProgram from '../AdminView/AdminViewProgram';
 import AdminViewConfig from '../AdminView/AdminViewConfig';
 import TeacherPortal from '../TeacherPortal/TeacherPortal';
 import AttendancePage from '../AttendancePage/AttendancePage';
-import './App.css';
 import Dashboard from '../AdminView/Dashboard';
+import './App.css';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ function App() {
             path="/user"
           >
             {user.is_admin ?
-              <Redirect to="/add-student" />
+              <Redirect to="/dashboard" />
               :
               <Redirect to="/teacher" />
             }

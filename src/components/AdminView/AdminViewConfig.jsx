@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -12,30 +13,34 @@ function AdminViewConfig() {
 
     const editAdminCode = (e) => {
         e.preventDefault();
-        dispatchEvent({
-            type: 'EDIT_ADMIN_CODE',
-            payload: {
-                settingValue: regCodeAdmin,
-                settingVariable: 'adminCode'
-            }
-        });
+        if(confirm('Are you sure you want to change the admin registration code?')){
+            dispatchEvent({
+                type: 'EDIT_ADMIN_CODE',
+                payload: {
+                    settingValue: regCodeAdmin,
+                    settingVariable: 'adminCode'
+                }
+            });
+        }
     };
 
     const editTeacherCode = (e) => {
         event.preventDefault();
-        dispatchEvent({
-            type: 'EDIT_TEACHER_CODE',
-            payload: {
-                settingValue: regCodeTeacher,
-                settingVariable: 'teacherCode'
-            }
-        });
+        if(confirm('Are you sure you want to change the admin registration code?')){
+            dispatchEvent({
+                type: 'EDIT_TEACHER_CODE',
+                payload: {
+                    settingValue: regCodeTeacher,
+                    settingVariable: 'teacherCode'
+                }
+            });
+        }
     };
     
     return (
         <div>
             <div className ="headerClass">
-                <h1>Edit Teacher Registration Code</h1>
+                <Typography variant="h6">Change Teacher Registration Code</Typography>
             </div>
 
             <Box
@@ -49,6 +54,7 @@ function AdminViewConfig() {
                 {/* Update Registration Code */}
                 <TextField
                     id="outlined-required"
+                    size="small"
                     onChange={(e) => {
                         setRegCodeTeacher(e.target.value);
                     }}
@@ -61,7 +67,7 @@ function AdminViewConfig() {
 
 
             <div className="headerClass">
-                <h1>Edit Admin Registration Code</h1>
+                <Typography variant="h6">Change Admin Registration Code</Typography>
             </div>
 
             <Box
@@ -75,6 +81,7 @@ function AdminViewConfig() {
                 {/* Update Registration Code */}
                 <TextField
                     id="outlined-required"
+                    size="small"
                     onChange={(e) => {
                         setRegCodeAdmin(e.target.value);
                     }}

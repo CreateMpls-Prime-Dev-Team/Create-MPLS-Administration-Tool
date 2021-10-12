@@ -22,19 +22,18 @@ useEffect(() => {
 
 return (
   <>
-    <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>PROGRAMS</Typography>
-    { Object.keys(programList).length > 0 &&
-      <ProgramDataGrid />
-    }
-
     <Typography variant="h5" style={{ marginTop: 60, marginBottom: 10 }}>ADD PROGRAM FORM</Typography>
     <AddProgram />
     
     <Typography variant="h5" style={{ marginTop: 60, marginBottom: 20 }}>EDIT PROGRAM FORM</Typography>
-    <ProgramSearch />
-    {Object.keys(programToEdit).length > 0 &&
-      <EditProgram />
-    }
+      <ProgramSearch />
+      {Object.keys(programToEdit).length > 0 &&
+        <EditProgram />
+      }
+    <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>PROGRAMS</Typography>
+      { Object.keys(programList).length > 0 &&
+        <ProgramDataGrid />
+      }
   </>
 )
 }

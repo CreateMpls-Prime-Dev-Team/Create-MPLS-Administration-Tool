@@ -50,18 +50,6 @@ function* deleteStudent(action){
     }
 }
 
-// GETS a list of teachers.
-function* getTeacher(action) {
-    console.log('action.payload', action.payload);
-    try {
-        yield axios.get(`???`, action.payload);
-        yield put({ type: 'GET_TEACHERS_COMPLETED' });
-    } catch (error) {
-        console.log('error getting Teachers', error);
-        yield put({ type: 'GET_TEACHERS_FAILED' });
-    }
-}
-
 // PUTS(edit) a teacher's programs.
 function* editAssignedPrograms(action){
     console.log('action.payload', action.payload);
@@ -73,14 +61,28 @@ function* editAssignedPrograms(action){
     }
 }
 
-// DELETES a teacher from the database (soft delete). 
-function* deleteTeacher(action){
+//Edit a staff member
+function* editStaff(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.put(`???${action.payload}`)
+        yield axios.put(`api/user/staff/update/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_STAFF' });
+        //yield put({ type: 'UNSET_STUDENT_TO_EDIT' });
     } catch (error) {
-        console.log('Error deleting Teacher', error);
-        yield put({ type: 'DELETE_TEACHER_FAILED' });
+         console.log('Error Editing a Staffs info', error);
+        yield put({ type: 'EDIT_STAFF_FAILED' });
+    }
+}
+
+// DELETES a teacher from the database (soft delete). 
+function* deleteStaff(action){
+    console.log('action.payload', action.payload);
+    try {
+        yield axios.put(`api/user/toggle-staff/${action.payload}`);
+        yield put({ type: 'FETCH_STAFF' });
+    } catch (error) {
+        console.log('Error deleting Staff', error);
+        yield put({ type: 'DELETE_STAFF_FAILED' });
     }
 }
 
@@ -167,9 +169,9 @@ function* adminSaga() {
     yield takeLatest('FETCH_STUDENT', getStudent);
     yield takeLatest('EDIT_STUDENT', editStudent);
     yield takeLatest('DELETE_STUDENT', deleteStudent);
-    yield takeLatest('FETCH_TEACHER', getTeacher);
     yield takeLatest('EDIT_TEACHER_PROGRAMS', editAssignedPrograms);
-    yield takeLatest('DELETE_TEACHER', deleteTeacher);
+    yield takeLatest('EDIT_STAFF', editStaff);
+    yield takeLatest('DELETE_STAFF', deleteStaff);
     yield takeLatest('EDIT_ADMIN_CODE', editAdminCode);
     yield takeLatest('EDIT_TEACHER_CODE', editTeacherCode);
     yield takeLatest('ADD_PROGRAM', addProgram);

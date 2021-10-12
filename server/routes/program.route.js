@@ -58,8 +58,39 @@ router.get('/records', rejectUnauthenticated, (req, res) => {
   });
 });
 
-/**** GET /api/program/records ****/
+/**** GET /by-assignment ****/
 // Get all program records
+router.get('/by-assignment', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT
+      p.id id,
+      spa.id assignment_id,
+      p.name,
+      p.location,
+      p.type_id,
+      t.name type_name
+    FROM program p
+    JOIN type t
+      ON ( t.id = p.type_id )
+    JOIN staff_program_assignment spa
+      ON ( spa.program_id = p.id )
+    WHERE p.is_active = TRUE
+    AND user_id = $1;
+    `;
+
+  db.query(statement, [ req.user.id ])
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/program/record/:id', err);
+    res.sendStatus(500)
+  });
+});
+
+/**** POST /api/program/records ****/
+// Add program to the records
 router.post('/add', rejectUnauthenticated, (req, res) => {
   
   let params = [ 

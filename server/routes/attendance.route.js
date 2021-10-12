@@ -3,9 +3,9 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**** GET /attendance/records/by-program-occurrence/:id ****/
+/**** GET /attendance/by-occurrence/:id ****/
 // All records by a program occurrence's id
-router.get('/records/by-program-occurrence/:id', rejectUnauthenticated, (req, res) => {
+router.get('/by-occurrence/:id', rejectUnauthenticated, (req, res) => {
     const statement = `
     SELECT
         s.id student_id,

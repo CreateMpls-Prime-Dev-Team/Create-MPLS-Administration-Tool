@@ -1,41 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { useHistory, useParams } from 'react-router';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Select from "@mui/material/Select";
-import Container from "@mui/material/Container";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Checkbox from '@mui/material/Checkbox';
-import Button from "@mui/material/Button";
-import TextField from '@mui/material/TextField';
+import { 
+    Typography, 
+    Select, 
+    Container, 
+    Box, 
+    InputLabel, 
+    MenuItem, 
+    FormControl, 
+    Checkbox, 
+    Button, 
+    TextField,
+    Paper 
+} from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
 function AttendancePage() {
+    const { id } = useParams();
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    //local state for form
-    //still need to handle clicking checkboxes
-    const [date, setDate] = React.useState(null);
-    const [duration, setDuration] = useState(0);
-    const [volunteerCount, setVolunteerCount] = useState(0);
+    useEffect(() => {
+        dispatch({ type:'FETCH_OCCURRENCE', payload: {id} });
+    }, [id]);
+    
 
+    //reducer state
+    const occurrence = useSelector(store => store.occurrenceToEdit);
+    const students = useSelector(store => store.occurrenceStudents)
+
+    const handleChange = (event) => {
+        dispatch({ 
+            type: 'SET_OCCURRENCE_TO_EDIT', 
+            payload: { ...occurrence, [event.target.name]:event.target.value}
+        });
+    };
+
+    const handleDateChange = (date) => {
+        dispatch({ 
+            type: 'SET_OCCURRENCE_TO_EDIT', 
+            payload: { ...occurrence, at_date: date}
+        });
+    };
+
+    const toggleAttendance = () => {
+
+    }
+    
     //local state for dialog box
     const [open, setOpen] = useState(false);
 
 
     const submitAttendance = () => {
-        //needs dispatch to server
-
         history.push('/teacher');
     };
 
 
+    const cancelSubmitAttendance = () => {
+        history.push('/teacher')
+    }
+    
     //function for handling opening/closing dialog box
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,123 +76,103 @@ function AttendancePage() {
 
     return (
         <>
-        <div>
-        <img src="design_a.png" width="150" height="100"/>
-        {/* HEADER - will need to GET this from DB */}
-        <Typography variant="h4">Learning Lab</Typography>
-        <Typography variant="h5">Hope Academy</Typography>
-        </div>
-        <center>
-        {/* Date Picker */}
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-                label="Date"
-                value={date}
-                onChange={(newDate) => {setDate(newDate);}}
-                renderInput={(params) => <TextField {...params} />}
-            />
-        </LocalizationProvider>
-
-        {/* Upper form */}
-        <Container>
-            <Box >
-                <div>
-                <FormControl sx={{m: 1, minWidth: 200}}>
-                    <InputLabel>Duration (min)</InputLabel>
-                    <Select
-                        autoWidth
-                        onChange={(event) => setDuration(event.target.value)}
-                        >
-                        <MenuItem value={15}>15</MenuItem>
-                        <MenuItem value={30}>30</MenuItem>
-                        <MenuItem value={45}>45</MenuItem>
-                        <MenuItem value={60}>60</MenuItem>
-                        <MenuItem value={75}>75</MenuItem>
-                        <MenuItem value={90}>90</MenuItem>
-                        <MenuItem value={105}>105</MenuItem>
-                        <MenuItem value={120}>120</MenuItem>
-                    </Select>
-                </FormControl>
-                </div>
-                <div>
-                <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel>Volunteers</InputLabel>
-                    <Select
-                        autoWidth
-                        onChange={(event) => setVolunteerCount(event.target.value)}
-                        >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
-                        <MenuItem value={5}>5</MenuItem>
-                        <MenuItem value={6}>6</MenuItem>
-                        <MenuItem value={7}>7</MenuItem>
-                        <MenuItem value={8}>8</MenuItem>
-                    </Select>
-                </FormControl>
-                </div>
-            </Box>
-
-            {/* List of students (will need to GET from DB) */}
-                    <TableContainer style={{ maxWidth: 300 }} component={Paper}>
-                <Table aria-label="program list">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell>STUDENT LIST</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {/* {rows.map((row) => (
-                            <TableRow
-                                key={row.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                <TableCell component="th" scope="row"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                            </TableRow>
-                        ))} */}
-                        <TableRow>
-                            <TableCell><Checkbox/></TableCell>
-                            <TableCell>Sammy Student</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><Checkbox/></TableCell>
-                            <TableCell>Suzie Student</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><Checkbox/></TableCell>
-                            <TableCell>Stevie Student</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
+        <Container sx={{ width: 370 }}>
+            <img src="design_a.png" width="150" height="105"/>
+            {/* HEADER - will need to GET this from DB */}
+            <Typography variant="h4" align="left" sx={{ marginLeft: 1 }}>PROGRAM NAME</Typography>
+            <Typography variant="h5" align="left" sx={{ marginLeft: 1, marginBottom: 3 }}>PROGRAM LOCATION</Typography>
         </Container>
+        <center><Container>
+                <Paper  elevation={24} sx={{ width: 350, marginBottom: 2 }}>
+                    {Object.keys(occurrence).length > 0 && 
+                        <>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="Date"
+                                    value={occurrence.at_date}
+                                    onChange={(newDate) => { handleDateChange(newDate); }} // revisit
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
+                            <FormControl sx={{ m: 1, width: 200, marginTop: 1 }}>
+                                <InputLabel>Duration (min)</InputLabel>
+                                <Select
+                                    name="duration"
+                                    value={occurrence.duration}
+                                    autoWidth
+                                    onChange={handleChange}
+                                    >
+                                    <MenuItem value={15}>15</MenuItem>
+                                    <MenuItem value={30}>30</MenuItem>
+                                    <MenuItem value={45}>45</MenuItem>
+                                    <MenuItem value={60}>60</MenuItem>
+                                    <MenuItem value={75}>75</MenuItem>
+                                    <MenuItem value={90}>90</MenuItem>
+                                    <MenuItem value={105}>105</MenuItem>
+                                    <MenuItem value={120}>120</MenuItem>
+                                    <MenuItem value={180}>180</MenuItem>
+                                    <MenuItem value={240}>240</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <FormControl sx={{ m: 1, width: 200, marginTop: 1 }}>
+                                <InputLabel>Volunteers</InputLabel>
+                                <Select
+                                    name="volunteers"
+                                    value={occurrence.volunteers}
+                                    autoWidth
+                                    onChange={handleChange}
+                                    >
+                                    <MenuItem value={0}>0</MenuItem>
+                                    <MenuItem value={1}>1</MenuItem>
+                                    <MenuItem value={2}>2</MenuItem>
+                                    <MenuItem value={3}>3</MenuItem>
+                                    <MenuItem value={4}>4</MenuItem>
+                                    <MenuItem value={5}>5</MenuItem>
+                                    <MenuItem value={6}>6</MenuItem>
+                                    <MenuItem value={7}>7</MenuItem>
+                                    <MenuItem value={8}>8</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </>
+                    }
+                </Paper>
+                <Paper elevation={24} sx={{ width: 350, marginBottom: 2 }}>
+                    <Typography variant="h6" sx={{ borderBottom: 3, borderColor: 'grey.500', marginBottom: 1, padding: 1 }}>CLASS LIST</Typography>
+                        {Object.keys(students).length > 0 && students.map((student) => (
+                            <div>
+                                <Button
+                                    variant="text"
+                                    sx={{margin: 1}}
+                                    onClick={toggleAttendance}
+                                >
+                                    {student.first_name} {student.last_name}
+                                </Button>
+                            </div>
+                        ))}
+                        
+                    
+                    
+                </Paper>
+            </Container>
 
-        {/* Submit and Cancel buttons */}
-        <div>
-            <Button variant="outlined" size="large">CANCEL</Button>
-            <Button variant="contained" size="large" onClick={handleClickOpen}>SUBMIT</Button>
-            <Dialog
-                open={open}
-                onClose={handleClose}>
-                <DialogTitle>{"Ready to submit attendance?"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText></DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>
-                            Cancel
-                            </Button>
-                        <Button onClick={submitAttendance} autoFocus>
-                            Submit
-                        </Button>
-                    </DialogActions>
-            </Dialog>
-        </div>
-        
+            {/* Submit and Cancel buttons */}
+            <div>
+                <Button variant="outlined" size="large" onClick={cancelSubmitAttendance} sx={{ margin: 2 }}>CANCEL</Button>
+                <Button variant="contained" size="large" onClick={handleClickOpen} sx={{ margin: 2 }}>SUBMIT</Button>
+                {/* Dialog confirming submission of attendance */}
+                <Dialog
+                    open={open}
+                    onClose={handleClose}>
+                    <DialogTitle>{"Ready to submit attendance?"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText></DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button onClick={submitAttendance} autoFocus>Submit</Button>
+                        </DialogActions>
+                </Dialog>
+            </div>
         </center>
         </>
     )

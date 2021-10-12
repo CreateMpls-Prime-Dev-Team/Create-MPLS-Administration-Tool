@@ -3,6 +3,30 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+
+router.get('/by-assignment/:id', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT 
+      s.id,
+      s.first_name,
+      s.last_name
+    FROM student s
+    JOIN student_program_assignment spa
+      ON ( s.id = spa.student_id)
+    WHERE spa.program_id = $1
+    AND s.is_active = TRUE
+    `;
+
+  db.query(statement, [ req.params.id ])
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/student/record/:id', err);
+    res.sendStatus(500)
+  });
+});
 /**** GET /api/student/record/:id ****/
 // Fetch student record based on id
 router.get('/record/:id', rejectUnauthenticated, (req, res) => {

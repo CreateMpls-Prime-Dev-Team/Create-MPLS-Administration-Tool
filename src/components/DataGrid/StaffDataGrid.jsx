@@ -8,14 +8,14 @@ const StaffDataGrid = () => {
     const columns = [
         { field: 'first_name', headerName: 'First Name', width: 175 },
         { field: 'last_name', headerName: 'Last Name', width: 175 },
-        { field: 'teacher_admin', headerName: 'Teacher/Admin', width: 175},
-        { field: 'assigned_class', hederName: 'Class(es)', width: 175},
+        { field: 'is_active', headerName: 'Active', wifth: 175},
+        { field: 'assigned_class', headerName: 'Class(es)', width: 175},
     ]
 
     return (
         <>
             <center>
-                <div style={{ height: 500, width: '75%' }}>
+                <div style={{ height: 250, width: '75%' }}>
                     <DataGrid 
                         rows={staffList} 
                         columns={columns} 

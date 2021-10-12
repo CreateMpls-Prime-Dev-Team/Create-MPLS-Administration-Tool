@@ -29,7 +29,13 @@ const EditStaff = () => {
     const handleDelete = () => {
         if(confirm('This will make the staff unavailable')){
             dispatch({ type: 'DELETE_STAFF', payload: staffToEdit.id })
+
+            dispatch({
+            type: 'SET_STAFF_TO_EDIT',
+            payload: { ...staffToEdit, is_staff : !staffToEdit.is_staff }
+        })
         }
+        
     }
 
     return (
@@ -73,7 +79,7 @@ const EditStaff = () => {
                         style={{ margin: 5, marginBottom: 20 }}
                         onClick={handleDelete}
                     >
-                        Delete Staff
+                        {staffToEdit.is_staff ? "Deactivate" : "Activate"}
                     </Button>
                 </div>
             </Box>

@@ -94,7 +94,7 @@ router.post('/logout', (req, res) => {
 router.put('/toggle-staff/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
-    UPDATE student
+    UPDATE "user"
     SET
       is_staff = NOT is_staff
     WHERE id = $1
@@ -113,7 +113,7 @@ router.put('/toggle-staff/:id', rejectUnauthenticated, (req, res) => {
 router.put('/toggle-admin/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
-    UPDATE student
+    UPDATE "user"
     SET
       is_admin = NOT is_admin
     WHERE id = $1
@@ -141,7 +141,8 @@ router.get('/staff-records', rejectUnauthenticated, (req, res) => {
       u.is_admin,
       u.updated_on,
       u.created_on
-    FROM "user" u;
+    FROM "user" u
+    WHERE NOT u.is_admin;
     `;
 
   db.query(statement)
@@ -153,6 +154,33 @@ router.get('/staff-records', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   });
 
+});
+
+router.put('/staff/update/:id', rejectUnauthenticated, (req, res) => {
+  console.log('is this working???');
+  
+  const params = [
+    req.body.first_name,
+    req.body.last_name,
+    req.body.id
+  ]
+
+  const statement =`
+    UPDATE "user"
+    SET
+      first_name = $1,
+      last_name = $2 
+    WHERE id = $3
+  `;
+
+  db.query(statement, params)
+   .then( result => {
+     res.sendStatus(200);
+   })
+   .catch(err => {
+     console.log('ERROR - update staff failed', err);
+     res.sendStatus(500)
+   });
 });
 
 module.exports = router;

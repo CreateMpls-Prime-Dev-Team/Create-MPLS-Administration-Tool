@@ -20,10 +20,6 @@ function AdminViewStaff() {
 
   return (
     <div>
-      <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>STAFF</Typography>
-      { Object.keys(staffList).length > 0 &&
-        <StaffDataGrid />
-      }
       <Typography 
         variant="h5" 
         style={{ marginTop: 60, marginBottom: 10 }}
@@ -32,6 +28,10 @@ function AdminViewStaff() {
       <StaffSearch />
         { Object.keys(staffToEdit).length > 0 &&
             <EditStaff/> //Display only when there is a staff to edit
+        }
+      <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>STAFF</Typography>
+        { Object.keys(staffList).length > 0 &&
+          <StaffDataGrid />
         }
     </div>
   )

@@ -8,7 +8,11 @@ import {
   MenuItem,
   Paper,
   InputLabel,
-  Typography
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Container
 } from "@mui/material";
 import AddStudentSearch from '../Search/AddStudentSearch';
 
@@ -124,6 +128,15 @@ const EditProgram = () => {
         >
           ADD
         </Button>
+        <Container sx={{width: 600}}>
+            <List>
+                <ListItem>
+                  <ListItemText
+                    primary="Student Name"
+                  />
+                </ListItem>
+            </List>
+        </Container>
       </div>
       </Paper>
       </div>

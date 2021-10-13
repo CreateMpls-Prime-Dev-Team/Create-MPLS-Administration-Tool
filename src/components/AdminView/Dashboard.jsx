@@ -80,19 +80,22 @@ function Dashboard() {
   }
 
     const minutesByMonthLineGraph = () => {
-      let totalMonths = 12;
-      let recordIndex = 0;
-      let monthlyMinutes = []
+      let totalMonths = 12; // Twelve months a year on earth.
+      let recordIndex = 0; // Need to start the process somewhere, 
+      let monthlyMinutes = [] // Payload for sending data to graph
       
+      //Cycle through each month
       for (let month = 1; month <= totalMonths; month++) {
+        //Check if there is a record to compare, and check if the month number matches
         if (minutesByMonth[recordIndex] && minutesByMonth[recordIndex].month_number === month){
+          //If so push info to array and increment the array index
           monthlyMinutes.push(minutesByMonth[recordIndex].total_minutes);
           recordIndex++;
         } else {
+          //If no record is found push 0 minutes
           monthlyMinutes.push(0);
         }
       }
-     console.log(monthlyMinutes);
 
       const enrollmentData = {
         labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', "July", "Aug", "Sep", "Oct", "Nov", "Dec"],

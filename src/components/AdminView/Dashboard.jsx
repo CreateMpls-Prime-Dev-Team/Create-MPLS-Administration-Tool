@@ -1,10 +1,14 @@
-import react from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import Chart from 'chart.js/auto';
 import './Dashboard.css'
 import { Pie, Line, Bar } from 'react-chartjs-2';
 import { height } from '@mui/system';
 function Dashboard() {
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: 'FETCH_DASHBOARD'});
+  }, [])
     const ethnicitydata = {
         labels: ['White', 'Hispanic', 'Latino', 'Somali'],
         datasets: [

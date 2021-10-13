@@ -11,7 +11,6 @@ const ProgramDataGrid = () => {
         { field: 'type_name', headerName: 'Type', width: 150 },
         { field: 'staff', headerName: 'Staff', width: 200},
         { field: 'num_students', headerName: '# Students', width: 100},
-        { field: 'start_date', headerName: 'Start Date', width: 100 },
     ]
 
     return (

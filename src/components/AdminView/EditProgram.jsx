@@ -6,8 +6,11 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Paper
+  Paper,
+  InputLabel,
+  Typography
 } from "@mui/material";
+import AddStudentSearch from '../Search/AddStudentSearch';
 
 
 
@@ -36,6 +39,14 @@ const EditProgram = () => {
         dispatch({ type: 'DELETE_PROGRAM', payload: programToEdit.id })
     }
   }
+
+  const onAddStudentToProgram = () => {
+    console.log('adding a student!!!');
+  }
+
+  const onRemoveStudentFromProgram = () => {
+    console.log('removing student!!!');
+  }
   
     return (
       <div>
@@ -59,14 +70,18 @@ const EditProgram = () => {
           onChange={handleChange}
         />
         <FormControl>
+          <InputLabel id="typeSelect">Type</InputLabel>
           <Select
             name="type_id"
+            id="demo-simple-select"
             style={{ margin: 5 }}
             onChange={handleChange}
             value={programToEdit.type_id}
           >
             {(Object.keys(settings).length > 0 ) ? settings.type.map((t)=> (
+              <>
                 <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
+              </>
             )) :
                 <MenuItem value={0}>Loading....</MenuItem>
             }
@@ -89,6 +104,25 @@ const EditProgram = () => {
           onClick={handleUpdate}
         >
           SAVE
+        </Button>
+      </div>
+      <div>
+        <Typography variant="h6">ADD STUDENTS TO PROGRAM</Typography>
+        <AddStudentSearch />
+        <Button
+          color="error" 
+          variant="outlined"
+          style={{ margin: 5, marginBottom: 20, width: 200 }}
+          onClick={onRemoveStudentFromProgram}
+        >
+          REMOVE
+        </Button>
+        <Button
+          variant="outlined"
+          style={{ margin: 5, marginBottom: 20, width: 200 }}
+          onClick={onAddStudentToProgram}
+        >
+          ADD
         </Button>
       </div>
       </Paper>

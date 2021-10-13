@@ -155,8 +155,8 @@ function* addStudentProgram(action){
 
 function* getDashboardData(){
     try {
-        const results = yield axios.post('api/dashboard/charts');
-        yield put({ type: 'SET_CHARTS', payload: results })
+        const results = yield axios.get('api/dashboard/charts');
+        yield put({ type: 'SET_CHARTS', payload: results.data })
     } catch (error) {
         console.log('Error: get dashboard data', error)
     }

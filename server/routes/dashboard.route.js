@@ -26,10 +26,30 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         GROUP BY g.name;
         `;
 
+    const minutesStatement = `
+        SELECT
+            EXTRACT( MONTH FROM po.at_date ) AS month_number,
+            SUM(duration) AS total_minutes
+        FROM program_occurrence po
+        JOIN student_program_attendance spa
+            ON ( po.id = spa.occurrence_id )
+        WHERE EXTRACT( YEAR FROM po.at_date ) = EXTRACT( YEAR FROM NOW())
+        GROUP BY month_number
+        ORDER BY month_number;
+        `;
+
     try {
+
         const ethnicity = await db.query(ethnicityStatement);
         const gender = await db.query(genderStatement);
-        res.send({ ethnicity: ethnicity.rows, gender: gender.rows})
+        const minutesByMonth = await db.query(minutesStatement);
+
+        res.send({ 
+            ethnicity: ethnicity.rows, 
+            gender: gender.rows,
+            minutesByMonth: minutesByMonth.rows,
+        });
+
     } catch (error) {
         console.log('ERROR: dashboard', error);
         res.sendStatus(500);

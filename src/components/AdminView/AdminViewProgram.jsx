@@ -18,6 +18,8 @@ const programToEdit = useSelector(store => store.programToEdit);
 
 useEffect(() => {
   dispatch({ type: 'FETCH_PROGRAM'});
+  dispatch({ type: 'FETCH_STUDENT' });
+  dispatch({ type: 'FETCH_STAFF' });
 }, [])
 
 return (

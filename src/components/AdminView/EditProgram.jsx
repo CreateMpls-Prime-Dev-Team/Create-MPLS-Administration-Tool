@@ -15,6 +15,8 @@ import {
   Container
 } from "@mui/material";
 import AddStudentSearch from '../Search/AddStudentSearch';
+import AddStaffSearch from '../Search/AddStaffSearch';
+import ClassListDataGrid from '../DataGrid/ClassListDataGrid';
 
 
 
@@ -22,6 +24,7 @@ const EditProgram = () => {
   const dispatch = useDispatch();
   const programToEdit = useSelector(store => store.programToEdit);
   const settings = useSelector(store => store.settings);
+  const [classList, setClassList] = React.useState([]);
 
   const handleChange = (event) => {
     dispatch({
@@ -44,12 +47,24 @@ const EditProgram = () => {
     }
   }
 
+  const onAddStaffToProgram = () => {
+    console.log('adding staff!!!');
+  }
+
+  const onRemoveStaffFromProgram = () => {
+    console.log('removing staff!!!');
+  }
+
   const onAddStudentToProgram = () => {
     console.log('adding a student!!!');
   }
 
   const onRemoveStudentFromProgram = () => {
     console.log('removing student!!!');
+  }
+
+  const onSaveClassList = () => {
+    console.log('class list saved!!!');
   }
   
     return (
@@ -111,6 +126,23 @@ const EditProgram = () => {
         </Button>
       </div>
       <div>
+        <Typography variant="h6">ADD STAFF TO PROGRAM</Typography>
+        <AddStaffSearch />
+        <Button
+          color="error" 
+          variant="outlined"
+          style={{ margin: 5, marginBottom: 20, width: 200 }}
+          onClick={onRemoveStaffFromProgram}
+        >
+          REMOVE
+        </Button>
+        <Button
+          variant="outlined"
+          style={{ margin: 5, marginBottom: 20, width: 200 }}
+          onClick={onAddStaffToProgram}
+        >
+          ADD
+        </Button>
         <Typography variant="h6">ADD STUDENTS TO PROGRAM</Typography>
         <AddStudentSearch />
         <Button
@@ -128,15 +160,14 @@ const EditProgram = () => {
         >
           ADD
         </Button>
-        <Container sx={{width: 600}}>
-            <List>
-                <ListItem>
-                  <ListItemText
-                    primary="Student Name"
-                  />
-                </ListItem>
-            </List>
-        </Container>
+        <ClassListDataGrid />
+        <Button
+          variant="outlined"
+          style={{ margin: 5, marginBottom: 20, width: 200 }}
+          onClick={onSaveClassList}
+        >
+          SAVE CLASS LIST
+        </Button>
       </div>
       </Paper>
       </div>

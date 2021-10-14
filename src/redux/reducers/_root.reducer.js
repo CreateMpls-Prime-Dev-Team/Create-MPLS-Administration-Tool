@@ -9,6 +9,7 @@ import studentToEdit from './studentToEdit.reducer';
 import studentToAdd from './studentToAdd.reducer';
 import programToEdit from './programToEdit.reducer';
 import staffToEdit from './staffToEdit.reducer';
+import staffToAdd from './staffToAdd.reducer';
 import occurrenceToEdit from './occurrenceToEdit.reducer';
 import programsByTeacher from './programsByTeacher.reducer';
 import occurrenceStudents from './occurrenceStudents.reducer';
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   studentToAdd, // Holds the student to add them to program
   programToEdit, // Holds the program from search to edit
   staffToEdit, // Holds the staff from search to edit
+  staffToAdd, // Holds the staff to add them to the program
   programsByTeacher, // Holds the list of programs that the teacher is assigned.
   occurrenceToEdit, // Holds the occurrence to edit,
   occurrenceStudents, // Holds the students for occurrence attendance

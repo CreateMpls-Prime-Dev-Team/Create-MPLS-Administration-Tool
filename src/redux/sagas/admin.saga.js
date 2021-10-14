@@ -134,7 +134,7 @@ function* getProgram(){
 //DELETES a program (soft).
 function* deleteProgram(action){
     try {
-        yield axios.delete(`/api/program/toggle-active/${action.payload}`);
+        yield axios.delete(`api/program/toggle-active/${action.payload}`);
         yield put({ type: 'FETCH_PROGRAM' });
     } catch (error) {
         console.log('Error deleting Program', error);
@@ -142,11 +142,22 @@ function* deleteProgram(action){
     }
 }
 
+//ADDS a staff to a program.
+function* addStaffProgram(action){
+    console.log('action.payload', action.payload);
+    try {
+        yield axios.post(`api/program/assign-staff`, action.payload);
+    } catch (error) {
+        console.log('Error with adding a Student to a Program', error);
+        yield put({ type: 'ADD_STAFF_PROGRAM_FAILED' });
+    }
+}
+
 //ADDS a student to a program.
 function* addStudentProgram(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.post(`???`, action.payload);
+        yield axios.post(`api/program/assign-student`, action.payload);
     } catch (error) {
         console.log('Error with adding a Student to a Program', error);
         yield put({ type: 'ADD_STUDENT_PROGRAM_FAILED' });
@@ -178,6 +189,7 @@ function* adminSaga() {
     yield takeLatest('FETCH_PROGRAM', getProgram);
     yield takeLatest('DELETE_PROGRAM', deleteProgram);
     yield takeLatest('ADD_STUDENT_PROGRAM', addStudentProgram);
+    yield takeLatest('ADD_STAFF_PROGRAM', addStaffProgram);
 //    yield takeLatest('FETCH_ALL_DATA', getAllData);
 }
 export default adminSaga;

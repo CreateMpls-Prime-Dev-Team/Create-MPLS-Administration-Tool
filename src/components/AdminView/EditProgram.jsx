@@ -23,8 +23,9 @@ import ClassListDataGrid from '../DataGrid/ClassListDataGrid';
 const EditProgram = () => {
   const dispatch = useDispatch();
   const programToEdit = useSelector(store => store.programToEdit);
+  const studentToAdd = useSelector(store => store.studentToAdd);
+  const staffToAdd = useSelector(store => store.staffToAdd);
   const settings = useSelector(store => store.settings);
-  const [classList, setClassList] = React.useState([]);
 
   const handleChange = (event) => {
     dispatch({
@@ -48,23 +49,23 @@ const EditProgram = () => {
   }
 
   const onAddStaffToProgram = () => {
-    console.log('adding staff!!!');
-  }
-
-  const onRemoveStaffFromProgram = () => {
-    console.log('removing staff!!!');
+    dispatch({ 
+        type: 'ADD_STAFF_PROGRAM', 
+        payload: {
+          userId: staffToAdd.id,
+          programId: programToEdit.id
+        } 
+      });
   }
 
   const onAddStudentToProgram = () => {
-    console.log('adding a student!!!');
-  }
-
-  const onRemoveStudentFromProgram = () => {
-    console.log('removing student!!!');
-  }
-
-  const onSaveClassList = () => {
-    console.log('class list saved!!!');
+    dispatch({ 
+        type: 'ADD_STUDENT_PROGRAM', 
+        payload: {
+          studentId: studentToAdd.id,
+          programId: programToEdit.id
+        } 
+      });
   }
   
     return (
@@ -129,14 +130,6 @@ const EditProgram = () => {
         <Typography variant="h6">ADD STAFF TO PROGRAM</Typography>
         <AddStaffSearch />
         <Button
-          color="error" 
-          variant="outlined"
-          style={{ margin: 5, marginBottom: 20, width: 200 }}
-          onClick={onRemoveStaffFromProgram}
-        >
-          REMOVE
-        </Button>
-        <Button
           variant="outlined"
           style={{ margin: 5, marginBottom: 20, width: 200 }}
           onClick={onAddStaffToProgram}
@@ -146,14 +139,6 @@ const EditProgram = () => {
         <Typography variant="h6">ADD STUDENTS TO PROGRAM</Typography>
         <AddStudentSearch />
         <Button
-          color="error" 
-          variant="outlined"
-          style={{ margin: 5, marginBottom: 20, width: 200 }}
-          onClick={onRemoveStudentFromProgram}
-        >
-          REMOVE
-        </Button>
-        <Button
           variant="outlined"
           style={{ margin: 5, marginBottom: 20, width: 200 }}
           onClick={onAddStudentToProgram}
@@ -161,13 +146,6 @@ const EditProgram = () => {
           ADD
         </Button>
         <ClassListDataGrid />
-        <Button
-          variant="outlined"
-          style={{ margin: 5, marginBottom: 20, width: 200 }}
-          onClick={onSaveClassList}
-        >
-          SAVE CLASS LIST
-        </Button>
       </div>
       </Paper>
       </div>

@@ -6,14 +6,13 @@ const ClassListDataGrid = () => {
     const [classList, setClassList] = React.useState([]);
 
     const columns = [
-        { field: 'student', headerName: 'Student(s)', width: 200 },
-        { field: 'staff', headerName: 'Staff', width: 200 },
+        { field: 'student', headerName: 'Student(s)', width: 350 },
     ]
 
     return (
         <>
         <center>
-            <div style={{ height: 250, width: '50%' }}>
+            <div style={{ height: 250, width: '65%' }}>
                 <DataGrid
                     rows={classList}
                     columns={columns}

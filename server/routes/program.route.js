@@ -116,9 +116,9 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
   });
 });
 
-/**** POST /api/program/assign-teacher ****/
-// Post a new teacher assignment
- router.post('/assign-teacher', rejectUnauthenticated, (req, res) => {
+/**** POST /api/program/assign-staff ****/
+// Post a new staff assignment
+ router.post('/assign-staff', rejectUnauthenticated, (req, res) => {
   
   let params = [ 
     req.body.userId, 
@@ -166,7 +166,7 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
 /**** POST /api/program/assign-student ****/
 // Assigns student to program
 router.post('/assign-student', rejectUnauthenticated, (req, res) => {
-
+  
   let params = [ 
     req.body.studentId, 
     req.body.programId

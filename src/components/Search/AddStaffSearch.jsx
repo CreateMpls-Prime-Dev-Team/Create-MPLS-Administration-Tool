@@ -6,7 +6,6 @@ import "../AdminView/StudentSearch.css";
 function AddStaffSearch() {
     const dispatch = useDispatch();
     const staffList = useSelector(store => store.teacher);
-    //need to add this
     const staffToAdd = useSelector(store => store.staffToAdd);
     const [selectedStaffId, setSelectedStaffId] = React.useState(staffToAdd.id);
 
@@ -16,7 +15,7 @@ function AddStaffSearch() {
         staffList.map((staff) => {
             if (staff.id === selectedStaffId) {
                 dispatch({
-                    type: 'SET_STUDENT_TO_ADD',
+                    type: 'SET_STAFF_TO_ADD',
                     payload: staff
                 })
             }

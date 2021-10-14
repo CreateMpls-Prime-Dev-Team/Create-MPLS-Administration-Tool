@@ -15,6 +15,7 @@ const studentRouter = require('./routes/student.route');
 const programRoute = require('./routes/program.route');
 const occurrenceRoute = require('./routes/occurrence.route');
 const attendanceRouter = require('./routes/attendance.route');
+const dashboardRouter = require('./routes/dashboard.route');
 
 // Body parser middleware
 app.use(express.json());
@@ -37,6 +38,7 @@ app.use('/api/student', studentRouter);
 app.use('/api/program', programRoute);
 app.use('/api/occurrence', occurrenceRoute);
 app.use('/api/attendance', attendanceRouter);
+app.use('/api/dashboard', dashboardRouter);
 
 // Serve static files
 app.use(express.static('build'));

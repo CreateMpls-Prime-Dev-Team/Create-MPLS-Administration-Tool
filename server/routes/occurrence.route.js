@@ -75,13 +75,13 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
 // Add new occurrence
  router.post('/add', rejectUnauthenticated, (req, res) => {
   
-  let params = [ req.body.id];
+  let params = [ req.body.id, req.body.duration, req.body.volunteers];
 
   const statement = `
     INSERT INTO program_occurrence
       ( assignment_id, duration, at_date, volunteers )
     VALUES
-      ( $1, 15, NOW(), 0 )
+      ( $1, $2, NOW(), $3 )
     RETURNING id;
   `;
 

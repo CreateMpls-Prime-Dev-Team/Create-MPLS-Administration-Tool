@@ -44,8 +44,9 @@ const AddProgram = () => {
     return (
         <>
             <center>
-                <Paper elevation={24}>
-                <Box style={{ width: '50%' }}>
+                <Paper>
+                <Box style={{ width: '50%', paddingTop: "1px", paddingBottom: "20px", marginTop: -30 }}>
+                <Typography variant="h5" style={{ marginTop: 20, marginBottom: 20 }}>ADD PROGRAM FORM</Typography>
                     <div>
                         <TextField 
                             required 

@@ -8,7 +8,8 @@ import{
   FormControl, 
   Select,
   Button,
-  Paper
+  Paper,
+  Typography
 } from "@mui/material";
 
 
@@ -45,14 +46,14 @@ const EditStudent = () => {
     return (
         <>
         <center>
-            <Paper elevation={24}>
+            <Paper>
             <Box style={{ width: '50%' }}>
                 <div>
                     <TextField 
                         required 
                         name="first_name"
                         variant="outlined"
-                        style={{ margin: 5 }}
+                        style={{ margin: 5, width: '45%' }}
                         label="First Name"
                         value={studentToEdit.first_name}
                         onChange={handleChange}
@@ -61,21 +62,22 @@ const EditStudent = () => {
                         required 
                         name="last_name"
                         variant="outlined"
-                        style={{ margin: 5 }}
+                        style={{ margin: 5, width: '45%' }}
                         label="Last Name" 
                         value={studentToEdit.last_name}
                         onChange={handleChange}
                     />
+                </div>
+                <div>
                     <TextField 
                         required 
                         name="age"
                         variant="outlined"
-                        style={{ margin: 5 }}
+                        style={{ margin: 5, width: 100 }}
                         label="Age" 
                         value={studentToEdit.age}
                         onChange={handleChange}
                     />
-                </div>
                 <FormControl>
                     <Select
                         name="grade_id"
@@ -118,6 +120,7 @@ const EditStudent = () => {
                         }
                     </Select>
                 </FormControl>
+                </div>
                 <div>
                     <Button 
                         id="addBttn" 

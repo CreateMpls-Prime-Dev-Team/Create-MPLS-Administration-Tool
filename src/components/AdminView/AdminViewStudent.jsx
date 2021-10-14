@@ -21,10 +21,8 @@ function AdminViewStudent() {
     
     return (
         <>
-            <Typography variant="h5" style={{marginTop: 40, marginBottom: 20}}>ADD STUDENT FORM</Typography>
             <AddStudent />
-
-            <Typography variant="h5" style={{ marginTop: 60, marginBottom: 10 }}>EDIT STUDENT FORM</Typography>
+            <Typography variant="h5" style={{ marginTop: 20, marginBottom: 20 }}>EDIT STUDENT FORM</Typography>
             <StudentSearch />
             { Object.keys(studentToEdit).length > 0 &&
                 <EditStudent/> //Display only when there is a student to edit

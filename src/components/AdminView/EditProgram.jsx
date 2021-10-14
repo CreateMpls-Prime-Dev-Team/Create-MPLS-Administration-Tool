@@ -39,7 +39,7 @@ const EditProgram = () => {
   
     return (
       <div>
-        <Paper elevation={24}>
+        <Paper>
         <TextField 
           required 
           name="name"

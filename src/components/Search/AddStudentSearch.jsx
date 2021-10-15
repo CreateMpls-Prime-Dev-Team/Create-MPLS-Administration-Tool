@@ -3,30 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import SelectSearch from "react-select-search";
 import "../AdminView/StudentSearch.css";
 
-
-//START STUDENT SEARCH DROP DOWN FUNC
-function StudentSearch() {
+function AddStudentSearch() {
     const dispatch = useDispatch();
     const studentList = useSelector(store => store.student);
-    //Local state for student selection
-    const studentToEdit = useSelector(store => store.studentToEdit);
-    const [selectedStudentId, setSelectedStudentId] = React.useState(studentToEdit.id);
+    const studentToAdd = useSelector(store => store.studentToAdd);
+    const [selectedStudentId, setSelectedStudentId] = React.useState(studentToAdd.id);
 
     const searchInput = useRef();
 
-    // Send Student Data object to edit
     useEffect(() => {
-        //Iterate through student list to match id with selected id
         studentList.map((student) => {
             if (student.id === selectedStudentId) {
-                //Once a match has been found send the student object to be used.
                 dispatch({
-                    type: 'SET_STUDENT_TO_EDIT',
+                    type: 'SET_STUDENT_TO_ADD',
                     payload: student
                 })
             }
-        });
-    }, [selectedStudentId]);
+        })
+    }, [selectedStudentId])
 
     let items = []; // create a list of students
     studentList.map((student) => {
@@ -72,7 +66,7 @@ function StudentSearch() {
                 onChange={setSelectedStudentId}
             />
         </div>
-    );
-} //END STUDENT SEARCH DROPDOWN
+    )
+}
 
-export default StudentSearch;
+export default AddStudentSearch;

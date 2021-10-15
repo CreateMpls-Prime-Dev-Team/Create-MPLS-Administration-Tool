@@ -16,6 +16,7 @@ import occurrenceToEdit from './occurrenceToEdit.reducer';
 import programsByTeacher from './programsByTeacher.reducer';
 import occurrenceStudents from './occurrenceStudents.reducer';
 import occurrenceAttendance from './occurrenceAttendance.reducer';
+import occurrenceByTeacher from './occurrencesByTeacher.reducer';
 import charts from './charts.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   occurrenceStudents, // Holds the students for occurrence attendance
   occurrenceAttendance, // Holds the current student attendance for the occurrence
   charts, // Stores information for displaying charts
+  occurrenceByTeacher, // Stores the teachers previous occurrences
 });
 
 export default rootReducer;

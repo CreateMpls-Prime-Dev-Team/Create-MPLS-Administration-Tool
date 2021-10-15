@@ -7,6 +7,9 @@ import { height } from '@mui/system';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
 import { object } from 'prop-types';
+import { Box, Typography } from '@mui/material';
+import AdminViewConfig from './AdminViewConfig';
+
 function Dashboard() {
 
   const dispatch = useDispatch();
@@ -141,17 +144,17 @@ function Dashboard() {
         return { ...object, date: getMonthDDYYYY(object.date) }
       });
       const columns = [
-        { field: 'date', headerName: 'Date', width: 200 },
+        { field: 'date', headerName: 'Date', width: 100 },
         { field: 'program_name', headerName: 'Name', width: 200 },
         { field: 'program_location', headerName: 'Location', width: 200 },
-        { field: 'teacher_first_name', headerName: 'First Name', width: 200 },
-        { field: 'teacher_last_name', headerName: 'Last Name', width: 200 },
-        { field: 'duration', headerName: 'Duration', width: 200 },
-        { field: 'volunteers', headerName: 'Volunteers', width: 200 },
-        { field: 'student_count', headerName: 'Student Count', width: 200 },
+        { field: 'teacher_first_name', headerName: 'First Name', width: 100 },
+        { field: 'teacher_last_name', headerName: 'Last Name', width: 100 },
+        { field: 'duration', headerName: 'Duration', width: 75 },
+        { field: 'volunteers', headerName: 'Volunteers', width: 75 },
+        { field: 'student_count', headerName: 'Student Count', width: 75 },
       ];
       return (
-        <div style={{ height: 500, width: '75%' }}>
+        <div style={{ height: 500, width: '90%' }}>
           <DataGrid  
             rows={formattedOccurrenceGrid} 
             columns={columns} 
@@ -165,15 +168,15 @@ function Dashboard() {
     const studentDataGrid = () => {
 
       const columns = [
-        { field: 'last_name', headerName: 'Last Name', width: 200 },
-        { field: 'first_name', headerName: 'First Name', width: 200 },
-        { field: 'ethnicity', headerName: 'Ethnicity', width: 200 },
-        { field: 'gender', headerName: 'Gender', width: 200 },
-        { field: 'grade', headerName: 'Grade', width: 200 },
+        { field: 'last_name', headerName: 'Last Name', width: 175 },
+        { field: 'first_name', headerName: 'First Name', width: 175 },
+        { field: 'ethnicity', headerName: 'Ethnicity', width: 175 },
+        { field: 'gender', headerName: 'Gender', width: 100 },
+        { field: 'grade', headerName: 'Grade', width: 100 },
         { field: 'total_minutes', headerName: 'Total Minutes', width: 200 },
       ];
       return (
-        <div style={{ height: 500, width: '75%' }}>
+        <div style={{ height: 500, width: '90%' }}>
           <DataGrid  
             rows={studentGrid} 
             columns={columns} 
@@ -192,7 +195,7 @@ function Dashboard() {
         { field: 'total_minutes', headerName: 'Total Minutes', width: 200 },
       ];
       return (
-        <div style={{ height: 250, width: '75%' }}>
+        <div style={{ height: 300, width: '90%' }}>
           <DataGrid  
             rows={teacherGrid} 
             columns={columns} 
@@ -204,36 +207,56 @@ function Dashboard() {
     }
 
 
-  return(  
-    <>
-      <div id = "flex-chart-container" >
-        <div class ="flex-child" style={{width: "20em", height: "20em"}}>
-        <h4>Ethnicity </h4>
+return(  
+  <>
+  <center>
+    <div id = "flex-chart-container" style={{justifyContent: 'center'}}>
+        <div class ="flex-child" style={{width: "20em", height: "20em", margin: 10}}>
+        <Typography variant="h6">ETHNICITY</Typography>
         {ethnicity && ethnicityPieGraph()}
         
         </div>
 
-        <div div class ="flex-child" style={{width: "20em", height: "20em"}}>
-        <h4>Gender </h4>
+        <div div class ="flex-child" style={{width: "20em", height: "20em", margin: 10}}>
+        <Typography variant="h6">GENDER</Typography>
         {gender && genderPieGraph()}
         </div>
 
-        <div div class ="flex-child" >
-        <h4>Total Minutes per Month</h4>
+        <div div class ="flex-child" style={{width: "20em", height: "20em", margin: 10}}>
+        <Typography variant="h6">TOTAL MINUTES PER MONTH</Typography>
         {minutesByMonth && minutesByMonthLineGraph()}
         </div>
-      </div>
-      <div>
-        {occurrenceGrid && occurrenceDataGrid()}
-      </div>
-      <div>
-        {studentGrid && studentDataGrid()}
-      </div>
-      <div>
-        {teacherGrid && teacherDataGrid()}
-      </div>
-    </>
-  );
+
+        
+        {/* <div div class ="flex-child" >
+        <h4>Enrollment by Location </h4>
+        <Bar data={locationdata} options={stackbaroptions} />
+        </div> */}
+
+    </div>
+    <div style={{ height: 500, width: '80%', marginTop: 100 }}>
+      <Typography variant="h5" sx={{ marginBottom: 5}}>RECENT PROGRAMS</Typography>
+      {occurrenceGrid && occurrenceDataGrid()}
+    </div>
+    <div style={{ height: 500, width: '80%', marginTop: 125 }}>
+      <Typography variant="h5" sx={{ marginBottom: 5}}>STUDENT ATTENDANCE</Typography>
+      {studentGrid && studentDataGrid()}
+    </div>
+    <div style={{ height: 300, width: '80%', marginTop: 125, marginBottom: 125 }}>
+      <Typography variant="h5" sx={{ marginBottom: 5}}>STAFF ATTENDANCE</Typography>
+      {teacherGrid && teacherDataGrid()}
+    </div>
+    <div>
+        <AdminViewConfig />
+    </div>
+  </center>
+  </>
+);
+
+
+  
+    // <p>Enrollment by Location Bar Chart</p>
+
 
 }
 

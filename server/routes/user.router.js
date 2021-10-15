@@ -183,4 +183,27 @@ router.put('/staff/update/:id', rejectUnauthenticated, (req, res) => {
    });
 });
 
+router.get('/by-assignment/:id', rejectUnauthenticated, (req, res) => {
+  
+  const statement = `
+    SELECT 
+      u.id,
+      u.first_name,
+      u.last_name
+    FROM "user" u
+    JOIN staff_program_assignment spa
+      ON ( u.id = spa.user_id)
+    WHERE spa.program_id = $1
+    `;
+
+  db.query(statement, [ req.params.id ])
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR - get:/api/student/record/:id', err);
+    res.sendStatus(500)
+  });
+});
+
 module.exports = router;

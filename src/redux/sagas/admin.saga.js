@@ -134,7 +134,7 @@ function* getProgram(){
 //DELETES a program (soft).
 function* deleteProgram(action){
     try {
-        yield axios.delete(`/api/program/toggle-active/${action.payload}`);
+        yield axios.delete(`api/program/toggle-active/${action.payload}`);
         yield put({ type: 'FETCH_PROGRAM' });
     } catch (error) {
         console.log('Error deleting Program', error);
@@ -142,11 +142,22 @@ function* deleteProgram(action){
     }
 }
 
+//ADDS a staff to a program.
+function* addStaffProgram(action){
+    console.log('action.payload', action.payload);
+    try {
+        yield axios.post(`api/program/assign-staff`, action.payload);
+    } catch (error) {
+        console.log('Error with adding a Student to a Program', error);
+        yield put({ type: 'ADD_STAFF_PROGRAM_FAILED' });
+    }
+}
+
 //ADDS a student to a program.
 function* addStudentProgram(action){
     console.log('action.payload', action.payload);
     try {
-        yield axios.post(`???`, action.payload);
+        yield axios.post(`api/program/assign-student`, action.payload);
     } catch (error) {
         console.log('Error with adding a Student to a Program', error);
         yield put({ type: 'ADD_STUDENT_PROGRAM_FAILED' });
@@ -172,6 +183,25 @@ function* getDashboardData(){
     }
 }
 */
+
+function* getStudentAssignments(action) {
+    try {
+        const result = yield axios.get(`api/student/by-assignment/${action.payload.id}`);
+        yield put({ type: 'SET_STUDENT_ASSIGNMENTS', payload: result.data})  
+    } catch (error) {
+        console.log('Error with fetching student assignments', error);
+    }
+}
+
+function* getStaffAssignments(action) {
+    try {
+        const result = yield axios.get(`api/user/by-assignment/${action.payload.id}`);
+        yield put({ type: 'SET_STAFF_ASSIGNMENTS', payload: result.data})  
+    } catch (error) {
+        console.log('Error with fetching staff assignments', error);
+    }
+}
+
 function* adminSaga() {
     yield takeLatest('ADD_STUDENT', addStudent);
     yield takeLatest('FETCH_STUDENT', getStudent);
@@ -186,6 +216,9 @@ function* adminSaga() {
     yield takeLatest('FETCH_PROGRAM', getProgram);
     yield takeLatest('DELETE_PROGRAM', deleteProgram);
     yield takeLatest('ADD_STUDENT_PROGRAM', addStudentProgram);
+    yield takeLatest('ADD_STAFF_PROGRAM', addStaffProgram);
+    yield takeLatest('FETCH_STUDENT_ASSIGNMENTS', getStudentAssignments),
+    yield takeLatest('FETCH_STAFF_ASSIGNMENTS', getStaffAssignments)
     yield takeLatest('FETCH_DASHBOARD', getDashboardData)
 //    yield takeLatest('FETCH_ALL_DATA', getAllData);
 }

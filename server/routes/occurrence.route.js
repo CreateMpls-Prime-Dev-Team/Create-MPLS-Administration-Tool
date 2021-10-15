@@ -3,8 +3,30 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+router.put('/:id', rejectUnauthenticated, (req, res) => {
 
-/**** PUT /api/occurrence/record/:id ****/
+  const params = [ req.body.duration, req.body.volunteers, req.body.at_date, req.params.id ];
+
+  const statement = `
+    UPDATE program_occurrence 
+    SET
+      duration = $1,
+      volunteers = $2,
+      at_date = $3
+    WHERE id = $4
+  `;
+
+  db.query(statement, params)
+  .then( result => {
+    res.sendStatus(201);
+  })
+  .catch(err => {
+    console.log('ERROR - put:/api/occurrence/:id', err);
+    res.sendStatus(500)
+  });
+});
+
+/**** GET /api/occurrence/record/:id ****/
 // Update occurrence record by id
 router.get('/record/:id', rejectUnauthenticated, (req, res) => {
   
@@ -75,13 +97,13 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
 // Add new occurrence
  router.post('/add', rejectUnauthenticated, (req, res) => {
   
-  let params = [ req.body.id, req.body.duration, req.body.volunteers];
+  let params = [ req.body.id ];
 
   const statement = `
     INSERT INTO program_occurrence
       ( assignment_id, duration, at_date, volunteers )
     VALUES
-      ( $1, $2, NOW(), $3 )
+      ( $1, 15, NOW(), 0 )
     RETURNING id;
   `;
 

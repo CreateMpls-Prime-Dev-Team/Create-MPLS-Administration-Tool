@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Chart from 'chart.js/auto';
 import './Dashboard.css'
 import { Pie, Line, Bar } from 'react-chartjs-2';
-import { height } from '@mui/system';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Box, Typography } from '@mui/material';
+import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
+import { Typography } from '@mui/material';
 import AdminViewConfig from './AdminViewConfig';
 
 function Dashboard() {
@@ -138,6 +137,9 @@ function Dashboard() {
 
     const occurrenceDataGrid = () => {
 
+      let formattedOccurrenceGrid = occurrenceGrid.map((object) => {
+        return { ...object, date: getMonthDDYYYY(object.date) }
+      });
       const columns = [
         { field: 'date', headerName: 'Date', width: 175 },
         { field: 'program_name', headerName: 'Name', width: 170 },
@@ -151,7 +153,7 @@ function Dashboard() {
       return (
         <div style={{ height: 500, width: '90%' }}>
           <DataGrid  
-            rows={occurrenceGrid} 
+            rows={formattedOccurrenceGrid} 
             columns={columns} 
             components={{
               Toolbar: GridToolbar,
@@ -201,46 +203,6 @@ function Dashboard() {
         </div>)
     }
 
-      // const locationdata = {
-      //   labels: ['Minneapolis', 'St. Paul', 'Suburbs', 'Anoka', 'Hopkins', 'Minnetonka'],
-      //   datasets: [
-      //     {
-      //       label: 'Learning Lab',
-      //       data: [12, 19, 3, 5, 2, 3],
-      //       backgroundColor: 'rgb(255, 99, 132)',
-      //     },
-      //     {
-      //       label: 'Robot League',
-      //       data: [2, 3, 20, 5, 1, 4],
-      //       backgroundColor: 'rgb(54, 162, 235)',
-      //     },
-      //     {
-      //       label: 'Coding Class Bro',
-      //       data: [3, 10, 13, 15, 22, 30],
-      //       backgroundColor: 'rgb(75, 192, 192)',
-      //     },
-      //   ],
-      // };
-      
-      // const stackbaroptions = {
-      //   scales: {
-      //     yAxes: [
-      //       {
-      //         stacked: true,
-      //         ticks: {
-      //           beginAtZero: true,
-      //         },
-      //       },
-      //     ],
-      //     xAxes: [
-      //       {
-      //         stacked: true,
-      //       },
-      //     ],
-      //   },
-      // };
-      
-
 
 return(  
   <>
@@ -261,12 +223,6 @@ return(
         <Typography variant="h6">TOTAL MINUTES PER MONTH</Typography>
         {minutesByMonth && minutesByMonthLineGraph()}
         </div>
-
-        
-        {/* <div div class ="flex-child" >
-        <h4>Enrollment by Location </h4>
-        <Bar data={locationdata} options={stackbaroptions} />
-        </div> */}
 
     </div>
     <div style={{ height: 500, width: '80%', marginTop: 100 }}>

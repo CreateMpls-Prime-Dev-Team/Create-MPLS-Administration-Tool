@@ -75,6 +75,16 @@ function* getStudentAttendance(action){
     }
 }
 
+function* putOccurrenceData(action){
+    try {
+        yield axios.put(`api/occurrence/${action.payload.id}`, action.payload);
+        let { history } = action.payload;
+        yield history.push('/teacher');
+    } catch (error) {
+        console.log('Error with saving student attendance', error);
+    }
+}
+
 function* teacherSaga(){
     yield takeLatest('FETCH_STAFF', getStaff);
     yield takeLatest('FETCH_PROGRAMS_BY_TEACHER', getProgramsByTeacher);
@@ -83,5 +93,6 @@ function* teacherSaga(){
     yield takeLatest('ADD_ATTENDANCE', addAttendance);
     yield takeLatest('SET_PROGRAM_OCCURRENCE', addOccurrence);
     yield takeLatest('FETCH_STUDENT_ATTENDANCE', getStudentAttendance);
+    yield takeLatest('SAVE_OCCURRENCE', putOccurrenceData);
 }
 export default teacherSaga;

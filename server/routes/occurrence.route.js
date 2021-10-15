@@ -63,6 +63,7 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
 /**** GET /api/occurrence/by-teacher/:id ****/
 // Update occurrence record by id
 router.get('/by-teacher/:id', rejectUnauthenticated, (req, res) => {
+  console.log('what is id', req.params.id);
   
   const statement =  `
   SELECT
@@ -81,12 +82,12 @@ router.get('/by-teacher/:id', rejectUnauthenticated, (req, res) => {
     ON ( po.assignment_id = spa.id )
   JOIN program p
     ON ( p.id = spa.program_id )
-  WHERE sqp.user_id = $1;
-  `;
+  WHERE spa.user_id = $1;
+  `;  
 
   db.query(statement, [ req.params.id ])
   .then( result => {
-    res.send(result.rows);
+    res.send(result.rows);    
   })
   .catch(err => {
     console.log('ERROR - get:/api/occurrence/record/:id', err);

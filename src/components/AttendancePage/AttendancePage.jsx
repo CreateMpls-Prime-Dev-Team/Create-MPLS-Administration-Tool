@@ -87,8 +87,8 @@ function AttendancePage() {
         <Container sx={{ width: 370 }}>
             <img src="design_a.png" width="150" height="105"/>
             {/* HEADER - will need to GET this from DB */}
-            <Typography variant="h4" align="left" sx={{ marginLeft: 1 }}>PROGRAM NAME</Typography>
-            <Typography variant="h5" align="left" sx={{ marginLeft: 1, marginBottom: 3 }}>PROGRAM LOCATION</Typography>
+            <Typography variant="h4" align="left" sx={{ marginLeft: 1 }}>{occurrence.name}</Typography>
+            <Typography variant="h5" align="left" sx={{ marginLeft: 1, marginBottom: 3 }}>{occurrence.location}</Typography>
         </Container>
         <center><Container>
                 <Paper  elevation={24} sx={{ width: 350, marginBottom: 2, paddingTop: 2, paddingBottom: 2 }}>

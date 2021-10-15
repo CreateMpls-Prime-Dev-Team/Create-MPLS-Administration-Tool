@@ -20,11 +20,7 @@ function AdminViewStaff() {
 
   return (
     <div>
-      <Typography 
-        variant="h5" 
-        style={{ marginTop: 60, marginBottom: 10 }}
-      >EDIT STAFF FORM
-      </Typography>
+      <Typography variant="h5" style={{ marginTop: 20, marginBottom: 20 }}>EDIT STAFF FORM</Typography>
       <StaffSearch />
         { Object.keys(staffToEdit).length > 0 &&
             <EditStaff/> //Display only when there is a staff to edit

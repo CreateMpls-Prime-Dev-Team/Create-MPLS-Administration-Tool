@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import{ Box, TextField, Button, Paper } from "@mui/material";
+import{ Box, TextField, Button, Paper, Typography } from "@mui/material";
 
 
 const EditStaff = () => {
@@ -41,8 +41,8 @@ const EditStaff = () => {
     return (
         <>
         <center>
-            <Paper elevation={24}>
-            <Box style={{ width: '50%' }}>
+            <Paper>
+            <Box style={{ width: '50%', paddingTop: "1px", paddingBottom: "20px", marginTop: -30 }}>
                 <div>
                     <TextField 
                         required 

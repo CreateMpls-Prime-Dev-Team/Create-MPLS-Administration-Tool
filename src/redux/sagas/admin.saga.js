@@ -164,6 +164,14 @@ function* addStudentProgram(action){
     }
 }
 
+function* getDashboardData(){
+    try {
+        const results = yield axios.get('api/dashboard/charts');
+        yield put({ type: 'SET_CHARTS', payload: results.data })
+    } catch (error) {
+        console.log('Error: get dashboard data', error)
+    }
+}
 // GETS all the data from the database. (On HOLD)
 /*function* getAllData(action){
     console.log('action.payload', action.payload);
@@ -211,6 +219,7 @@ function* adminSaga() {
     yield takeLatest('ADD_STAFF_PROGRAM', addStaffProgram);
     yield takeLatest('FETCH_STUDENT_ASSIGNMENTS', getStudentAssignments),
     yield takeLatest('FETCH_STAFF_ASSIGNMENTS', getStaffAssignments)
+    yield takeLatest('FETCH_DASHBOARD', getDashboardData)
 //    yield takeLatest('FETCH_ALL_DATA', getAllData);
 }
 export default adminSaga;

@@ -60,12 +60,17 @@ function AttendancePage() {
 
 
     const submitAttendance = () => {
-        history.push('/teacher');
+        dispatch({ 
+            type: 'SAVE_OCCURRENCE',
+            payload: { 
+                ...occurrence,
+                history
+            }
+        });
     };
 
-
     const cancelSubmitAttendance = () => {
-        history.push('/teacher')
+        history.push('/teacher');
     }
     
     //function for handling opening/closing dialog box

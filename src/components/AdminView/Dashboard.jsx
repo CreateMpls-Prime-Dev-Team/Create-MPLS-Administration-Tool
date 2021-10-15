@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Chart from 'chart.js/auto';
 import './Dashboard.css'
 import { Pie, Line, Bar } from 'react-chartjs-2';
-import { height } from '@mui/system';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
-import { object } from 'prop-types';
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import AdminViewConfig from './AdminViewConfig';
 
 function Dashboard() {
@@ -226,12 +223,6 @@ return(
         <Typography variant="h6">TOTAL MINUTES PER MONTH</Typography>
         {minutesByMonth && minutesByMonthLineGraph()}
         </div>
-
-        
-        {/* <div div class ="flex-child" >
-        <h4>Enrollment by Location </h4>
-        <Bar data={locationdata} options={stackbaroptions} />
-        </div> */}
 
     </div>
     <div style={{ height: 500, width: '80%', marginTop: 100 }}>

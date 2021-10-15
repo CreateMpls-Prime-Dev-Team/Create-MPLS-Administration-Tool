@@ -139,9 +139,9 @@ function Dashboard() {
     const occurrenceDataGrid = () => {
 
       const columns = [
-        { field: 'date', headerName: 'Date', width: 100 },
-        { field: 'program_name', headerName: 'Name', width: 200 },
-        { field: 'program_location', headerName: 'Location', width: 200 },
+        { field: 'date', headerName: 'Date', width: 175 },
+        { field: 'program_name', headerName: 'Name', width: 170 },
+        { field: 'program_location', headerName: 'Location', width: 175 },
         { field: 'teacher_first_name', headerName: 'First Name', width: 100 },
         { field: 'teacher_last_name', headerName: 'Last Name', width: 100 },
         { field: 'duration', headerName: 'Duration', width: 75 },

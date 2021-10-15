@@ -8,14 +8,7 @@ import {
   MenuItem,
   Paper,
   InputLabel,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-  Container,
-  Box
+  Typography
 } from "@mui/material";
 import AddStudentSearch from '../Search/AddStudentSearch';
 import AddStaffSearch from '../Search/AddStaffSearch';

@@ -147,6 +147,7 @@ function* addStaffProgram(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.post(`api/program/assign-staff`, action.payload);
+        yield put({ type: 'FETCH_STAFF_ASSIGNMENTS', payload: { id: action.payload.programId}});
     } catch (error) {
         console.log('Error with adding a Student to a Program', error);
         yield put({ type: 'ADD_STAFF_PROGRAM_FAILED' });
@@ -158,6 +159,7 @@ function* addStudentProgram(action){
     console.log('action.payload', action.payload);
     try {
         yield axios.post(`api/program/assign-student`, action.payload);
+        yield put({ type: 'FETCH_STUDENT_ASSIGNMENTS', payload: { id: action.payload.programId }});
     } catch (error) {
         console.log('Error with adding a Student to a Program', error);
         yield put({ type: 'ADD_STUDENT_PROGRAM_FAILED' });

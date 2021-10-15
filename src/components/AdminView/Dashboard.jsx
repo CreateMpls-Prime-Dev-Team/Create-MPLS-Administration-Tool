@@ -5,6 +5,8 @@ import './Dashboard.css'
 import { Pie, Line, Bar } from 'react-chartjs-2';
 import { height } from '@mui/system';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
+import { object } from 'prop-types';
 function Dashboard() {
 
   const dispatch = useDispatch();
@@ -135,6 +137,9 @@ function Dashboard() {
 
     const occurrenceDataGrid = () => {
 
+      let formattedOccurrenceGrid = occurrenceGrid.map((object) => {
+        return { ...object, date: getMonthDDYYYY(object.date) }
+      });
       const columns = [
         { field: 'date', headerName: 'Date', width: 200 },
         { field: 'program_name', headerName: 'Name', width: 200 },
@@ -148,7 +153,7 @@ function Dashboard() {
       return (
         <div style={{ height: 500, width: '75%' }}>
           <DataGrid  
-            rows={occurrenceGrid} 
+            rows={formattedOccurrenceGrid} 
             columns={columns} 
             components={{
               Toolbar: GridToolbar,
@@ -187,7 +192,7 @@ function Dashboard() {
         { field: 'total_minutes', headerName: 'Total Minutes', width: 200 },
       ];
       return (
-        <div style={{ height: 500, width: '75%' }}>
+        <div style={{ height: 250, width: '75%' }}>
           <DataGrid  
             rows={teacherGrid} 
             columns={columns} 
@@ -198,50 +203,10 @@ function Dashboard() {
         </div>)
     }
 
-      // const locationdata = {
-      //   labels: ['Minneapolis', 'St. Paul', 'Suburbs', 'Anoka', 'Hopkins', 'Minnetonka'],
-      //   datasets: [
-      //     {
-      //       label: 'Learning Lab',
-      //       data: [12, 19, 3, 5, 2, 3],
-      //       backgroundColor: 'rgb(255, 99, 132)',
-      //     },
-      //     {
-      //       label: 'Robot League',
-      //       data: [2, 3, 20, 5, 1, 4],
-      //       backgroundColor: 'rgb(54, 162, 235)',
-      //     },
-      //     {
-      //       label: 'Coding Class Bro',
-      //       data: [3, 10, 13, 15, 22, 30],
-      //       backgroundColor: 'rgb(75, 192, 192)',
-      //     },
-      //   ],
-      // };
-      
-      // const stackbaroptions = {
-      //   scales: {
-      //     yAxes: [
-      //       {
-      //         stacked: true,
-      //         ticks: {
-      //           beginAtZero: true,
-      //         },
-      //       },
-      //     ],
-      //     xAxes: [
-      //       {
-      //         stacked: true,
-      //       },
-      //     ],
-      //   },
-      // };
-      
 
-
-return(  
-  <>
-    <div id = "flex-chart-container" >
+  return(  
+    <>
+      <div id = "flex-chart-container" >
         <div class ="flex-child" style={{width: "20em", height: "20em"}}>
         <h4>Ethnicity </h4>
         {ethnicity && ethnicityPieGraph()}
@@ -257,30 +222,18 @@ return(
         <h4>Total Minutes per Month</h4>
         {minutesByMonth && minutesByMonthLineGraph()}
         </div>
-
-        
-        {/* <div div class ="flex-child" >
-        <h4>Enrollment by Location </h4>
-        <Bar data={locationdata} options={stackbaroptions} />
-        </div> */}
-
-    </div>
-    <div>
-      {occurrenceGrid && occurrenceDataGrid()}
-    </div>
-    <div>
-      {studentGrid && studentDataGrid()}
-    </div>
-    <div>
-      {teacherGrid && teacherDataGrid()}
-    </div>
-  </>
-);
-
-
-  
-    // <p>Enrollment by Location Bar Chart</p>
-
+      </div>
+      <div>
+        {occurrenceGrid && occurrenceDataGrid()}
+      </div>
+      <div>
+        {studentGrid && studentDataGrid()}
+      </div>
+      <div>
+        {teacherGrid && teacherDataGrid()}
+      </div>
+    </>
+  );
 
 }
 

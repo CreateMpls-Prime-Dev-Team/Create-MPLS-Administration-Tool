@@ -38,7 +38,8 @@ function AdminViewConfig() {
     };
     
     return (
-        <div>
+        <div style={{marginTop: 150}}>
+            <Typography variant="h5">REGISTRATION CODES</Typography>
             <div className ="headerClass">
                 <Typography variant="h6">Change Teacher Registration Code</Typography>
             </div>

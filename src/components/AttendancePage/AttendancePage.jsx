@@ -145,7 +145,7 @@ function AttendancePage() {
                     }
                 </Paper>
                 <Paper elevation={24} sx={{ width: 350, marginBottom: 2 }}>
-                    <Typography variant="h6" sx={{ borderBottom: 3, borderColor: 'grey.500', marginBottom: 1, padding: 1 }}>CLASS LIST</Typography>
+                    <Typography variant="h6" sx={{ border: 3, borderColor: 'grey.500', backgroundColor: "#9acde3", marginBottom: 1, padding: 1 }}>CLASS LIST</Typography>
                         {Object.keys(students).length > 0 &&
                             students.map((student) => (
                             <div key={student.id}>

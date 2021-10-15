@@ -85,9 +85,11 @@ function* putOccurrenceData(action){
     }
 }
 
-function* getTeacherOccurrences(action){
+function* getTeacherOccurrences(action){    
     try {
-        const response = yield axios.put(`api/occurrence/by-teacher/${action.payload.id}`);
+        const response = yield axios.get(`api/occurrence/by-teacher/${action.payload.id}`);
+        console.log('response is', response);
+        
         yield put({ type: 'SET_OCCURRENCE_BY_TEACHER', payload: response.data})
     } catch (error) {
         console.log('Error with saving student attendance', error);

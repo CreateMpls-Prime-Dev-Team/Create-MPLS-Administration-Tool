@@ -2,7 +2,6 @@
 
 export default (rawDate) => {
     const date = new Date(rawDate); //likely from sql
-    let month = date.getMonth() + 1; // Months are 0 - 11
-    month = (month < 10) ? '0' + month : month ; // if single digit, add leading 0
+    const month = date.toLocaleString('default', { month: 'long' });
     return `${month}, ${date.getDate()} ${date.getFullYear()}`;
 } // End humanReadableTime

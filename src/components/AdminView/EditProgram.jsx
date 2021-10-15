@@ -12,12 +12,15 @@ import {
   List,
   ListItem,
   ListItemText,
-  Container
+  ListItemIcon,
+  Divider,
+  Container,
+  Box
 } from "@mui/material";
 import AddStudentSearch from '../Search/AddStudentSearch';
 import AddStaffSearch from '../Search/AddStaffSearch';
 import ClassListDataGrid from '../DataGrid/ClassListDataGrid';
-
+import StaffAssignmentsDataGrid from '../DataGrid/StaffAssignmentsDataGrid';
 
 
 const EditProgram = () => {
@@ -126,7 +129,20 @@ const EditProgram = () => {
           SAVE
         </Button>
       </div>
-      <div>
+        <div>
+        <Typography variant="h6">ADD STUDENTS TO PROGRAM</Typography>
+        <AddStudentSearch /> 
+        <Button
+          variant="outlined"
+          style={{ margin: 5, marginBottom: 20, width: 200 }}
+          onClick={onAddStudentToProgram}
+        >
+        ADD
+        </Button>
+        <ClassListDataGrid />
+        </div>
+        
+
         <Typography variant="h6">ADD STAFF TO PROGRAM</Typography>
         <AddStaffSearch />
         <Button
@@ -136,17 +152,7 @@ const EditProgram = () => {
         >
           ADD
         </Button>
-        <Typography variant="h6">ADD STUDENTS TO PROGRAM</Typography>
-        <AddStudentSearch />
-        <Button
-          variant="outlined"
-          style={{ margin: 5, marginBottom: 20, width: 200 }}
-          onClick={onAddStudentToProgram}
-        >
-          ADD
-        </Button>
-        <ClassListDataGrid />
-      </div>
+        <StaffAssignmentsDataGrid />
       </Paper>
       </div>
     )

@@ -7,9 +7,11 @@ import teacher from './teacher.reducer';
 import program from './program.reducer';
 import studentToEdit from './studentToEdit.reducer';
 import studentToAdd from './studentToAdd.reducer';
+import studentAssignments from './studentAssignments.reducer';
 import programToEdit from './programToEdit.reducer';
 import staffToEdit from './staffToEdit.reducer';
 import staffToAdd from './staffToAdd.reducer';
+import staffAssignments from './staffAssignments.reducer';
 import occurrenceToEdit from './occurrenceToEdit.reducer';
 import programsByTeacher from './programsByTeacher.reducer';
 import occurrenceStudents from './occurrenceStudents.reducer';
@@ -30,9 +32,11 @@ const rootReducer = combineReducers({
   program, // holds the list of programs to be sent to the front end. 
   studentToEdit, // Holds the student from search to edit
   studentToAdd, // Holds the student to add them to program
+  studentAssignments,
   programToEdit, // Holds the program from search to edit
   staffToEdit, // Holds the staff from search to edit
   staffToAdd, // Holds the staff to add them to the program
+  staffAssignments,
   programsByTeacher, // Holds the list of programs that the teacher is assigned.
   occurrenceToEdit, // Holds the occurrence to edit,
   occurrenceStudents, // Holds the students for occurrence attendance

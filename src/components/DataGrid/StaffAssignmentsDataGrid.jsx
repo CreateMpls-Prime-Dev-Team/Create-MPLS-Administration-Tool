@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 
-const ClassListDataGrid = () => {
-    const classList = useSelector(store => store.studentAssignments);
+const StaffAssignmentsDataGrid = () => {
+    const staffList = useSelector(store => store.staffAssignments);
     const programId = useSelector(store => store.programToEdit);
     const dispatch = useDispatch()
 
     useEffect(()=> {
         dispatch({
-            type: 'FETCH_STUDENT_ASSIGNMENTS',
+            type: 'FETCH_STAFF_ASSIGNMENTS',
             payload: {
                 id: programId.id
             }
@@ -17,7 +17,7 @@ const ClassListDataGrid = () => {
     }, [programId])
 
     const columns = [
-        { field: 'first_name', headerName: 'Student(s)', width: 150 },
+        { field: 'first_name', headerName: 'Staff', width: 150 },
         { field: 'last_name', headerName: '', width: 150}
     ]
 
@@ -26,7 +26,7 @@ const ClassListDataGrid = () => {
         <center>
             <div style={{ height: 350, width: 400 }}>
                 <DataGrid
-                    rows={classList}
+                    rows={staffList}
                     columns={columns}
                 />
             </div>
@@ -35,4 +35,4 @@ const ClassListDataGrid = () => {
     )
 }
 
-export default ClassListDataGrid;
+export default StaffAssignmentsDataGrid;

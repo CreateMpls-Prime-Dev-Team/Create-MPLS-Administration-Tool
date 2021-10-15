@@ -175,6 +175,25 @@ function* addStudentProgram(action){
     }
 }
 */
+
+function* getStudentAssignments(action) {
+    try {
+        const result = yield axios.get(`api/student/by-assignment/${action.payload.id}`);
+        yield put({ type: 'SET_STUDENT_ASSIGNMENTS', payload: result.data})  
+    } catch (error) {
+        console.log('Error with fetching student assignments', error);
+    }
+}
+
+function* getStaffAssignments(action) {
+    try {
+        const result = yield axios.get(`api/user/by-assignment/${action.payload.id}`);
+        yield put({ type: 'SET_STAFF_ASSIGNMENTS', payload: result.data})  
+    } catch (error) {
+        console.log('Error with fetching staff assignments', error);
+    }
+}
+
 function* adminSaga() {
     yield takeLatest('ADD_STUDENT', addStudent);
     yield takeLatest('FETCH_STUDENT', getStudent);
@@ -190,6 +209,8 @@ function* adminSaga() {
     yield takeLatest('DELETE_PROGRAM', deleteProgram);
     yield takeLatest('ADD_STUDENT_PROGRAM', addStudentProgram);
     yield takeLatest('ADD_STAFF_PROGRAM', addStaffProgram);
+    yield takeLatest('FETCH_STUDENT_ASSIGNMENTS', getStudentAssignments),
+    yield takeLatest('FETCH_STAFF_ASSIGNMENTS', getStaffAssignments)
 //    yield takeLatest('FETCH_ALL_DATA', getAllData);
 }
 export default adminSaga;

@@ -174,17 +174,6 @@ function* getDashboardData(){
         console.log('Error: get dashboard data', error)
     }
 }
-// GETS all the data from the database. (On HOLD)
-/*function* getAllData(action){
-    console.log('action.payload', action.payload);
-    try {
-        yield axios.get(`???`, action.payload);
-    } catch (error) {
-        console.log('error getting Data', error);
-        yield put({ type: 'GET_DATA_FAILED' });
-    }
-}
-*/
 
 function* getStudentAssignments(action) {
     try {
@@ -203,6 +192,18 @@ function* getStaffAssignments(action) {
         console.log('Error with fetching staff assignments', error);
     }
 }
+
+// GETS all the data from the database. (On HOLD)
+/*function* getAllData(action){
+    console.log('action.payload', action.payload);
+    try {
+        yield axios.get(`???`, action.payload);
+    } catch (error) {
+        console.log('error getting Data', error);
+        yield put({ type: 'GET_DATA_FAILED' });
+    }
+}
+*/
 
 function* adminSaga() {
     yield takeLatest('ADD_STUDENT', addStudent);

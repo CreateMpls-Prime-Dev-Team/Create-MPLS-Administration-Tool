@@ -23,22 +23,20 @@ import charts from './charts.reducer';
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
 
-// Lets make a bigger object for our store, with the objects from our reducers.
-// This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
-  errors, // contains registrationMessage and loginMessage
-  user, // will have an id and username if someone is logged in
-  settings, // provides registration code to front end
-  student, // holds the list of students to be sent to the front end. 
-  teacher, // holds the list of teachers to be sent to the front end. 
-  program, // holds the list of programs to be sent to the front end. 
+  errors, // Contains registrationMessage and loginMessage
+  user, // Will have an id and username if someone is logged in
+  settings, // Provides registration code to front end
+  student, // Holds the list of students to be sent to the front end. 
+  teacher, // Holds the list of teachers to be sent to the front end. 
+  program, // Holds the list of programs to be sent to the front end. 
   studentToEdit, // Holds the student from search to edit
   studentToAdd, // Holds the student to add them to program
-  studentAssignments,
+  studentAssignments, // Holds assigning a student to a program
   programToEdit, // Holds the program from search to edit
   staffToEdit, // Holds the staff from search to edit
   staffToAdd, // Holds the staff to add them to the program
-  staffAssignments,
+  staffAssignments, // Holds assigning staff to a program
   programsByTeacher, // Holds the list of programs that the teacher is assigned.
   occurrenceToEdit, // Holds the occurrence to edit,
   occurrenceStudents, // Holds the students for occurrence attendance

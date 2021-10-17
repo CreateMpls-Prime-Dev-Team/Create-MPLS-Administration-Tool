@@ -12,7 +12,7 @@ function* getStaff(){
     }
 }
 
-//GETS the Programs for a teacher.
+// GETS the Programs for a teacher.
 function* getProgramsByTeacher(){
    try {
       const response = yield axios.get(`/api/program/by-assignment`);
@@ -47,6 +47,7 @@ function* addOccurrence(action){
     }
 }
 
+// GETS a program occurrence
 function* getOccurrence(action){
     try {
         const response = yield axios.get(`api/occurrence/record/${action.payload.id}`);
@@ -57,6 +58,7 @@ function* getOccurrence(action){
     }
 }
 
+// GETS students assigned to a particular program
 function* getAssignedStudents(action){
     try {
         const response = yield axios.get(`api/student/by-assignment/${action.payload}`);
@@ -66,6 +68,7 @@ function* getAssignedStudents(action){
     }
 }
 
+// GETS student attendance
 function* getStudentAttendance(action){
     try {
         const response = yield axios.get(`api/attendance/by-occurrence/${action.payload.id}`);
@@ -75,6 +78,7 @@ function* getStudentAttendance(action){
     }
 }
 
+// Edits occurrence data (aka change attendance)
 function* putOccurrenceData(action){
     try {
         yield axios.put(`api/occurrence/${action.payload.id}`, action.payload);
@@ -85,6 +89,7 @@ function* putOccurrenceData(action){
     }
 }
 
+// GETS the teacher for a specific occurrence
 function* getTeacherOccurrences(action){    
     try {
         const response = yield axios.get(`api/occurrence/by-teacher/${action.payload.id}`);

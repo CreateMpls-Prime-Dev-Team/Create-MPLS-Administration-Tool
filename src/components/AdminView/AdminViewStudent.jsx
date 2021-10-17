@@ -8,11 +8,6 @@ import StudentDataGrid from "../DataGrid/StudentDataGrid";
 import Typography from "@mui/material/Typography";
 
 
-
-
-
-
-
 function AdminViewStudent() {
 
     const studentToEdit = useSelector(store => store.studentToEdit);

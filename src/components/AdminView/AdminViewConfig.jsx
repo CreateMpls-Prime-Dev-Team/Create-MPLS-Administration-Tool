@@ -3,10 +3,6 @@ import { useDispatch } from 'react-redux';
 import { Box, TextField, Button, Typography } from "@mui/material";
 
 
-
-
-
-
 function AdminViewConfig() {
     const [regCodeAdmin, setRegCodeAdmin]= useState('');
     const [regCodeTeacher, setRegCodeTeacher]= useState('');

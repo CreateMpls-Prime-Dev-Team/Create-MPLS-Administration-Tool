@@ -17,8 +17,6 @@ import Dashboard from '../AdminView/Dashboard';
 import './App.css';
 
 
-
-
 function App() {
   const dispatch = useDispatch();
 

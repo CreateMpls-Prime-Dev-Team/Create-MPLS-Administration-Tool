@@ -3,10 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 
 
-
-
-
-
 const ClassListDataGrid = () => {
     const classList = useSelector(store => store.studentAssignments);
     const programId = useSelector(store => store.programToEdit);

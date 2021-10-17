@@ -8,11 +8,6 @@ import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import getMMYY from '../../utility/getMMYY';
 
 
-
-
-
-
-
 function TeacherPortal() {
     const dispatch = useDispatch();
     const history = useHistory();

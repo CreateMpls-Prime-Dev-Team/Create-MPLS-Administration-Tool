@@ -8,10 +8,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
 
-
-
-
-
 function AttendancePage() {
     const { id } = useParams();
     const history = useHistory();
@@ -142,9 +138,6 @@ function AttendancePage() {
                                 </Button>
                             </div>
                         ))}
-                        
-                    
-                    
                 </Paper>
             </Container>
 

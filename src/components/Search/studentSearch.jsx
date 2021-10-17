@@ -4,18 +4,13 @@ import SelectSearch from "react-select-search";
 import "../AdminView/StudentSearch.css";
 
 
-
-
-
-
-//START STUDENT SEARCH DROP DOWN FUNC
 function StudentSearch() {
     const dispatch = useDispatch();
     const studentList = useSelector(store => store.student);
     //Local state for student selection
     const studentToEdit = useSelector(store => store.studentToEdit);
     const [selectedStudentId, setSelectedStudentId] = React.useState(studentToEdit.id);
-
+    
     const searchInput = useRef();
 
     // Send Student Data object to edit

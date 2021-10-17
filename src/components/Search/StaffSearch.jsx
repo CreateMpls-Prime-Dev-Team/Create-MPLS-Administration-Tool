@@ -4,10 +4,6 @@ import SelectSearch from "react-select-search";
 import "../AdminView/StudentSearch.css";
 
 
-
-
-
-
 function StaffSearch() {
     const dispatch = useDispatch();
     const staffList = useSelector(store => store.teacher)

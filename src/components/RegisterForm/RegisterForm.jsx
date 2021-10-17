@@ -4,10 +4,6 @@ import { useHistory } from 'react-router';
 import { Button, TextField, Typography, Paper } from '@mui/material';
 
 
-
-
-
-
 function RegisterForm() {
   // local state for form
   const [username, setUsername] = useState('');

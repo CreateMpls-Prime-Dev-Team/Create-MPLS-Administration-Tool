@@ -3,10 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import SelectSearch from 'react-select-search';
 
 
-
-
-
-
 const ProgramSearch = () => {
     const dispatch = useDispatch();
     const programToEdit = useSelector(store => store.programToEdit);
@@ -56,7 +52,6 @@ const ProgramSearch = () => {
         return updatedItems;
       };
     };
-  
    
     return (
       <div className="App">

@@ -8,10 +8,6 @@ import StaffDataGrid from "../DataGrid/StaffDataGrid";
 import Typography from "@mui/material/Typography";
 
 
-
-
-
-
 function AdminViewStaff() {
 
   const staffList = useSelector(store => store.teacher)

@@ -3,11 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import{ Box, TextField, Button, Paper } from "@mui/material";
 
 
-
-
-
-
-
 const EditStaff = () => {
     const dispatch = useDispatch()
     const staffToEdit = useSelector(store => store.staffToEdit);

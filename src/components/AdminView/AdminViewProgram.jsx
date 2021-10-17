@@ -9,10 +9,6 @@ import ProgramSearch from '../Search/ProgramSearch';
 import Typography from "@mui/material/Typography";
 
 
-
-
-
-
 function AdminViewProgram() {
   const dispatch = useDispatch();
 

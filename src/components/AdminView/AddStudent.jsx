@@ -4,10 +4,6 @@ import{ Box, TextField, InputLabel, MenuItem, FormControl, Select, Button, Paper
 import AddIcon from "@mui/icons-material/Add";
 
 
-
-
-
-
 function AddStudent() {
   let dispatch = useDispatch();
 

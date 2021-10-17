@@ -3,10 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 
 
-
-
-
-
 const StaffAssignmentsDataGrid = () => {
     const staffList = useSelector(store => store.staffAssignments);
     const programId = useSelector(store => store.programToEdit);

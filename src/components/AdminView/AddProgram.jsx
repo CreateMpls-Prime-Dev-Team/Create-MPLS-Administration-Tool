@@ -4,10 +4,6 @@ import { Box, TextField, InputLabel, MenuItem, FormControl, Select, Button, Typo
 import AddIcon from "@mui/icons-material/Add";
 
 
-
-
-
-
 const AddProgram = () => {
     let dispatch = useDispatch();
 

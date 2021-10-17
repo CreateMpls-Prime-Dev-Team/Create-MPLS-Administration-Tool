@@ -1,10 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
+
+
+
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -43,17 +46,9 @@ function Nav() {
               STAFF
             </Link>
 
-            {/* <Link className="navLink" to="/config">
-              CONFIG
-            </Link> */}
-
             <LogOutButton className="btn" />
           </>
         )}
-
-        {/* <Link className="navLink" to="/about">
-          About
-        </Link> */}
       </div>
     </div>
   );

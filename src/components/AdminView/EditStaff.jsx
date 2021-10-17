@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import{ Box, TextField, Button, Paper, Typography } from "@mui/material";
+import{ Box, TextField, Button, Paper } from "@mui/material";
+
+
+
+
+
 
 
 const EditStaff = () => {
-
     const dispatch = useDispatch()
     const staffToEdit = useSelector(store => store.staffToEdit);
-
     const settings = useSelector(store => store.settings);
-    console.log(staffToEdit);
 
     const handleChange = (event) => {
         dispatch({
@@ -34,8 +36,7 @@ const EditStaff = () => {
             type: 'SET_STAFF_TO_EDIT',
             payload: { ...staffToEdit, is_staff : !staffToEdit.is_staff }
         })
-        }
-        
+        }  
     }
 
     return (

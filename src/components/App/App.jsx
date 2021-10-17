@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -20,6 +15,8 @@ import TeacherPortal from '../TeacherPortal/TeacherPortal';
 import AttendancePage from '../AttendancePage/AttendancePage';
 import Dashboard from '../AdminView/Dashboard';
 import './App.css';
+
+
 
 
 function App() {

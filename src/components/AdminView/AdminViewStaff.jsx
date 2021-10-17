@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import "./Staff.css";
+import "./StudentSearch.css";
 import EditStaff from "./EditStaff";
 import StaffSearch from "../Search/StaffSearch";
 import StaffDataGrid from "../DataGrid/StaffDataGrid";
-import "./StudentSearch.css";
-
 import Typography from "@mui/material/Typography";
+
+
+
+
+
 
 function AdminViewStaff() {
 

@@ -1,25 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import{ 
-  Box, 
-  TextField, 
-  InputLabel, 
-  MenuItem, 
-  FormControl, 
-  Select,
-  Button,
-  Paper,
-  Typography
-} from "@mui/material";
+import{ Box, TextField, MenuItem, FormControl, Select, Button, Paper } from "@mui/material";
+
+
+
+
+
 
 
 const EditStudent = () => {
-
     const dispatch = useDispatch()
     const studentToEdit = useSelector(store => store.studentToEdit);
-
     const settings = useSelector(store => store.settings);
-    console.log(studentToEdit);
 
     const handleChange = (event) => {
         dispatch({
@@ -29,7 +21,6 @@ const EditStudent = () => {
     }
 
     const handleUpdate = () => {
-        console.log('TIME TO UPDATE', studentToEdit);
         dispatch({
             type: 'EDIT_STUDENT',
             payload: studentToEdit
@@ -38,8 +29,9 @@ const EditStudent = () => {
 
     const handleDelete = () => {
         if(confirm('This will make the student unavailable')){
-            dispatch({ type: 'DELETE_STUDENT', payload: studentToEdit.id })
-            
+            dispatch({ 
+                type: 'DELETE_STUDENT', 
+                payload: studentToEdit.id })  
         }
     }
 

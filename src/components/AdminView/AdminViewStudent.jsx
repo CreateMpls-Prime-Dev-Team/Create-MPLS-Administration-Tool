@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
-import "./AdminView.css";
 import { useSelector, useDispatch } from 'react-redux';
-
+import "./AdminView.css";
 import StudentSearch from "../Search/StudentSearch";
 import AddStudent from "./AddStudent";
 import EditStudent from "./EditStudent";
 import StudentDataGrid from "../DataGrid/StudentDataGrid";
-
 import Typography from "@mui/material/Typography";
+
+
+
+
+
 
 
 function AdminViewStudent() {

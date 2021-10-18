@@ -84,7 +84,8 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         JOIN "user" u
             ON ( spa.user_id = u.id )
         JOIN "program" p
-            ON ( spa.program_id = p.id );
+            ON ( spa.program_id = p.id )
+        ORDER BY po.at_date DESC;
     `;
 
     const teacherMinutesDataStatement = `

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Dashboard.css'
 import { Pie, Line } from 'react-chartjs-2';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import getMMDDYY from '../../utility/getMMDDYY';
 import { Typography } from '@mui/material';
 import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
 import AdminViewConfig from './AdminViewConfig';
@@ -139,7 +140,7 @@ function Dashboard() {
     const occurrenceDataGrid = () => {
 
       let formattedOccurrenceGrid = occurrenceGrid.map((object) => {
-        return { ...object, date: getMonthDDYYYY(object.date) }
+        return { ...object, date: getMMDDYY(object.date) }
       });
       const columns = [
         { field: 'date', headerName: 'Date', width: 175 },

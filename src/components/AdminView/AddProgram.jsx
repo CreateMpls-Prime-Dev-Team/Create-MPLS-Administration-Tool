@@ -1,18 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    Box,
-    TextField,
-    InputLabel,
-    MenuItem,
-    FormControl,
-    Select,
-    Button,
-    Typography,
-    Paper
-} from "@mui/material";
-
+import { Box, TextField, InputLabel, MenuItem, FormControl, Select, Button, Typography, Paper } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+
 
 const AddProgram = () => {
     let dispatch = useDispatch();

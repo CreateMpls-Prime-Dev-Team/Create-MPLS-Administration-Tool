@@ -5,38 +5,37 @@ import "./StudentSearch.css";
 import AddProgram from './AddProgram';
 import EditProgram from './EditProgram';
 import ProgramDataGrid from '../DataGrid/ProgramDataGrid';
-
+import ProgramSearch from '../Search/ProgramSearch';
 import Typography from "@mui/material/Typography";
 
-import ProgramSearch from '../Search/ProgramSearch';
 
 function AdminViewProgram() {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-const programList = useSelector(store => store.program);
-const programToEdit = useSelector(store => store.programToEdit);
+  const programList = useSelector(store => store.program);
+  const programToEdit = useSelector(store => store.programToEdit);
 
-useEffect(() => {
-  dispatch({ type: 'FETCH_PROGRAM'});
-  dispatch({ type: 'FETCH_STUDENT' });
-  dispatch({ type: 'FETCH_STAFF' });
-}, [])
+  useEffect(() => {
+    dispatch({ type: 'FETCH_PROGRAM'});
+    dispatch({ type: 'FETCH_STUDENT' });
+    dispatch({ type: 'FETCH_STAFF' });
+  }, [])
 
-return (
-  <>
-    <AddProgram />
-    
-    <Typography variant="h5" style={{ marginTop: 20, marginBottom: 20 }}>EDIT PROGRAM FORM</Typography>
-      <ProgramSearch />
-      {Object.keys(programToEdit).length > 0 &&
-        <EditProgram />
-      }
-    <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>PROGRAMS</Typography>
-      { Object.keys(programList).length > 0 &&
-        <ProgramDataGrid />
-      }
-  </>
-)
+  return (
+    <>
+      <AddProgram />
+      
+      <Typography variant="h5" style={{ marginTop: 20, marginBottom: 20 }}>EDIT PROGRAM FORM</Typography>
+        <ProgramSearch />
+        {Object.keys(programToEdit).length > 0 &&
+          <EditProgram />
+        }
+      <Typography variant="h5" style={{ marginTop: 40, marginBottom: 20 }}>PROGRAMS</Typography>
+        { Object.keys(programList).length > 0 &&
+          <ProgramDataGrid />
+        }
+    </>
+  )
 }
 
 export default AdminViewProgram;

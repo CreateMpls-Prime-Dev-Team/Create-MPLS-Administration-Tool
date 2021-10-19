@@ -2,6 +2,7 @@ import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 
+
 function LoginPage() {
   const history = useHistory();
 
@@ -9,7 +10,6 @@ function LoginPage() {
     <div>
       <img src="design_a.png" width="300" height="225"/>
       <LoginForm />
-
       <center>
         <button
           type="button"

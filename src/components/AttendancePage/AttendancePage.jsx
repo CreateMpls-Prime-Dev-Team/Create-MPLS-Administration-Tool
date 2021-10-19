@@ -1,71 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useHistory, useParams } from 'react-router';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { 
-    Typography, 
-    Select, 
-    Container, 
-    Box, 
-    InputLabel, 
-    MenuItem, 
-    FormControl, 
-    Checkbox, 
-    Button, 
-    TextField,
-    Paper 
-} from '@mui/material';
+import { Typography, Select, Container, InputLabel, MenuItem, FormControl, Button, TextField, Paper } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+
 
 function AttendancePage() {
     const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
+    const occurrence = useSelector(store => store.occurrenceToEdit);
+    const currentAttendance = useSelector(store => store.occurrenceAttendance);
+    const students = useSelector(store => store.occurrenceStudents);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         dispatch({ type:'FETCH_OCCURRENCE', payload: {id} });
         dispatch({ type: 'FETCH_STUDENT_ATTENDANCE', payload: {id}})
     }, [id]);
     
-
-    //reducer state
-    const occurrence = useSelector(store => store.occurrenceToEdit);
-    const currentAttendance = useSelector(store => store.occurrenceAttendance);
-    const students = useSelector(store => store.occurrenceStudents)
-
     const handleChange = (event) => {
         dispatch({ 
             type: 'SET_OCCURRENCE_TO_EDIT', 
-            payload: { ...occurrence, [event.target.name]:event.target.value}
+            payload: { ...occurrence, [event.target.name]:event.target.value }
         });
     };
 
     const handleDateChange = (date) => {
         dispatch({ 
             type: 'SET_OCCURRENCE_TO_EDIT', 
-            payload: { ...occurrence, at_date: date}
+            payload: { ...occurrence, at_date: date }
         });
     };
 
     const toggleAttendance = (occurrenceId, studentId) => {
-        dispatch({ type: 'ADD_ATTENDANCE', payload: { studentId, occurrenceId }})
-        
+        dispatch({ 
+            type: 'ADD_ATTENDANCE', 
+            payload: { studentId, occurrenceId }})
     }
-    
-    //local state for dialog box
-    const [open, setOpen] = useState(false);
-
 
     const submitAttendance = () => {
         dispatch({ 
             type: 'SAVE_OCCURRENCE',
-            payload: { 
-                ...occurrence,
-                history
-            }
+            payload: { ...occurrence, history }
         });
     };
 
@@ -158,9 +138,6 @@ function AttendancePage() {
                                 </Button>
                             </div>
                         ))}
-                        
-                    
-                    
                 </Paper>
             </Container>
 

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import './Dashboard.css'
-import { Pie, Line, Bar } from 'react-chartjs-2';
+import { Pie, Line } from 'react-chartjs-2';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import getMMDDYY from '../../utility/getMMDDYY';
 import { Typography } from '@mui/material';
+import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
 import AdminViewConfig from './AdminViewConfig';
+
 
 function Dashboard() {
 

@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SelectSearch from 'react-select-search';
-import { 
-  Button,
-} from "@mui/material";
+
 
 const ProgramSearch = () => {
     const dispatch = useDispatch();
@@ -54,7 +52,6 @@ const ProgramSearch = () => {
         return updatedItems;
       };
     };
-  
    
     return (
       <div className="App">

@@ -9,8 +9,6 @@ const StaffDataGrid = () => {
     const columns = [
         { field: 'first_name', headerName: 'First Name', width: 175 },
         { field: 'last_name', headerName: 'Last Name', width: 175 },
-        { field: 'is_active', headerName: 'Active', wifth: 175},
-        { field: 'assigned_class', headerName: 'Class(es)', width: 175},
     ]
 
     return (

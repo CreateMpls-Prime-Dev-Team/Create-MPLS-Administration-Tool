@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Box, TextField, InputLabel, MenuItem, FormControl, Select, Button, Typography, Paper } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
-
+//Function for adding programs to the database
 const AddProgram = () => {
+    //useDispatch hook
     let dispatch = useDispatch();
 
+    //New program object for storing data from the form
     let newProgram = {
         programName: '',
         programType: '',

@@ -10,8 +10,6 @@ const ProgramDataGrid = () => {
         { field: 'name', headerName: 'Program Name', width: 200 },
         { field: 'location', headerName: 'Location', width: 200 },
         { field: 'type_name', headerName: 'Type', width: 150 },
-        { field: 'staff', headerName: 'Staff', width: 200},
-        { field: 'num_students', headerName: '# Students', width: 100},
     ]
 
     return (

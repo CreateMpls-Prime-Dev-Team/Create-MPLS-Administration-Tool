@@ -8,10 +8,13 @@ import { Typography } from '@mui/material';
 import getMonthDDYYYY from '../../utility/getMonthDDYYYY';
 import AdminViewConfig from './AdminViewConfig';
 
-
+//This function handles everything for the Dashboard page
 function Dashboard() {
 
+  //useDispatch hook
   const dispatch = useDispatch();
+
+  //UseSelector hook to access various properties and grids from the Redux stores
   const { 
     ethnicity, 
     gender, 
@@ -21,10 +24,13 @@ function Dashboard() {
     teacherGrid 
   } = useSelector(store => store.charts);
   
+  //UseEffect hook runs on page load
+  //this dispatch fetches all of the relevant data for the dashboard
   useEffect(() => {
     dispatch({ type: 'FETCH_DASHBOARD'});
   }, [])
 
+  //Function for handling the Ethnicity pie graph
   const ethnicityPieGraph = () => {
     const ethnicityNames = ethnicity.map( (e) => e.name );
     const ethnicityTotals = ethnicity.map( (e) => e.total );
@@ -42,6 +48,7 @@ function Dashboard() {
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
             'rgba(255, 159, 64, 0.2)',
+            'rgba(55, 59, 164, 0.2)',
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -50,14 +57,16 @@ function Dashboard() {
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
             'rgba(255, 159, 64, 1)',
+            'rgba(55, 59, 164, 1)',
           ],
           borderWidth: 1,
         },
       ],
     };
     return <Pie id = "ethnicityPie" data={ethnicityData} />
-  }
+  } //end ethnicityPieGraph
   
+  //Function for handling the Gender pie graph
   const genderPieGraph = () => {
     const genderNames = gender.map( (g) => g.name );
     const genderTotals = gender.map( (g) => g.total );
@@ -89,8 +98,9 @@ function Dashboard() {
     };
 
     return <Pie id = "genderPie" data={genderData} />
-  }
+  } //end genderPieGraph
 
+    //Function for handling Minutes by Month chart
     const minutesByMonthLineGraph = () => {
       let totalMonths = 12; // Twelve months a year on earth.
       let recordIndex = 0; // Need to start the process somewhere, 
@@ -135,8 +145,9 @@ function Dashboard() {
       };
 
       return <Line id ="studentEnrollment" data={enrollmentData} options={barOptions} style={{width: "20em", height: "100em"}} />
-    }   
+    } //end minutesByMonthLineGraph   
 
+    //Recent Programs Data Grid
     const occurrenceDataGrid = () => {
 
       let formattedOccurrenceGrid = occurrenceGrid.map((object) => {
@@ -162,8 +173,9 @@ function Dashboard() {
             }}
           />
         </div>)
-    }
-      
+    } //end occurrenceDataGrid
+    
+    //All students Data Grid
     const studentDataGrid = () => {
 
       const columns = [
@@ -184,8 +196,9 @@ function Dashboard() {
             }}
           />
         </div>)
-    }
+    } //end studentDataGrid
 
+    //All teachers Data Grid
     const teacherDataGrid = () => {
 
       const columns = [
@@ -203,7 +216,7 @@ function Dashboard() {
             }}
           />
         </div>)
-    }
+    } //end teacherDataGrid
 
 
 return(  
@@ -245,12 +258,6 @@ return(
   </center>
   </>
 );
-
-
-  
-    // <p>Enrollment by Location Bar Chart</p>
-
-
 }
 
 export default Dashboard;

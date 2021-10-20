@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import{ Box, TextField, InputLabel, MenuItem, FormControl, Select, Button, Paper, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
-
+//Function for adding students to the database
 function AddStudent() {
   let dispatch = useDispatch();
 
+  //NewStuent object for storing data from the form
   let newStudent = {
     firstName: '',
     lastName: '',

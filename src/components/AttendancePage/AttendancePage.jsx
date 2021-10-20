@@ -7,27 +7,36 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-
+//Function for handling the Attendance page
 function AttendancePage() {
+
+    //UseParams, UseHistory, and UseDispatch hooks
     const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
+
+
     const occurrence = useSelector(store => store.occurrenceToEdit);
     const currentAttendance = useSelector(store => store.occurrenceAttendance);
     const students = useSelector(store => store.occurrenceStudents);
+
+    //Local state for handling if the dialog box is open or closed
     const [open, setOpen] = useState(false);
+
 
     useEffect(() => {
         dispatch({ type:'FETCH_OCCURRENCE', payload: {id} });
         dispatch({ type: 'FETCH_STUDENT_ATTENDANCE', payload: {id}})
     }, [id]);
     
+
     const handleChange = (event) => {
         dispatch({ 
             type: 'SET_OCCURRENCE_TO_EDIT', 
             payload: { ...occurrence, [event.target.name]:event.target.value }
         });
     };
+
 
     const handleDateChange = (date) => {
         dispatch({ 
@@ -36,11 +45,13 @@ function AttendancePage() {
         });
     };
 
+
     const toggleAttendance = (occurrenceId, studentId) => {
         dispatch({ 
             type: 'ADD_ATTENDANCE', 
             payload: { studentId, occurrenceId }})
     }
+
 
     const submitAttendance = () => {
         dispatch({ 
@@ -48,6 +59,7 @@ function AttendancePage() {
             payload: { ...occurrence, history }
         });
     };
+
 
     const cancelSubmitAttendance = () => {
         history.push('/teacher');
@@ -66,7 +78,6 @@ function AttendancePage() {
         <>
         <Container sx={{ width: 370 }}>
             <img src="design_a.png" width="150" height="105"/>
-            {/* HEADER - will need to GET this from DB */}
             <Typography variant="h4" align="left" sx={{ marginLeft: 1 }}>{occurrence.name}</Typography>
             <Typography variant="h5" align="left" sx={{ marginLeft: 1, marginBottom: 3 }}>{occurrence.location}</Typography>
         </Container>
@@ -78,7 +89,7 @@ function AttendancePage() {
                                 <DatePicker
                                     label="Date"
                                     value={occurrence.at_date}
-                                    onChange={(newDate) => { handleDateChange(newDate); }} // revisit
+                                    onChange={(newDate) => { handleDateChange(newDate); }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
@@ -140,12 +151,9 @@ function AttendancePage() {
                         ))}
                 </Paper>
             </Container>
-
-            {/* Submit and Cancel buttons */}
             <div>
                 <Button variant="outlined" size="large" onClick={cancelSubmitAttendance} sx={{ margin: 2 }}>CANCEL</Button>
                 <Button variant="contained" size="large" onClick={handleClickOpen} sx={{ margin: 2 }}>SUBMIT</Button>
-                {/* Dialog confirming submission of attendance */}
                 <Dialog
                     open={open}
                     onClose={handleClose}>

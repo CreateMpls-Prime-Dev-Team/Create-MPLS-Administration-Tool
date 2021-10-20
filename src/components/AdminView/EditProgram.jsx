@@ -127,7 +127,7 @@ const EditProgram = () => {
       </div>
       
 
-      <Typography variant="h6">ADD STAFF TO PROGRAM</Typography>
+      <Typography variant="h6" style={{marginTop: "30px"}}>ADD STAFF TO PROGRAM</Typography>
       <AddStaffSearch />
       <Button
         variant="outlined"

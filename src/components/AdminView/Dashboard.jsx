@@ -143,14 +143,14 @@ function Dashboard() {
         return { ...object, date: getMMDDYY(object.date) }
       });
       const columns = [
-        { field: 'date', headerName: 'Date', width: 175 },
+        { field: 'date', headerName: 'Date', width: 100 },
         { field: 'program_name', headerName: 'Name', width: 170 },
-        { field: 'program_location', headerName: 'Location', width: 175 },
+        { field: 'program_location', headerName: 'Location', width: 150 },
         { field: 'teacher_first_name', headerName: 'First Name', width: 100 },
         { field: 'teacher_last_name', headerName: 'Last Name', width: 100 },
-        { field: 'duration', headerName: 'Duration', width: 75 },
-        { field: 'volunteers', headerName: 'Volunteers', width: 75 },
-        { field: 'student_count', headerName: 'Student Count', width: 75 },
+        { field: 'duration', headerName: 'Duration', width: 100 },
+        { field: 'volunteers', headerName: 'Volunteers', width: 100 },
+        { field: 'student_count', headerName: 'Students', width: 100 },
       ];
       return (
         <div style={{ height: 500, width: '90%' }}>

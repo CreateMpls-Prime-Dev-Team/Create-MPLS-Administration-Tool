@@ -4,6 +4,7 @@ const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
+//get /api/student/by-assignment/:id
 router.get('/by-assignment/:id', rejectUnauthenticated, (req, res) => {
   
   const statement = `
@@ -27,6 +28,7 @@ router.get('/by-assignment/:id', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500)
   });
 });
+
 /**** GET /api/student/record/:id ****/
 // Fetch student record based on id
 router.get('/record/:id', rejectUnauthenticated, (req, res) => {

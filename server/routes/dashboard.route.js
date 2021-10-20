@@ -4,8 +4,12 @@ const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 const { default: axios } = require('axios');
 
+
+// Gets all the information in one go for the dashboard page
+// ROUTE: /api/dashboard/charts
 router.get('/charts', rejectUnauthenticated, async (req,res) => {
 
+    // Grabs ethnicity information for the pie graph
     const ethnicityStatement = `
         SELECT
 	        e.name as name,
@@ -15,7 +19,8 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
             ON ( s.ethnicity_id = e.id )
         GROUP BY e.name;
         `;
-
+        
+    // Grabs the gender information for the gender graph
     const genderStatement = `
         SELECT
             g.name as name,
@@ -26,6 +31,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         GROUP BY g.name;
         `;
 
+    // Grabs total minutes for the minutes graph
     const minutesStatement = `
         SELECT
             EXTRACT( MONTH FROM po.at_date ) AS month_number,
@@ -38,6 +44,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         ORDER BY month_number;
         `;
 
+    // Grab list of students for DataGrid
     const studentGridDataStatement = `
         SELECT
             s.id id,
@@ -63,6 +70,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         ORDER BY last_name, first_name;
     `;
     
+    // Grab list of programs for Datagrid
     const programOccurrenceDataStatement = `
         SELECT
             po.id id,
@@ -88,6 +96,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         ORDER BY po.at_date DESC;
     `;
 
+    // Grad list of teachers and their minutes
     const teacherMinutesDataStatement = `
         SELECT
             u.id,
@@ -104,6 +113,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
 
     try {
 
+        // Query the above statements
         const ethnicity = await db.query(ethnicityStatement);
         const gender = await db.query(genderStatement);
         const minutesByMonth = await db.query(minutesStatement);
@@ -111,6 +121,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         const occurrenceData = await db.query(programOccurrenceDataStatement);
         const teacherData = await db.query(teacherMinutesDataStatement);
 
+        // Send a formatted object to be used.
         res.send({ 
             ethnicity: ethnicity.rows, 
             gender: gender.rows,
@@ -124,6 +135,7 @@ router.get('/charts', rejectUnauthenticated, async (req,res) => {
         console.log('ERROR: dashboard', error);
         res.sendStatus(500);
     }
+
 });
 
 module.exports = router;

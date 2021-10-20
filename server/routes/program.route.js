@@ -29,6 +29,7 @@ router.get('/record/:id', rejectUnauthenticated, (req, res) => {
     console.log('ERROR - get:/api/program/record/:id', err);
     res.sendStatus(500)
   });
+  
 });
 
 /**** GET /api/program/records ****/

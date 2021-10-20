@@ -10,3 +10,7 @@ h1 {
     margin: 10px;
     height: 30px;
 }
+
+#react-root > div > div:nth-child(5) > div > h6 {
+    padding-top: 18px;
+}

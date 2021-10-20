@@ -3,7 +3,7 @@ const db = require('../modules/pool');
 const router = express.Router();
 const {  rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**** GET /api/config ****/
+/**** GET api/config ****/
 // Fetching multiple queries, and packaging it up to one object
 // NOTE: this route is unprotected to retrieve registration code 
 router.get('/', async (req, res) => {
@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
 });
 
 
-/**** PUT /api/config/setting/:settingVariable ****/
+/**** PUT api/config/setting/:settingVariable ****/
 router.put('/setting/:settingVariable', rejectUnauthenticated, (req, res) => {
 
     const statement = `

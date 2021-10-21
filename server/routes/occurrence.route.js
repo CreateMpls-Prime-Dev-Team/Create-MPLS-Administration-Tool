@@ -82,7 +82,8 @@ router.get('/by-teacher/:id', rejectUnauthenticated, (req, res) => {
     ON ( po.assignment_id = spa.id )
   JOIN program p
     ON ( p.id = spa.program_id )
-  WHERE spa.user_id = $1;
+  WHERE spa.user_id = $1
+  ORDER BY at_date DESC;
   `;  
 
   db.query(statement, [ req.params.id ])

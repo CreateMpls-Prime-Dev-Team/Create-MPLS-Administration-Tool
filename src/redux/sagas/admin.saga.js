@@ -193,17 +193,14 @@ function* getStaffAssignments(action) {
     }
 }
 
-// GETS all the data from the database. (On HOLD)
-/*function* getAllData(action){
-    console.log('action.payload', action.payload);
+function* editProgram(action) {
     try {
-        yield axios.get(`???`, action.payload);
+        yield axios.put(`api/program/by-id/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_PROGRAM' })
     } catch (error) {
-        console.log('error getting Data', error);
-        yield put({ type: 'GET_DATA_FAILED' });
+        console.log('Error with updating a program', error);
     }
 }
-*/
 
 function* adminSaga() {
     yield takeLatest('ADD_STUDENT', addStudent);
@@ -223,6 +220,7 @@ function* adminSaga() {
     yield takeLatest('FETCH_STUDENT_ASSIGNMENTS', getStudentAssignments),
     yield takeLatest('FETCH_STAFF_ASSIGNMENTS', getStaffAssignments)
     yield takeLatest('FETCH_DASHBOARD', getDashboardData)
+    yield takeLatest('EDIT_PROGRAM', editProgram)
 //    yield takeLatest('FETCH_ALL_DATA', getAllData);
 }
 export default adminSaga;

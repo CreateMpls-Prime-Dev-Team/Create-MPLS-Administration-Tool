@@ -9,7 +9,7 @@ function AddStaffSearch() {
     //UseDispatch hook
     const dispatch = useDispatch();
 
-    //UseSelector hook to access the teacher and staffToAdd from the Redux stores   
+    //UseSelector hooks to access the teacher and staffToAdd from the Redux stores   
     const staffList = useSelector(store => store.teacher);
     const staffToAdd = useSelector(store => store.staffToAdd);
 

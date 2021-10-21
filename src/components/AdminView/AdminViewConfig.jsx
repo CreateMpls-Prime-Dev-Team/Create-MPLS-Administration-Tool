@@ -60,7 +60,7 @@ function AdminViewConfig() {
                     onChange={(e) => {
                         setRegCodeTeacher(e.target.value);
                     }}
-                    label="Current-Example123"
+                    label="type new code here"
                 />
                 <Button id="addBttn" variant="outlined" onClick={editTeacherCode}>
                     Update
@@ -86,7 +86,7 @@ function AdminViewConfig() {
                     onChange={(e) => {
                         setRegCodeAdmin(e.target.value);
                     }}
-                    label="Current-Example123"
+                    label="type new code here"
                 />
                 <Button id="addBttn" variant="outlined" onClick={editAdminCode}>
                     Update

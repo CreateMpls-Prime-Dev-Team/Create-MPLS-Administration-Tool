@@ -7,23 +7,31 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import getMMYY from '../../utility/getMMYY';
 
-
+//function for handling Teacher Portal page
 function TeacherPortal() {
+
+    //UseDispatch and UseHistory hooks
     const dispatch = useDispatch();
     const history = useHistory();
+
+    //UseSelector hooks to access the user, programsByTeacher, and occurrenceByTeacher from the Redux stores   
     const user = useSelector(store => store.user);
     const programs = useSelector(store => store.programsByTeacher);
     const occurrence = useSelector(store => store.occurrenceByTeacher);
 
+    //UseEffect runs on page load
+    //these dispatchers gather programs by teacher, and attendances taken
     useEffect(() => {
         dispatch({ type: 'FETCH_PROGRAMS_BY_TEACHER'});
         dispatch({ type: 'FETCH_TEACHER_OCCURRENCES', payload: {id: user.id}});
     }, [])
-    
+
+    //function for submitting attendance
     const onAttendanceButton = (id) => {
         dispatch({ type: 'SET_PROGRAM_OCCURRENCE', payload: { id, history } })
     }
 
+    //navigates to specific attendance record 
     const onEditAttendance = (id) => {
         history.push(`/attendance/${id}`)
     }

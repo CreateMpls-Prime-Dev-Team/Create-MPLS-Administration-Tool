@@ -6,13 +6,14 @@ import './Nav.css';
 
 
 function Nav() {
+
+  //UseSelector hook to access the user from the Redux stores   
   const user = useSelector((store) => store.user);
 
   return (
     <div className="nav">
       <Link to="/user">
         <img src="design_b.png" className="nav-title" width="150"/>
-        {/* <Typography variant="h3" className="nav-title">CreateMPLS Portal</Typography> */}
       </Link>
       <div>
         {/* If no user is logged in, show these links */}

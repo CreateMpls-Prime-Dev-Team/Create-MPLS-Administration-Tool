@@ -4,13 +4,14 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 
 const StaffDataGrid = () => {
+
+    //UseSelector hook to access the teacher from the Redux stores   
     const staffList = useSelector(store => store.teacher);
 
+    //defining the column fields for the data grid   
     const columns = [
         { field: 'first_name', headerName: 'First Name', width: 175 },
         { field: 'last_name', headerName: 'Last Name', width: 175 },
-        { field: 'is_active', headerName: 'Active', wifth: 175},
-        { field: 'assigned_class', headerName: 'Class(es)', width: 175},
     ]
 
     return (

@@ -5,12 +5,18 @@ import "../AdminView/StudentSearch.css";
 
 
 function StudentSearch() {
+
+    //UseDispatch hook
     const dispatch = useDispatch();
+
+    //UseSelector hook to access the student and studentToEdit from the Redux stores   
     const studentList = useSelector(store => store.student);
-    //Local state for student selection
     const studentToEdit = useSelector(store => store.studentToEdit);
+
+    //Local state for student selection
     const [selectedStudentId, setSelectedStudentId] = React.useState(studentToEdit.id);
-    
+
+    //Everything below this handles the functionality of the search bar    
     const searchInput = useRef();
 
     // Send Student Data object to edit

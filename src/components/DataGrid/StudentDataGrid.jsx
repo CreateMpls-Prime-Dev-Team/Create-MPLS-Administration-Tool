@@ -4,8 +4,11 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 
 const StudentDataGrid = () => {
+
+    //UseSelector hook to access the student from the Redux stores   
     const studentList = useSelector(store => store.student);
     
+    //defining the column fields for the data grid
     const columns = [
         { field: 'first_name', headerName: 'First Name', width: 175 },
         { field: 'last_name', headerName: 'Last Name', width: 175 },

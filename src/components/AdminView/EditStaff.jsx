@@ -2,12 +2,17 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import{ Box, TextField, Button, Paper } from "@mui/material";
 
-
+//Function for handling the Edit Staff form
 const EditStaff = () => {
-    const dispatch = useDispatch()
-    const staffToEdit = useSelector(store => store.staffToEdit);
-    const settings = useSelector(store => store.settings);
 
+    //UseDispatch hook
+    const dispatch = useDispatch()
+
+   //UseSelector hook to access the staffToEdit Redux store   
+    const staffToEdit = useSelector(store => store.staffToEdit);
+    // const settings = useSelector(store => store.settings);
+
+    //Sets the staff to edit when a name is selected from the drop down
     const handleChange = (event) => {
         dispatch({
             type: 'SET_STAFF_TO_EDIT',
@@ -15,6 +20,7 @@ const EditStaff = () => {
         })
     }
 
+    //Updates the staff in the database
     const handleUpdate = () => {
         console.log('TIME TO UPDATE', staffToEdit);
         dispatch({
@@ -23,6 +29,9 @@ const EditStaff = () => {
         })
     }
 
+    //Deletes the staff from the database
+    //NOTE: this is a "soft delete", the staff will be set to "inactive"
+    //all records for that staff will still be available
     const handleDelete = () => {
         if(confirm('This will make the staff unavailable')){
             dispatch({ type: 'DELETE_STAFF', payload: staffToEdit.id })

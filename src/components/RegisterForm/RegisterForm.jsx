@@ -5,6 +5,11 @@ import { Button, TextField, Typography, Paper } from '@mui/material';
 
 
 function RegisterForm() {
+
+  //UseDispatch and UseHistory hooks
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // local state for form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,15 +17,14 @@ function RegisterForm() {
   const [lastName, setLastName] = useState('');
   const [registrationCode, setRegistrationCode] = useState('');
 
-  //Selectors to get errors and registration code from db
+  //Selectors to get errors and registration code from Redux stores
   const errors = useSelector((store) => store.errors);
   const settings = useSelector((store) => store.settings);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
+
+  //Function for registering new user and storing their credentials in the database
   const registerUser = (event) => {
     event.preventDefault();
-
     dispatch({
         type: 'REGISTER',
         payload: {
@@ -33,6 +37,7 @@ function RegisterForm() {
     });
   }; // end registerUser
 
+  //Navigates back to login page
   const cancelReg = () => {
     history.push('/login')
   }

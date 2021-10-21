@@ -48,6 +48,7 @@ function App() {
             exact
             path="/user"
           >
+            {/* recognizes if user is an admin or teacher and redirects appropriately */}
             {user.is_admin ?
               <Redirect to="/dashboard" />
               :
@@ -148,8 +149,11 @@ function App() {
             path="/teacher"
           >
             {user.id ?
+              // If the user is already logged in, 
+              // redirect them to the /teacher page
               <TeacherPortal />
               :
+              // Otherwise, show the login page
               <Redirect to="/login" />
             }
           </Route>
@@ -159,8 +163,11 @@ function App() {
             path="/attendance/:id"
           >
             {user.id ?
+              // If the user is already logged in, 
+              // redirect them to the /attendance/:id page
               <AttendancePage />
               :
+              // Otherwise, show the login page
               <Redirect to="/login" />
             }
           </Route>

@@ -5,11 +5,18 @@ import "../AdminView/StudentSearch.css";
 
 
 function AddStudentSearch() {
+
+    //UseDispatch hook
     const dispatch = useDispatch();
+
+    //UseSelector hook to access the student and studentToAdd from the Redux stores   
     const studentList = useSelector(store => store.student);
     const studentToAdd = useSelector(store => store.studentToAdd);
+
+    //Local state for identifying selected student from drop down    
     const [selectedStudentId, setSelectedStudentId] = React.useState(studentToAdd.id);
 
+    //Everything below this handles the functionality of the search bar
     const searchInput = useRef();
 
     useEffect(() => {

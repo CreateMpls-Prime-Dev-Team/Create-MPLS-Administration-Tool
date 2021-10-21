@@ -5,11 +5,18 @@ import { Button, TextField, Typography, Paper } from '@mui/material';
 
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
+
+  //UseDispatch hook
   const dispatch = useDispatch();
 
+  //UseSelector hook to access the errors from the Redux stores    
+  const errors = useSelector(store => store.errors);
+
+  //Local state for form
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  //Function for checking if username and password match credentials in the database
   const login = (event) => {
     event.preventDefault();
 

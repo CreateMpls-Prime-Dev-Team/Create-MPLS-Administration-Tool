@@ -2,12 +2,17 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import{ Box, TextField, MenuItem, FormControl, Select, Button, Paper } from "@mui/material";
 
-
+//Function for handling the Edit Student form
 const EditStudent = () => {
+
+    //UseDispatch hook
     const dispatch = useDispatch()
+
+    //UseSelector hook to access the studentToAdd and settings Redux stores
     const studentToEdit = useSelector(store => store.studentToEdit);
     const settings = useSelector(store => store.settings);
 
+    //Sets the student to edit in the Redux store when a student is selected from the drop down
     const handleChange = (event) => {
         dispatch({
             type: 'SET_STUDENT_TO_EDIT',
@@ -15,6 +20,7 @@ const EditStudent = () => {
         })
     }
 
+    //Updates the student in the database
     const handleUpdate = () => {
         dispatch({
             type: 'EDIT_STUDENT',
@@ -22,6 +28,9 @@ const EditStudent = () => {
         })
     }
 
+    //Deletes the student from the database
+    //NOTE: this is a "soft delete", the student will be set to "inactive"
+    //all records for that student will still be available
     const handleDelete = () => {
         if(confirm('This will make the student unavailable')){
             dispatch({ 

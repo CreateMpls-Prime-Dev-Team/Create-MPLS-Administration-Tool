@@ -4,14 +4,15 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 
 const ProgramDataGrid = () => {
+
+    //UseSelector hook to access the program from the Redux stores      
     const programList = useSelector(store => store.program);
 
+    //defining the column fields for the data grid
     const columns = [
         { field: 'name', headerName: 'Program Name', width: 200 },
         { field: 'location', headerName: 'Location', width: 200 },
         { field: 'type_name', headerName: 'Type', width: 150 },
-        { field: 'staff', headerName: 'Staff', width: 200},
-        { field: 'num_students', headerName: '# Students', width: 100},
     ]
 
     return (

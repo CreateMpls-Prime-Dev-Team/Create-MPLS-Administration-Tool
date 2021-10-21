@@ -5,11 +5,18 @@ import "../AdminView/StudentSearch.css";
 
 
 function AddStaffSearch() {
+
+    //UseDispatch hook
     const dispatch = useDispatch();
+
+    //UseSelector hooks to access the teacher and staffToAdd from the Redux stores   
     const staffList = useSelector(store => store.teacher);
     const staffToAdd = useSelector(store => store.staffToAdd);
+
+    //Local state for identifying selected staff from drop down
     const [selectedStaffId, setSelectedStaffId] = React.useState(staffToAdd.id);
 
+    //Everything below this handles the functionality of the search bar
     const searchInput = useRef();
 
     useEffect(() => {

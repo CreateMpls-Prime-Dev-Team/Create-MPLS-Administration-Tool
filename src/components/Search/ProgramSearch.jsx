@@ -4,10 +4,18 @@ import SelectSearch from 'react-select-search';
 
 
 const ProgramSearch = () => {
+
+    //UseDispatch hook
     const dispatch = useDispatch();
+
+    //UseSelector hook to access the teacher and staffToAdd from the Redux stores   
     const programToEdit = useSelector(store => store.programToEdit);
     const programList = useSelector(store => store.program);
+
+    //Local state for identifying selected staff from drop down
     const [selectedProgramId, setSelectedProgramId] = React.useState(programToEdit.id);
+
+    //Everything below this handles the functionality of the search bar
     const searchInput = React.useRef();
     
     let items = []; //create a list of programs

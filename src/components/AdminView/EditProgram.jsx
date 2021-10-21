@@ -6,14 +6,19 @@ import AddStaffSearch from '../Search/AddStaffSearch';
 import ClassListDataGrid from '../DataGrid/ClassListDataGrid';
 import StaffAssignmentsDataGrid from '../DataGrid/StaffAssignmentsDataGrid';
 
-
+//Function for handling the Edit Program form
 const EditProgram = () => {
+  
+  //UseDispatch hook
   const dispatch = useDispatch();
+
+  //UseSelector hook to access the programToEdit, studentToAdd, staffToAdd, and settings Redux stores
   const programToEdit = useSelector(store => store.programToEdit);
   const studentToAdd = useSelector(store => store.studentToAdd);
   const staffToAdd = useSelector(store => store.staffToAdd);
   const settings = useSelector(store => store.settings);
 
+  //Sets the program to edit in the Redux store when a program is selected from the drop down
   const handleChange = (event) => {
     dispatch({
         type: 'SET_PROGRAM_TO_EDIT',
@@ -21,20 +26,22 @@ const EditProgram = () => {
       })
     }
 
+  // NEEDS NEW DISPATCH TO BE WRITTEN
   const handleUpdate = () => {
-    console.log('TIME TO UPDATE', studentToEdit);
+    console.log('THIS IS NOT WORKING RIGHT NOW!!!');
     dispatch({
-        type: 'EDIT_STUDENT',
-        payload: studentToEdit
+        
     })
   }
 
+  //deletes a program from the database
   const handleDelete = () => {
     if(confirm('This will make the program unavailable')){
         dispatch({ type: 'DELETE_PROGRAM', payload: programToEdit.id })
     }
   }
 
+  //Adds staff to the selected program
   const onAddStaffToProgram = () => {
     dispatch({ 
         type: 'ADD_STAFF_PROGRAM', 
@@ -45,6 +52,7 @@ const EditProgram = () => {
       });
   }
 
+  //Adds student to the selected program
   const onAddStudentToProgram = () => {
     dispatch({ 
         type: 'ADD_STUDENT_PROGRAM', 
@@ -55,6 +63,7 @@ const EditProgram = () => {
       });
   }
   
+
   return (
     <div>
       <Paper>
@@ -126,8 +135,7 @@ const EditProgram = () => {
       <ClassListDataGrid />
       </div>
       
-
-      <Typography variant="h6">ADD STAFF TO PROGRAM</Typography>
+      <Typography variant="h6" style={{marginTop: "30px"}}>ADD STAFF TO PROGRAM</Typography>
       <AddStaffSearch />
       <Button
         variant="outlined"

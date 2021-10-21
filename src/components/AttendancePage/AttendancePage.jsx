@@ -15,7 +15,7 @@ function AttendancePage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-
+    //UseSelector hook to access the occurrenceToEdit, occurrenceAttendance, and occurrenceStudents from the Redux stores
     const occurrence = useSelector(store => store.occurrenceToEdit);
     const currentAttendance = useSelector(store => store.occurrenceAttendance);
     const students = useSelector(store => store.occurrenceStudents);
@@ -23,13 +23,14 @@ function AttendancePage() {
     //Local state for handling if the dialog box is open or closed
     const [open, setOpen] = useState(false);
 
-
+    //UseEffect hook runs on page load
+    //these dispatches fetch the class occurrence and student attendance data
     useEffect(() => {
         dispatch({ type:'FETCH_OCCURRENCE', payload: {id} });
         dispatch({ type: 'FETCH_STUDENT_ATTENDANCE', payload: {id}})
     }, [id]);
     
-
+    //sets which class occurrence will be edited
     const handleChange = (event) => {
         dispatch({ 
             type: 'SET_OCCURRENCE_TO_EDIT', 
@@ -37,7 +38,7 @@ function AttendancePage() {
         });
     };
 
-
+    //sets date data as changes are made on page
     const handleDateChange = (date) => {
         dispatch({ 
             type: 'SET_OCCURRENCE_TO_EDIT', 
@@ -45,14 +46,14 @@ function AttendancePage() {
         });
     };
 
-
+    //sets attendance for each student as changes are made on page
     const toggleAttendance = (occurrenceId, studentId) => {
         dispatch({ 
             type: 'ADD_ATTENDANCE', 
             payload: { studentId, occurrenceId }})
     }
 
-
+    //sends attendance data to the database
     const submitAttendance = () => {
         dispatch({ 
             type: 'SAVE_OCCURRENCE',
@@ -60,7 +61,7 @@ function AttendancePage() {
         });
     };
 
-
+    //navigates back to Teacher Portal
     const cancelSubmitAttendance = () => {
         history.push('/teacher');
     }

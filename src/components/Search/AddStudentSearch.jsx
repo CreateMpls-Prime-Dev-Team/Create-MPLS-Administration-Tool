@@ -5,9 +5,15 @@ import "../AdminView/StudentSearch.css";
 
 
 function AddStudentSearch() {
+
+
     const dispatch = useDispatch();
+
+
     const studentList = useSelector(store => store.student);
     const studentToAdd = useSelector(store => store.studentToAdd);
+
+    
     const [selectedStudentId, setSelectedStudentId] = React.useState(studentToAdd.id);
 
     const searchInput = useRef();

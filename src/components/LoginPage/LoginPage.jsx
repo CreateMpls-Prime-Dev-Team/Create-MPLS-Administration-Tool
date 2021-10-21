@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 
 function LoginPage() {
+
+  //UseHistory hook for navigating to another page
   const history = useHistory();
 
   return (

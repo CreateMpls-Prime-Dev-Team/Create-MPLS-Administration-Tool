@@ -26,11 +26,11 @@ const EditProgram = () => {
       })
     }
 
-  // NEEDS NEW DISPATCH TO BE WRITTEN
+  //Updates the program in the database
   const handleUpdate = () => {
-    console.log('THIS IS NOT WORKING RIGHT NOW!!!');
     dispatch({
-        
+        type: 'EDIT_PROGRAM',
+        payload: programToEdit
     })
   }
 
@@ -95,9 +95,7 @@ const EditProgram = () => {
           value={programToEdit.type_id}
         >
           {(Object.keys(settings).length > 0 ) ? settings.type.map((t)=> (
-            <>
               <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
-            </>
           )) :
               <MenuItem value={0}>Loading....</MenuItem>
           }

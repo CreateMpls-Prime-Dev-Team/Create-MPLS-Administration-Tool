@@ -212,4 +212,32 @@ router.put('/toggle-active/:id', rejectUnauthenticated, (req, res) => {
   });
 });
 
+/** PUT /api/program/by-id/:id */
+router.put('/by-id/:id', rejectUnauthenticated, (req, res) => {
+  console.log('req', req.body, req.params.id);
+  const statement = `
+    UPDATE "program"
+    SET
+      name = $1,
+      location = $2,
+      type_id = $3
+    WHERE id = $4`;
+
+  const params = [ 
+    req.body.name, 
+    req.body.location, 
+    req.body.type_id, 
+    req.params.id
+  ];
+
+  db.query(statement, params)
+  .then( result => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    console.log('ERROR - put:/api/program/by-id/:id', err);
+    res.sendStatus(500)
+  });
+});
+
 module.exports = router;
